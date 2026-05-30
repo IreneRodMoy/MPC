@@ -1,0 +1,1001 @@
+transaction_id,timestamp,card_id,amount,merchant_name,merchant_category,channel,cardholder_country,merchant_country,device_id,ip_address
+tx_000784,2026-04-25T00:27:09,card_042,18.38,Amazon.ca,online_retail,online,US,CA,dev_33892b01,172.58.159.61
+tx_000081,2026-04-25T00:32:37,card_004,160.55,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000389,2026-04-25T01:39:26,card_020,57.12,Chipotle,restaurant,in_person,US,US,,
+tx_000779,2026-04-25T02:38:38,card_041,15.86,Videotron,utilities,online,CA,CA,dev_614ef198,142.112.31.70
+tx_000256,2026-04-25T04:26:31,card_013,52.73,Shopify Merchant 2,online_retail,online,CA,CA,dev_e5c2222f,24.114.1.85
+tx_000041,2026-04-25T05:09:52,card_002,57.27,McDonald's,restaurant,in_person,CA,CA,,
+tx_000649,2026-04-25T06:16:56,card_035,15.99,Disney+,subscription,online,CA,US,dev_37f4b88c,24.114.240.71
+tx_000063,2026-04-25T06:51:00,card_003,48.14,Provigo,grocery,in_person,CA,CA,,
+tx_000544,2026-04-25T08:19:31,card_029,9.06,Hydro-Quebec,utilities,online,CA,CA,dev_72eedf3c,24.114.198.77
+tx_000551,2026-04-25T08:25:39,card_029,58.77,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000782,2026-04-25T09:03:20,card_042,9.66,Chipotle,restaurant,in_person,US,US,,
+tx_000206,2026-04-25T09:09:03,card_011,4.85,Chipotle,restaurant,in_person,CA,CA,,
+tx_000521,2026-04-25T09:18:09,card_028,51.13,eBay,online_retail,online,CA,US,dev_bea30580,99.225.214.42
+tx_000690,2026-04-25T11:27:41,card_037,41.39,IGA,grocery,in_person,CA,CA,,
+tx_000853,2026-04-25T11:57:46,card_045,42.68,eBay,online_retail,online,FR,US,dev_ba413b67,82.66.10.13
+tx_000396,2026-04-25T12:33:42,card_021,94.87,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000442,2026-04-25T12:43:20,card_023,28.79,Whole Foods,grocery,in_person,CA,CA,,
+tx_000897,2026-04-25T13:55:46,card_048,9.57,McDonald's,restaurant,in_person,CA,CA,,
+tx_000018,2026-04-25T14:13:47,card_000,51.50,Hydro-Quebec,utilities,online,CA,CA,dev_bc0178b6,99.225.129.227
+tx_000394,2026-04-25T15:06:17,card_021,19.32,Etsy,online_retail,online,CA,US,dev_f61b4d97,24.114.210.28
+tx_000027,2026-04-25T15:51:42,card_001,69.73,Etsy,online_retail,online,CA,US,dev_8080a2c9,24.114.208.216
+tx_000702,2026-04-25T17:37:25,card_037,16.88,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000873,2026-04-25T17:43:45,card_047,37.03,Hydro-Quebec,utilities,online,CA,CA,dev_dcad83da,24.114.120.126
+tx_000608,2026-04-25T18:35:18,card_033,92.02,Provigo,grocery,in_person,GB,GB,,
+tx_000226,2026-04-25T19:32:23,card_012,27.35,Whole Foods,grocery,in_person,CA,CA,,
+tx_000391,2026-04-25T19:35:05,card_021,135.46,Loblaws,grocery,in_person,CA,CA,,
+tx_000914,2026-04-25T19:49:18,card_049,41.79,Amazon.ca,online_retail,online,CA,CA,dev_2d66c302,142.112.109.212
+tx_000735,2026-04-25T20:15:06,card_039,8.60,Joe Beef,restaurant,in_person,GB,GB,,
+tx_000604,2026-04-25T20:44:00,card_032,28.46,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000456,2026-04-25T20:54:26,card_024,54.46,IGA,grocery,in_person,CA,CA,,
+tx_000783,2026-04-26T00:12:55,card_042,29.24,Starbucks,restaurant,in_person,US,US,,
+tx_000533,2026-04-26T01:13:16,card_028,102.56,IGA,grocery,in_person,CA,CA,,
+tx_000250,2026-04-26T01:27:49,card_013,18.19,Hydro-Quebec,utilities,online,CA,CA,dev_e5c2222f,142.112.127.88
+tx_000231,2026-04-26T01:41:26,card_012,8.84,Amazon.com,online_retail,online,CA,US,dev_08e633ee,142.112.161.191
+tx_000151,2026-04-26T02:10:03,card_008,31.89,Amazon.com,online_retail,online,CA,US,dev_a088f010,24.114.77.250
+tx_000615,2026-04-26T03:09:13,card_033,62.50,La Banquise,restaurant,in_person,GB,GB,,
+tx_000274,2026-04-26T03:12:08,card_014,39.84,Whole Foods,grocery,in_person,FR,FR,,
+tx_000441,2026-04-26T03:30:40,card_023,46.32,La Banquise,restaurant,in_person,CA,CA,,
+tx_000896,2026-04-26T04:40:50,card_048,16.42,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000317,2026-04-26T06:53:42,card_017,9.30,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000540,2026-04-26T10:16:59,card_029,21.40,Amazon.com,online_retail,online,CA,US,dev_600be23f,24.114.188.131
+tx_000156,2026-04-26T10:26:15,card_008,84.46,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000400,2026-04-26T10:26:35,card_021,47.99,IGA,grocery,in_person,CA,CA,,
+tx_000114,2026-04-26T11:31:03,card_006,85.70,Shell,gas,in_person,CA,CA,,
+tx_000316,2026-04-26T12:12:06,card_017,22.57,Starbucks,restaurant,in_person,CA,CA,,
+tx_000743,2026-04-26T12:28:08,card_040,91.10,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000849,2026-04-26T12:40:31,card_045,20.83,QuickPay Online,online_retail,online,FR,CA,dev_ba413b67,90.5.136.131
+tx_000680,2026-04-26T12:47:39,card_036,20.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000770,2026-04-26T13:04:38,card_041,374.46,Petro-Canada,gas,in_person,CA,CA,,
+tx_000406,2026-04-26T13:57:43,card_021,35.82,Metro,grocery,in_person,CA,CA,,
+tx_000848,2026-04-26T14:56:02,card_045,60.00,RBC ATM,atm,atm,FR,FR,,
+tx_000319,2026-04-26T17:26:44,card_017,80.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000747,2026-04-26T18:11:02,card_040,29.49,Cineplex,entertainment,in_person,CA,CA,,
+tx_000390,2026-04-26T18:24:19,card_020,52.46,Amazon.ca,online_retail,online,US,CA,dev_2877f7d9,98.207.57.78
+tx_000401,2026-04-26T19:40:54,card_021,57.93,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000552,2026-04-26T20:13:27,card_029,3.90,Amazon.com,online_retail,online,CA,US,dev_72eedf3c,142.112.106.145
+tx_000806,2026-04-26T20:28:43,card_043,16.27,Shopify Merchant 1,online_retail,online,CA,CA,dev_c832252e,142.112.44.145
+tx_000904,2026-04-26T20:41:09,card_049,22.19,Shopify Merchant 1,online_retail,online,CA,CA,dev_2d66c302,142.112.66.43
+tx_000901,2026-04-26T20:54:08,card_048,40.00,RBC ATM,atm,atm,CA,CA,,
+tx_000454,2026-04-26T21:13:18,card_024,80.00,RBC ATM,atm,atm,CA,CA,,
+tx_000375,2026-04-26T22:16:36,card_020,30.11,McDonald's,restaurant,in_person,US,US,,
+tx_000587,2026-04-26T22:41:09,card_031,8.58,Metro,grocery,in_person,CA,CA,,
+tx_000543,2026-04-26T23:35:32,card_029,42.13,Chipotle,restaurant,in_person,CA,CA,,
+tx_000280,2026-04-26T23:46:30,card_015,32.18,Videotron,utilities,online,CA,CA,dev_22a1b746,24.114.92.194
+tx_000800,2026-04-27T01:18:41,card_042,11.08,Etsy,online_retail,online,US,US,dev_33892b01,208.54.177.176
+tx_000705,2026-04-27T04:29:44,card_038,11.71,La Banquise,restaurant,in_person,CA,CA,,
+tx_000286,2026-04-27T05:22:43,card_015,58.15,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000413,2026-04-27T06:05:05,card_022,15.99,Spotify,subscription,online,CA,SE,dev_7730dc61,24.114.242.137
+tx_000765,2026-04-27T08:03:19,card_041,15.99,Spotify,subscription,online,CA,SE,dev_614ef198,70.50.233.125
+tx_000268,2026-04-27T08:51:14,card_014,10.15,McDonald's,restaurant,in_person,FR,FR,,
+tx_000745,2026-04-27T10:52:57,card_040,42.54,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000870,2026-04-27T11:37:42,card_047,50.57,AliExpress,online_retail,online,CA,CN,dev_dcad83da,70.50.163.45
+tx_000221,2026-04-27T14:25:17,card_011,83.08,La Banquise,restaurant,in_person,CA,CA,,
+tx_000102,2026-04-27T14:29:34,card_005,13.47,Bell Canada,utilities,online,CA,CA,dev_379050df,70.50.100.196
+tx_000235,2026-04-27T14:31:18,card_012,18.72,QuickPay Online,online_retail,online,CA,CA,dev_08e633ee,24.114.188.24
+tx_000717,2026-04-27T15:22:21,card_038,17.43,Starbucks,restaurant,in_person,CA,CA,,
+tx_000124,2026-04-27T15:39:26,card_007,49.23,Bell Canada,utilities,online,US,CA,dev_5d017d53,172.58.207.216
+tx_000091,2026-04-27T16:10:58,card_005,23.91,Etsy,online_retail,online,CA,US,dev_45d2fa60,70.50.150.173
+tx_000909,2026-04-27T16:24:38,card_049,9.99,Spotify,subscription,online,CA,SE,dev_2d66c302,142.112.36.209
+tx_000764,2026-04-27T19:47:46,card_041,85.73,Loblaws,grocery,in_person,CA,CA,,
+tx_000111,2026-04-27T21:22:15,card_006,22.43,Etsy,online_retail,online,CA,US,dev_1321b774,142.112.233.250
+tx_000577,2026-04-27T22:00:32,card_031,25.75,Bell Canada,utilities,online,CA,CA,dev_3692eb01,70.50.84.88
+tx_000023,2026-04-27T22:48:21,card_001,100.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000412,2026-04-28T00:24:46,card_022,15.99,Netflix,subscription,online,CA,US,dev_7730dc61,24.114.188.85
+tx_000377,2026-04-28T00:46:14,card_020,40.00,RBC ATM,atm,atm,US,US,,
+tx_000813,2026-04-28T00:52:11,card_043,27.30,Cineplex,entertainment,in_person,CA,CA,,
+tx_000788,2026-04-28T01:15:32,card_042,10.98,Whole Foods,grocery,in_person,US,US,,
+tx_000883,2026-04-28T01:25:24,card_047,7.67,Metro,grocery,in_person,CA,CA,,
+tx_000635,2026-04-28T03:23:09,card_034,18.63,AliExpress,online_retail,online,CA,CN,dev_a0256e48,99.225.24.42
+tx_000750,2026-04-28T04:20:31,card_040,9.99,Netflix,subscription,online,CA,US,dev_abd8db53,70.50.138.4
+tx_000110,2026-04-28T04:22:19,card_006,42.90,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000664,2026-04-28T04:55:37,card_036,69.81,Whole Foods,grocery,in_person,CA,CA,,
+tx_000466,2026-04-28T05:05:43,card_025,30.09,Hydro-Quebec,utilities,online,CA,CA,dev_d9156309,70.50.69.85
+tx_000075,2026-04-28T05:23:00,card_004,20.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000352,2026-04-28T06:04:40,card_019,15.99,Spotify,subscription,online,CA,SE,dev_95204a30,24.114.135.78
+tx_000355,2026-04-28T06:46:21,card_019,19.99,Spotify,subscription,online,CA,SE,dev_95204a30,99.225.230.92
+tx_000132,2026-04-28T08:49:10,card_007,37.60,Petro-Canada,gas,in_person,US,US,,
+tx_000101,2026-04-28T10:08:24,card_005,6.11,Loblaws,grocery,in_person,CA,CA,,
+tx_000487,2026-04-28T10:15:04,card_026,36.55,Chipotle,restaurant,in_person,US,US,,
+tx_000259,2026-04-28T10:18:21,card_013,201.67,AliExpress,online_retail,online,CA,CN,dev_e5c2222f,99.225.179.199
+tx_000385,2026-04-28T11:12:53,card_020,5.57,McDonald's,restaurant,in_person,US,US,,
+tx_000916,2026-04-28T12:10:09,card_049,60.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000448,2026-04-28T13:18:04,card_024,37.51,Whole Foods,grocery,in_person,CA,CA,,
+tx_000395,2026-04-28T13:52:10,card_021,66.91,Etsy,online_retail,online,CA,US,dev_f61b4d97,70.50.81.171
+tx_000141,2026-04-28T14:57:11,card_007,24.16,Metro,grocery,in_person,US,US,,
+tx_000621,2026-04-28T15:17:04,card_033,11.94,IGA,grocery,in_person,GB,GB,,
+tx_000056,2026-04-28T16:22:50,card_003,60.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000198,2026-04-28T17:05:07,card_010,12.19,Shell,gas,in_person,US,US,,
+tx_000057,2026-04-28T17:33:50,card_003,15.99,Disney+,subscription,online,CA,US,dev_d52ac3b8,99.225.207.204
+tx_000499,2026-04-28T18:05:51,card_027,132.32,Cineplex,entertainment,in_person,CA,CA,,
+tx_000292,2026-04-28T18:21:34,card_015,76.91,Shell,gas,in_person,CA,CA,,
+tx_000061,2026-04-28T18:40:26,card_003,74.47,QuickPay Online,online_retail,online,CA,CA,dev_6fdbe52d,142.112.113.7
+tx_000570,2026-04-28T18:57:37,card_030,11.54,La Banquise,restaurant,in_person,DE,DE,,
+tx_000348,2026-04-28T19:47:38,card_019,124.45,QuickPay Online,online_retail,online,CA,CA,dev_95204a30,142.112.190.254
+tx_000289,2026-04-28T20:45:17,card_015,30.31,Esso,gas,in_person,CA,CA,,
+tx_000711,2026-04-28T22:32:05,card_038,21.29,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000372,2026-04-28T23:03:12,card_020,9.99,Netflix,subscription,online,US,US,dev_2877f7d9,172.58.160.30
+tx_000497,2026-04-28T23:56:17,card_027,40.00,RBC ATM,atm,atm,CA,CA,,
+tx_000580,2026-04-29T00:22:12,card_031,67.56,Starbucks,restaurant,in_person,CA,CA,,
+tx_000651,2026-04-29T02:03:45,card_035,71.19,AliExpress,online_retail,online,CA,CN,dev_37f4b88c,142.112.106.173
+tx_000731,2026-04-29T05:10:34,card_039,38.44,Bell Canada,utilities,online,GB,CA,dev_2ab5d40f,86.150.180.238
+tx_000186,2026-04-29T05:37:32,card_010,25.36,McDonald's,restaurant,in_person,US,US,,
+tx_000142,2026-04-29T06:00:23,card_007,54.22,Videotron,utilities,online,US,CA,dev_5d017d53,73.15.74.87
+tx_000609,2026-04-29T06:28:45,card_033,69.77,Tim Hortons,restaurant,in_person,GB,GB,,
+tx_000329,2026-04-29T08:30:47,card_018,20.00,BMO ATM,atm,atm,CA,CA,,
+tx_000210,2026-04-29T08:37:18,card_011,4.13,Shell,gas,in_person,CA,CA,,
+tx_000006,2026-04-29T09:17:47,card_000,82.96,Esso,gas,in_person,CA,CA,,
+tx_000799,2026-04-29T09:34:00,card_042,33.17,Schwartz's,restaurant,in_person,US,US,,
+tx_000416,2026-04-29T11:27:14,card_022,86.33,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000573,2026-04-29T11:33:07,card_031,33.81,IGA,grocery,in_person,CA,CA,,
+tx_000538,2026-04-29T13:32:11,card_029,80.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000321,2026-04-29T13:47:48,card_017,200.00,RBC ATM,atm,atm,CA,CA,,
+tx_000066,2026-04-29T13:48:16,card_003,53.66,Amazon.ca,online_retail,online,CA,CA,dev_d52ac3b8,99.225.198.65
+tx_000520,2026-04-29T16:27:07,card_028,200.00,BMO ATM,atm,atm,CA,CA,,
+tx_000068,2026-04-29T16:39:06,card_003,13.99,Netflix,subscription,online,CA,US,dev_6fdbe52d,24.114.189.137
+tx_000127,2026-04-29T18:15:41,card_007,45.67,Provigo,grocery,in_person,US,US,,
+tx_000325,2026-04-29T19:01:27,card_017,11.04,eBay,online_retail,online,CA,US,dev_d0ff1fad,70.50.14.21
+tx_000695,2026-04-29T19:01:35,card_037,36.67,IGA,grocery,in_person,CA,CA,,
+tx_000418,2026-04-29T19:06:48,card_022,21.41,Chevron,gas,in_person,CA,CA,,
+tx_000476,2026-04-29T20:36:07,card_025,26.02,Etsy,online_retail,online,CA,US,dev_0bded435,142.112.183.64
+tx_000103,2026-04-29T21:47:56,card_005,20.01,Bell Canada,utilities,online,CA,CA,dev_379050df,99.225.115.253
+tx_000490,2026-04-29T22:08:31,card_026,22.06,Cineplex,entertainment,in_person,US,US,,
+tx_000879,2026-04-29T23:03:11,card_047,21.98,Whole Foods,grocery,in_person,CA,CA,,
+tx_000083,2026-04-29T23:46:42,card_004,19.99,Spotify,subscription,online,CA,SE,dev_56520353,142.112.139.14
+tx_000172,2026-04-29T23:53:07,card_009,8.41,Starbucks,restaurant,in_person,US,US,,
+tx_000689,2026-04-30T00:26:40,card_037,27.13,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000900,2026-04-30T00:43:15,card_048,16.86,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000140,2026-04-30T01:13:32,card_007,52.34,Bell Canada,utilities,online,US,CA,dev_5d017d53,172.58.161.205
+tx_000397,2026-04-30T02:04:30,card_021,39.25,Chipotle,restaurant,in_person,CA,CA,,
+tx_000536,2026-04-30T02:15:38,card_028,25.26,Etsy,online_retail,online,CA,US,dev_bea30580,142.112.98.156
+tx_000496,2026-04-30T02:41:13,card_026,73.92,Chipotle,restaurant,in_person,US,US,,
+tx_000612,2026-04-30T03:04:12,card_033,15.66,Whole Foods,grocery,in_person,GB,GB,,
+tx_000565,2026-04-30T03:13:51,card_030,52.12,Joe Beef,restaurant,in_person,DE,DE,,
+tx_000143,2026-04-30T04:10:27,card_007,43.21,Hydro-Quebec,utilities,online,US,CA,dev_5d017d53,208.54.83.24
+tx_000859,2026-04-30T04:25:34,card_046,11.99,Disney+,subscription,online,CA,US,dev_b8fe1cb0,24.114.156.210
+tx_000310,2026-04-30T05:08:49,card_016,25.62,Metro,grocery,in_person,CA,CA,,
+tx_000862,2026-04-30T05:38:47,card_046,100.00,BMO ATM,atm,atm,CA,CA,,
+tx_000260,2026-04-30T05:39:05,card_013,76.05,Etsy,online_retail,online,CA,US,dev_e5c2222f,24.114.247.17
+tx_000422,2026-04-30T06:27:09,card_022,68.47,Chevron,gas,in_person,CA,CA,,
+tx_000878,2026-04-30T07:19:27,card_047,12.98,eBay,online_retail,online,CA,US,dev_dcad83da,99.225.117.49
+tx_000513,2026-04-30T07:20:40,card_027,26.97,Starbucks,restaurant,in_person,CA,CA,,
+tx_000855,2026-04-30T07:29:19,card_046,19.99,Disney+,subscription,online,CA,US,dev_1abbf8e4,24.114.156.20
+tx_000161,2026-04-30T08:05:43,card_008,86.69,Esso,gas,in_person,CA,CA,,
+tx_000135,2026-04-30T08:21:18,card_007,46.88,Loblaws,grocery,in_person,US,US,,
+tx_000188,2026-04-30T09:30:03,card_010,200.00,BMO ATM,atm,atm,US,US,,
+tx_000865,2026-04-30T10:50:59,card_046,11.99,Disney+,subscription,online,CA,US,dev_b8fe1cb0,142.112.82.124
+tx_000753,2026-04-30T11:05:20,card_040,22.28,Petro-Canada,gas,in_person,CA,CA,,
+tx_000374,2026-04-30T11:14:21,card_020,13.53,Shopify Merchant 2,online_retail,online,US,CA,dev_2877f7d9,98.207.22.39
+tx_000563,2026-04-30T12:28:33,card_030,44.63,Metro,grocery,in_person,DE,DE,,
+tx_000685,2026-04-30T13:45:22,card_037,93.03,La Banquise,restaurant,in_person,CA,CA,,
+tx_000709,2026-04-30T15:40:45,card_038,15.88,Cineplex,entertainment,in_person,CA,CA,,
+tx_000062,2026-04-30T18:00:17,card_003,26.48,Shopify Merchant 2,online_retail,online,CA,CA,dev_6fdbe52d,70.50.209.167
+tx_000814,2026-04-30T18:17:28,card_043,18.73,Videotron,utilities,online,CA,CA,dev_c832252e,70.50.124.17
+tx_000693,2026-04-30T18:40:32,card_037,109.99,Cineplex,entertainment,in_person,CA,CA,,
+tx_000038,2026-04-30T18:55:21,card_002,24.11,Whole Foods,grocery,in_person,CA,CA,,
+tx_000294,2026-04-30T20:40:28,card_015,19.15,AliExpress,online_retail,online,CA,CN,dev_22a1b746,70.50.67.218
+tx_000052,2026-04-30T20:53:42,card_002,15.66,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000284,2026-04-30T21:33:04,card_015,58.27,Videotron,utilities,online,CA,CA,dev_22a1b746,24.114.162.68
+tx_000727,2026-04-30T21:54:38,card_039,9.39,Shopify Merchant 1,online_retail,online,GB,CA,dev_2ab5d40f,86.150.252.231
+tx_000554,2026-04-30T23:47:05,card_029,19.99,Disney+,subscription,online,CA,US,dev_600be23f,70.50.124.201
+tx_000877,2026-05-01T00:10:37,card_047,43.80,IGA,grocery,in_person,CA,CA,,
+tx_000388,2026-05-01T00:20:58,card_020,42.29,AliExpress,online_retail,online,US,CN,dev_2877f7d9,172.58.103.67
+tx_000656,2026-05-01T01:11:23,card_035,21.07,Etsy,online_retail,online,CA,US,dev_37f4b88c,99.225.56.247
+tx_000073,2026-05-01T01:11:32,card_003,43.21,Shopify Merchant 1,online_retail,online,CA,CA,dev_d52ac3b8,142.112.98.80
+tx_000895,2026-05-01T02:00:31,card_048,80.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000047,2026-05-01T02:43:54,card_002,19.99,Netflix,subscription,online,CA,US,dev_6200257c,142.112.246.238
+tx_000460,2026-05-01T03:11:13,card_024,40.16,Loblaws,grocery,in_person,CA,CA,,
+tx_000742,2026-05-01T03:14:35,card_040,9.99,Netflix,subscription,online,CA,US,dev_abd8db53,142.112.148.110
+tx_000795,2026-05-01T03:21:06,card_042,17.35,Tim Hortons,restaurant,in_person,US,US,,
+tx_000692,2026-05-01T03:28:36,card_037,34.90,Shell,gas,in_person,CA,CA,,
+tx_000678,2026-05-01T04:01:50,card_036,49.90,Provigo,grocery,in_person,CA,CA,,
+tx_000185,2026-05-01T04:02:15,card_010,27.90,Cafe Olimpico,restaurant,in_person,US,US,,
+tx_000504,2026-05-01T06:30:33,card_027,14.91,Metro,grocery,in_person,CA,CA,,
+tx_000887,2026-05-01T08:56:44,card_048,14.96,Amazon.com,online_retail,online,CA,US,dev_3bbcb503,142.112.231.220
+tx_000501,2026-05-01T08:57:20,card_027,38.93,Esso,gas,in_person,CA,CA,,
+tx_000446,2026-05-01T09:10:15,card_024,61.85,Petro-Canada,gas,in_person,CA,CA,,
+tx_000657,2026-05-01T10:25:58,card_035,41.40,La Banquise,restaurant,in_person,CA,CA,,
+tx_000200,2026-05-01T11:01:15,card_010,31.84,Shell,gas,in_person,US,US,,
+tx_000515,2026-05-01T11:10:35,card_027,7.24,Cineplex,entertainment,in_person,CA,CA,,
+tx_000872,2026-05-01T11:22:25,card_047,13.11,Shopify Merchant 2,online_retail,online,CA,CA,dev_dcad83da,142.112.175.16
+tx_000410,2026-05-01T11:27:55,card_021,37.43,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000219,2026-05-01T11:42:00,card_011,15.99,Disney+,subscription,online,CA,US,dev_7b8b43cb,24.114.141.165
+tx_000084,2026-05-01T12:21:08,card_004,33.15,McDonald's,restaurant,in_person,CA,CA,,
+tx_000287,2026-05-01T14:35:22,card_015,10.04,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000694,2026-05-01T15:51:14,card_037,62.35,Loblaws,grocery,in_person,CA,CA,,
+tx_000145,2026-05-01T17:15:56,card_008,19.72,Chevron,gas,in_person,CA,CA,,
+tx_000224,2026-05-01T18:17:52,card_012,20.39,Shopify Merchant 2,online_retail,online,CA,CA,dev_08e633ee,70.50.97.114
+tx_000640,2026-05-01T18:19:20,card_034,15.17,Cineplex,entertainment,in_person,CA,CA,,
+tx_000307,2026-05-01T19:08:41,card_016,31.21,Videotron,utilities,online,CA,CA,dev_bc979ff9,142.112.143.177
+tx_000643,2026-05-01T20:28:51,card_034,19.99,Disney+,subscription,online,CA,US,dev_a9c78771,70.50.86.187
+tx_000437,2026-05-01T20:45:43,card_023,2.82,Chevron,gas,in_person,CA,CA,,
+tx_000175,2026-05-01T21:07:10,card_009,32.16,AliExpress,online_retail,online,US,CN,dev_b62b3697,208.54.129.90
+tx_000427,2026-05-01T21:59:21,card_023,4.34,AliExpress,online_retail,online,CA,CN,dev_72d3f36b,99.225.217.158
+tx_000264,2026-05-01T22:04:24,card_014,150.51,Cafe Olimpico,restaurant,in_person,FR,FR,,
+tx_000028,2026-05-01T22:58:31,card_001,289.54,Shopify Merchant 1,online_retail,online,CA,CA,dev_8d790a73,142.112.12.122
+tx_000173,2026-05-01T23:24:03,card_009,10.85,Amazon.com,online_retail,online,US,US,dev_b62b3697,98.207.170.105
+tx_000619,2026-05-02T01:32:38,card_033,35.68,La Banquise,restaurant,in_person,GB,GB,,
+tx_000898,2026-05-02T01:37:03,card_048,42.09,McDonald's,restaurant,in_person,CA,CA,,
+tx_000642,2026-05-02T02:26:08,card_034,13.76,Amazon.com,online_retail,online,CA,US,dev_a9c78771,24.114.16.157
+tx_000054,2026-05-02T03:25:31,card_002,25.92,Provigo,grocery,in_person,CA,CA,,
+tx_000495,2026-05-02T04:44:44,card_026,15.99,Disney+,subscription,online,US,US,dev_db3feacf,172.58.29.85
+tx_000350,2026-05-02T05:10:50,card_019,9.99,Spotify,subscription,online,CA,SE,dev_95204a30,70.50.4.199
+tx_000283,2026-05-02T05:56:09,card_015,104.78,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000342,2026-05-02T06:24:38,card_018,60.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000792,2026-05-02T06:34:52,card_042,24.86,Joe Beef,restaurant,in_person,US,US,,
+tx_000665,2026-05-02T06:48:36,card_036,20.00,BMO ATM,atm,atm,CA,CA,,
+tx_000393,2026-05-02T06:55:50,card_021,27.82,Etsy,online_retail,online,CA,US,dev_f61b4d97,142.112.197.129
+tx_000276,2026-05-02T07:32:05,card_014,22.75,Amazon.com,online_retail,online,FR,US,dev_415fec02,82.66.168.91
+tx_000701,2026-05-02T08:30:19,card_037,180.46,Esso,gas,in_person,CA,CA,,
+tx_000505,2026-05-02T10:03:28,card_027,21.97,IGA,grocery,in_person,CA,CA,,
+tx_000077,2026-05-02T11:09:56,card_004,65.41,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000129,2026-05-02T12:32:01,card_007,30.67,IGA,grocery,in_person,US,US,,
+tx_000875,2026-05-02T13:50:52,card_047,19.73,Shopify Merchant 1,online_retail,online,CA,CA,dev_dcad83da,99.225.186.135
+tx_000181,2026-05-02T14:17:52,card_009,28.11,McDonald's,restaurant,in_person,US,US,,
+tx_000249,2026-05-02T14:56:54,card_013,14.97,eBay,online_retail,online,CA,US,dev_e5c2222f,24.114.87.119
+tx_000253,2026-05-02T15:31:58,card_013,65.47,Amazon.com,online_retail,online,CA,US,dev_e5c2222f,99.225.61.143
+tx_000546,2026-05-02T16:22:37,card_029,18.18,Shell,gas,in_person,CA,CA,,
+tx_000768,2026-05-02T17:14:43,card_041,11.93,Whole Foods,grocery,in_person,CA,CA,,
+tx_000257,2026-05-02T18:29:13,card_013,44.36,Amazon.com,online_retail,online,CA,US,dev_e5c2222f,99.225.69.114
+tx_000243,2026-05-02T20:18:56,card_012,13.99,Etsy,online_retail,online,CA,US,dev_08e633ee,70.50.119.76
+tx_000569,2026-05-02T22:58:15,card_030,27.16,Shopify Merchant 1,online_retail,online,DE,CA,dev_f7415d64,188.62.203.42
+tx_000293,2026-05-02T23:32:10,card_015,34.75,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000108,2026-05-03T00:53:07,card_006,9.99,Spotify,subscription,online,CA,SE,dev_1321b774,142.112.197.86
+tx_000285,2026-05-03T02:26:12,card_015,32.62,Starbucks,restaurant,in_person,CA,CA,,
+tx_000306,2026-05-03T04:44:53,card_016,15.99,Netflix,subscription,online,CA,US,dev_bc979ff9,70.50.168.216
+tx_000681,2026-05-03T05:01:00,card_037,58.44,Shell,gas,in_person,CA,CA,,
+tx_000729,2026-05-03T05:15:15,card_039,15.36,Tim Hortons,restaurant,in_person,GB,GB,,
+tx_000378,2026-05-03T05:53:17,card_020,21.77,Shell,gas,in_person,US,US,,
+tx_000670,2026-05-03T06:52:29,card_036,78.69,AliExpress,online_retail,online,CA,CN,dev_b7bc6824,70.50.250.133
+tx_000623,2026-05-03T08:54:44,card_033,32.70,McDonald's,restaurant,in_person,GB,GB,,
+tx_000279,2026-05-03T09:25:58,card_015,113.81,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000595,2026-05-03T09:37:15,card_032,53.99,Hydro-Quebec,utilities,online,CA,CA,dev_52854151,24.114.114.21
+tx_000716,2026-05-03T09:45:08,card_038,30.75,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000949,2026-05-03T10:58:00,card_042,1.40,Shopify Merchant 2,online_retail,online,US,CA,dev_c4fb137f,201.116.232.148
+tx_000950,2026-05-03T11:01:01,card_042,4.48,AliExpress,online_retail,online,US,CN,dev_c4fb137f,201.116.232.148
+tx_000951,2026-05-03T11:01:34,card_042,5.04,Shopify Merchant 1,online_retail,online,US,CA,dev_c4fb137f,201.116.232.148
+tx_000953,2026-05-03T11:05:30,card_042,14.38,AliExpress,online_retail,online,US,CN,dev_c4fb137f,201.116.232.148
+tx_000952,2026-05-03T11:07:39,card_042,7.46,AliExpress,online_retail,online,US,CN,dev_c4fb137f,201.116.232.148
+tx_000955,2026-05-03T11:11:22,card_042,4.36,Shopify Merchant 1,online_retail,online,US,CA,dev_c4fb137f,201.116.232.148
+tx_000954,2026-05-03T11:15:14,card_042,14.27,QuickPay Online,online_retail,online,US,CA,dev_c4fb137f,201.116.232.148
+tx_000956,2026-05-03T11:20:20,card_042,2.97,Shopify Merchant 2,online_retail,online,US,CA,dev_c4fb137f,201.116.232.148
+tx_000356,2026-05-03T12:36:53,card_019,497.46,Loblaws,grocery,in_person,CA,CA,,
+tx_000761,2026-05-03T12:38:15,card_041,43.26,Cineplex,entertainment,in_person,CA,CA,,
+tx_000170,2026-05-03T13:56:49,card_009,6.47,Shopify Merchant 1,online_retail,online,US,CA,dev_b62b3697,98.207.109.62
+tx_000116,2026-05-03T13:57:37,card_006,55.30,Shopify Merchant 2,online_retail,online,CA,CA,dev_1321b774,142.112.229.228
+tx_000881,2026-05-03T14:25:38,card_047,90.73,Whole Foods,grocery,in_person,CA,CA,,
+tx_000822,2026-05-03T14:42:05,card_044,3.79,Provigo,grocery,in_person,GB,GB,,
+tx_000815,2026-05-03T15:42:41,card_043,33.98,eBay,online_retail,online,CA,US,dev_c832252e,142.112.249.101
+tx_000288,2026-05-03T16:31:07,card_015,140.74,Esso,gas,in_person,CA,CA,,
+tx_000524,2026-05-03T16:33:52,card_028,45.70,eBay,online_retail,online,CA,US,dev_bea30580,70.50.112.254
+tx_000628,2026-05-03T18:06:33,card_034,28.47,Hydro-Quebec,utilities,online,CA,CA,dev_a0256e48,142.112.60.156
+tx_000428,2026-05-03T18:25:12,card_023,39.21,Amazon.ca,online_retail,online,CA,CA,dev_72d3f36b,24.114.169.37
+tx_000489,2026-05-03T19:33:31,card_026,30.88,Starbucks,restaurant,in_person,US,US,,
+tx_000267,2026-05-03T19:46:48,card_014,8.10,eBay,online_retail,online,FR,US,dev_415fec02,176.158.184.142
+tx_000780,2026-05-03T19:54:30,card_042,98.03,Tim Hortons,restaurant,in_person,US,US,,
+tx_000324,2026-05-03T20:42:20,card_017,194.41,Shopify Merchant 2,online_retail,online,CA,CA,dev_d0ff1fad,142.112.175.54
+tx_000534,2026-05-03T21:07:06,card_028,31.22,Etsy,online_retail,online,CA,US,dev_bea30580,24.114.191.109
+tx_000218,2026-05-03T21:58:53,card_011,14.09,Bell Canada,utilities,online,CA,CA,dev_292af7e9,99.225.61.46
+tx_000528,2026-05-03T22:28:50,card_028,58.10,Esso,gas,in_person,CA,CA,,
+tx_000099,2026-05-03T22:37:02,card_005,11.39,Amazon.com,online_retail,online,CA,US,dev_379050df,99.225.7.132
+tx_000474,2026-05-04T01:03:02,card_025,10.31,Amazon.com,online_retail,online,CA,US,dev_d9156309,142.112.26.142
+tx_000845,2026-05-04T02:47:30,card_045,29.37,Whole Foods,grocery,in_person,FR,FR,,
+tx_000880,2026-05-04T03:10:13,card_047,46.05,Provigo,grocery,in_person,CA,CA,,
+tx_000085,2026-05-04T04:21:53,card_004,60.00,BMO ATM,atm,atm,CA,CA,,
+tx_000566,2026-05-04T04:28:52,card_030,92.96,Cafe Olimpico,restaurant,in_person,DE,DE,,
+tx_000045,2026-05-04T04:30:02,card_002,41.05,Chipotle,restaurant,in_person,CA,CA,,
+tx_000752,2026-05-04T04:31:07,card_040,128.75,Petro-Canada,gas,in_person,CA,CA,,
+tx_000178,2026-05-04T04:35:15,card_009,16.13,McDonald's,restaurant,in_person,US,US,,
+tx_000607,2026-05-04T04:38:53,card_033,21.86,Chevron,gas,in_person,GB,GB,,
+tx_000453,2026-05-04T04:40:55,card_024,27.68,Shell,gas,in_person,CA,CA,,
+tx_000126,2026-05-04T05:57:01,card_007,26.77,Shell,gas,in_person,US,US,,
+tx_000644,2026-05-04T07:36:18,card_034,8.99,Amazon.ca,online_retail,online,CA,CA,dev_a0256e48,70.50.216.172
+tx_000353,2026-05-04T08:25:24,card_019,256.48,AliExpress,online_retail,online,CA,CN,dev_95204a30,142.112.208.235
+tx_000425,2026-05-04T08:31:37,card_022,9.27,Loblaws,grocery,in_person,CA,CA,,
+tx_000203,2026-05-04T09:24:00,card_010,4.52,Cafe Olimpico,restaurant,in_person,US,US,,
+tx_000809,2026-05-04T09:33:39,card_043,33.82,eBay,online_retail,online,CA,US,dev_c832252e,142.112.179.153
+tx_000445,2026-05-04T10:31:07,card_024,23.71,Provigo,grocery,in_person,CA,CA,,
+tx_000637,2026-05-04T10:34:56,card_034,7.33,QuickPay Online,online_retail,online,CA,CA,dev_a0256e48,99.225.172.168
+tx_000493,2026-05-04T12:25:41,card_026,22.21,Shell,gas,in_person,US,US,,
+tx_000232,2026-05-04T13:20:24,card_012,27.15,Cineplex,entertainment,in_person,CA,CA,,
+tx_000414,2026-05-04T14:21:39,card_022,29.27,IGA,grocery,in_person,CA,CA,,
+tx_000403,2026-05-04T14:43:18,card_021,13.99,Netflix,subscription,online,CA,US,dev_f61b4d97,142.112.40.5
+tx_000479,2026-05-04T15:20:56,card_025,19.99,Netflix,subscription,online,CA,US,dev_d9156309,70.50.225.246
+tx_000444,2026-05-04T15:37:38,card_024,23.32,Provigo,grocery,in_person,CA,CA,,
+tx_000180,2026-05-04T15:45:03,card_009,9.56,Tim Hortons,restaurant,in_person,US,US,,
+tx_000658,2026-05-04T16:05:56,card_035,19.99,Netflix,subscription,online,CA,US,dev_37f4b88c,70.50.148.144
+tx_000408,2026-05-04T17:57:28,card_021,21.70,Starbucks,restaurant,in_person,CA,CA,,
+tx_000244,2026-05-04T17:59:57,card_012,31.96,AliExpress,online_retail,online,CA,CN,dev_08e633ee,24.114.30.254
+tx_000884,2026-05-04T18:21:08,card_047,6.52,Shopify Merchant 2,online_retail,online,CA,CA,dev_dcad83da,142.112.118.157
+tx_000137,2026-05-04T19:00:19,card_007,8.81,Loblaws,grocery,in_person,US,US,,
+tx_000903,2026-05-04T21:08:19,card_049,100.00,RBC ATM,atm,atm,CA,CA,,
+tx_000714,2026-05-04T21:40:13,card_038,20.28,Metro,grocery,in_person,CA,CA,,
+tx_000682,2026-05-04T23:53:17,card_037,29.52,Schwartz's,restaurant,in_person,GB,GB,,
+tx_000213,2026-05-04T23:53:57,card_011,21.39,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000381,2026-05-04T23:58:10,card_020,40.67,Shopify Merchant 2,online_retail,online,US,CA,dev_2877f7d9,73.15.156.53
+tx_000512,2026-05-05T00:18:16,card_027,33.83,Petro-Canada,gas,in_person,CA,CA,,
+tx_000078,2026-05-05T01:40:25,card_004,40.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000358,2026-05-05T02:09:00,card_019,112.72,Loblaws,grocery,in_person,CA,CA,,
+tx_000996,2026-05-05T02:15:14,card_032,791.49,QuickPay Online,online_retail,online,CA,CA,dev_732bff0c,98.207.131.10
+tx_001000,2026-05-05T02:19:23,card_037,399.49,QuickPay Online,online_retail,online,CA,CA,dev_ab552458,98.207.55.146
+tx_000995,2026-05-05T02:25:59,card_002,735.44,QuickPay Online,online_retail,online,CA,CA,dev_a89efa00,172.58.196.128
+tx_000997,2026-05-05T02:45:19,card_038,356.29,QuickPay Online,online_retail,online,CA,CA,dev_9a5131ce,98.207.247.39
+tx_000475,2026-05-05T02:55:58,card_025,20.00,BMO ATM,atm,atm,CA,CA,,
+tx_000368,2026-05-05T03:06:34,card_020,13.99,Spotify,subscription,online,US,SE,dev_2877f7d9,73.15.168.176
+tx_000699,2026-05-05T03:19:21,card_037,111.31,Videotron,utilities,online,GB,CA,dev_9abdb3fd,151.225.172.215
+tx_000999,2026-05-05T03:22:40,card_039,370.50,QuickPay Online,online_retail,online,GB,CA,dev_b4734afd,98.207.23.36
+tx_000998,2026-05-05T03:27:16,card_046,935.27,QuickPay Online,online_retail,online,CA,CA,dev_89fb9c62,208.54.251.27
+tx_000677,2026-05-05T04:14:10,card_036,32.19,Chevron,gas,in_person,CA,CA,,
+tx_000613,2026-05-05T04:33:52,card_033,220.46,Chipotle,restaurant,in_person,GB,GB,,
+tx_000530,2026-05-05T06:05:49,card_028,75.54,Shell,gas,in_person,CA,CA,,
+tx_000434,2026-05-05T06:25:45,card_023,5.73,Provigo,grocery,in_person,CA,CA,,
+tx_000320,2026-05-05T08:06:45,card_017,6.35,Provigo,grocery,in_person,CA,CA,,
+tx_000050,2026-05-05T11:29:11,card_002,18.92,Starbucks,restaurant,in_person,CA,CA,,
+tx_000447,2026-05-05T11:32:07,card_024,42.47,Chevron,gas,in_person,CA,CA,,
+tx_000273,2026-05-05T13:15:01,card_014,55.68,La Banquise,restaurant,in_person,FR,FR,,
+tx_000215,2026-05-05T13:58:57,card_011,6.15,Videotron,utilities,online,CA,CA,dev_292af7e9,99.225.145.236
+tx_000835,2026-05-05T14:36:22,card_044,229.88,Tim Hortons,restaurant,in_person,GB,GB,,
+tx_000133,2026-05-05T15:12:42,card_007,60.00,Desjardins ATM,atm,atm,US,US,,
+tx_000031,2026-05-05T15:34:06,card_001,24.83,QuickPay Online,online_retail,online,CA,CA,dev_8d790a73,99.225.228.48
+tx_000771,2026-05-05T16:22:09,card_041,9.99,Disney+,subscription,online,CA,US,dev_614ef198,24.114.16.12
+tx_000164,2026-05-05T17:42:53,card_008,33.76,Metro,grocery,in_person,CA,CA,,
+tx_000840,2026-05-05T18:23:29,card_044,21.77,Etsy,online_retail,online,GB,US,dev_98e65b27,151.225.78.126
+tx_000001,2026-05-05T18:39:29,card_000,115.44,Bell Canada,utilities,online,CA,CA,dev_bc0178b6,24.114.150.203
+tx_000755,2026-05-05T19:05:28,card_040,5.37,La Banquise,restaurant,in_person,CA,CA,,
+tx_000382,2026-05-05T20:22:05,card_020,21.34,Petro-Canada,gas,in_person,US,US,,
+tx_000452,2026-05-05T21:33:20,card_024,17.50,Whole Foods,grocery,in_person,CA,CA,,
+tx_000616,2026-05-05T22:20:00,card_033,9.99,Spotify,subscription,online,GB,SE,dev_68735e10,86.150.102.237
+tx_000830,2026-05-05T23:34:52,card_044,51.48,La Banquise,restaurant,in_person,GB,GB,,
+tx_000440,2026-05-06T00:21:24,card_023,15.99,Provigo,grocery,in_person,CA,CA,,
+tx_000832,2026-05-06T00:54:04,card_044,18.46,Chipotle,restaurant,in_person,GB,GB,,
+tx_000048,2026-05-06T02:00:14,card_002,38.76,Amazon.com,online_retail,online,MX,US,dev_6200257c,189.144.64.231
+tx_000415,2026-05-06T02:05:06,card_022,36.93,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000882,2026-05-06T02:56:36,card_047,16.52,Shopify Merchant 1,online_retail,online,CA,CA,dev_dcad83da,99.225.114.61
+tx_000220,2026-05-06T05:58:35,card_011,64.44,Hydro-Quebec,utilities,online,CA,CA,dev_7b8b43cb,24.114.36.254
+tx_000327,2026-05-06T06:37:29,card_017,82.19,Videotron,utilities,online,CA,CA,dev_d0ff1fad,99.225.32.76
+tx_000851,2026-05-06T07:13:22,card_045,200.00,Desjardins ATM,atm,atm,FR,FR,,
+tx_000638,2026-05-06T08:38:00,card_034,20.99,Videotron,utilities,online,CA,CA,dev_a0256e48,70.50.145.49
+tx_000801,2026-05-06T09:16:33,card_043,12.13,Videotron,utilities,online,CA,CA,dev_c832252e,99.225.12.214
+tx_000376,2026-05-06T09:38:43,card_020,21.83,Amazon.com,online_retail,online,US,US,dev_2877f7d9,208.54.151.43
+tx_000843,2026-05-06T10:25:55,card_045,30.84,Shopify Merchant 1,online_retail,online,FR,CA,dev_ba413b67,90.5.245.233
+tx_000624,2026-05-06T10:32:42,card_034,20.00,RBC ATM,atm,atm,CA,CA,,
+tx_000157,2026-05-06T11:13:08,card_008,25.75,McDonald's,restaurant,in_person,CA,CA,,
+tx_000349,2026-05-06T12:58:27,card_019,65.12,Provigo,grocery,in_person,CA,CA,,
+tx_000686,2026-05-06T13:59:52,card_037,23.83,Videotron,utilities,online,GB,CA,dev_7dfb8438,86.150.125.27
+tx_000803,2026-05-06T14:28:59,card_043,11.61,QuickPay Online,online_retail,online,CA,CA,dev_c832252e,70.50.10.8
+tx_000922,2026-05-06T15:59:37,card_030,696.48,Best Buy,electronics,in_person,DE,DE,,
+tx_000982,2026-05-06T16:57:00,card_000,34.86,Cineplex,entertainment,in_person,CA,CA,,
+tx_000983,2026-05-06T17:13:00,card_000,1032.48,Newegg,electronics,online,CA,US,dev_c038c175,189.144.34.189
+tx_000662,2026-05-06T18:23:50,card_036,20.00,BMO ATM,atm,atm,CA,CA,,
+tx_000598,2026-05-06T19:10:54,card_032,57.76,Chevron,gas,in_person,CA,CA,,
+tx_000120,2026-05-06T19:26:18,card_006,90.87,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000760,2026-05-06T20:12:49,card_041,37.45,Chipotle,restaurant,in_person,CA,CA,,
+tx_000603,2026-05-06T20:21:12,card_032,70.84,La Banquise,restaurant,in_person,CA,CA,,
+tx_000984,2026-05-06T20:30:00,card_045,17.63,Tim Hortons,restaurant,in_person,FR,FR,,
+tx_000282,2026-05-06T20:46:28,card_015,57.71,QuickPay Online,online_retail,online,CA,CA,dev_22a1b746,142.112.130.149
+tx_000985,2026-05-06T20:57:00,card_045,1274.84,Apple Gift Card,gift_card,online,FR,US,dev_458eb503,177.20.183.221
+tx_000485,2026-05-06T23:06:06,card_026,32.54,Starbucks,restaurant,in_person,US,US,,
+tx_000978,2026-05-07T01:28:00,card_019,96.81,Shopify Merchant 2,online_retail,in_person,CA,CA,,
+tx_000979,2026-05-07T01:36:00,card_019,378.05,Apple Gift Card,gift_card,online,CA,US,dev_bb15d86f,82.66.129.145
+tx_000890,2026-05-07T05:09:05,card_048,34.23,McDonald's,restaurant,in_person,CA,CA,,
+tx_000854,2026-05-07T06:13:23,card_045,80.00,Desjardins ATM,atm,atm,FR,FR,,
+tx_000529,2026-05-07T06:51:48,card_028,126.89,IGA,grocery,in_person,CA,CA,,
+tx_000478,2026-05-07T08:32:38,card_025,15.99,Disney+,subscription,online,CA,US,dev_0bded435,70.50.11.5
+tx_000265,2026-05-07T10:50:21,card_014,10.67,Provigo,grocery,in_person,FR,FR,,
+tx_000589,2026-05-07T12:01:22,card_032,31.76,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000648,2026-05-07T12:57:48,card_035,19.99,Disney+,subscription,online,CA,US,dev_37f4b88c,142.112.98.102
+tx_000459,2026-05-07T13:19:32,card_024,77.61,Whole Foods,grocery,in_person,CA,CA,,
+tx_000737,2026-05-07T14:17:33,card_039,6.52,IGA,grocery,in_person,GB,GB,,
+tx_000398,2026-05-07T15:19:41,card_021,131.36,QuickPay Online,online_retail,online,CA,CA,dev_176def2c,24.114.180.97
+tx_000627,2026-05-07T17:52:43,card_034,17.87,Amazon.ca,online_retail,online,CA,CA,dev_a0256e48,24.114.22.80
+tx_000828,2026-05-07T18:15:40,card_044,43.59,QuickPay Online,online_retail,online,GB,CA,dev_8ae75196,86.150.92.28
+tx_000759,2026-05-07T18:46:53,card_040,3.46,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000308,2026-05-07T20:09:52,card_016,24.36,Videotron,utilities,online,CA,CA,dev_bc979ff9,70.50.15.80
+tx_000856,2026-05-07T21:10:55,card_046,80.00,BMO ATM,atm,atm,CA,CA,,
+tx_000087,2026-05-07T21:20:20,card_004,20.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000522,2026-05-07T21:50:31,card_028,16.97,Esso,gas,in_person,CA,CA,,
+tx_000051,2026-05-07T22:01:44,card_002,33.64,La Banquise,restaurant,in_person,MX,MX,,
+tx_000014,2026-05-07T22:34:49,card_000,13.49,Bell Canada,utilities,online,CA,CA,dev_bc0178b6,99.225.131.145
+tx_000819,2026-05-07T22:44:48,card_044,41.33,Metro,grocery,in_person,GB,GB,,
+tx_000331,2026-05-07T23:03:21,card_018,22.44,McDonald's,restaurant,in_person,CA,CA,,
+tx_000234,2026-05-07T23:23:35,card_012,14.45,Hydro-Quebec,utilities,online,CA,CA,dev_08e633ee,24.114.143.242
+tx_000796,2026-05-07T23:48:01,card_042,26.55,Whole Foods,grocery,in_person,US,US,,
+tx_000311,2026-05-08T03:32:58,card_016,126.47,Loblaws,grocery,in_person,CA,CA,,
+tx_000564,2026-05-08T03:36:44,card_030,20.87,Shopify Merchant 1,online_retail,online,DE,CA,dev_f003a772,188.62.169.235
+tx_000661,2026-05-08T04:22:19,card_036,50.92,Shopify Merchant 2,online_retail,online,CA,CA,dev_f8ffc747,70.50.204.42
+tx_000312,2026-05-08T04:38:23,card_017,8.23,AliExpress,online_retail,online,CA,CN,dev_d0ff1fad,70.50.164.31
+tx_000300,2026-05-08T05:50:28,card_016,22.69,Loblaws,grocery,in_person,CA,CA,,
+tx_000654,2026-05-08T07:16:30,card_035,61.71,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000201,2026-05-08T09:25:09,card_010,26.05,AliExpress,online_retail,online,US,CN,dev_26274369,208.54.18.228
+tx_000177,2026-05-08T09:44:47,card_009,57.64,Chipotle,restaurant,in_person,US,US,,
+tx_000579,2026-05-08T11:10:24,card_031,100.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000333,2026-05-08T12:00:57,card_018,16.17,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000430,2026-05-08T13:45:10,card_023,23.97,La Banquise,restaurant,in_person,CA,CA,,
+tx_000214,2026-05-08T13:48:26,card_011,17.36,Provigo,grocery,in_person,CA,CA,,
+tx_000838,2026-05-08T14:13:24,card_044,28.92,eBay,online_retail,online,GB,US,dev_8ae75196,151.225.203.89
+tx_000858,2026-05-08T14:33:35,card_046,15.42,Chipotle,restaurant,in_person,CA,CA,,
+tx_000641,2026-05-08T14:36:32,card_034,60.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000667,2026-05-08T16:43:56,card_036,25.09,AliExpress,online_retail,online,CA,CN,dev_b7bc6824,70.50.205.122
+tx_000756,2026-05-08T16:45:32,card_040,11.99,Netflix,subscription,online,CA,US,dev_abd8db53,24.114.113.109
+tx_000712,2026-05-08T17:45:53,card_038,30.99,Loblaws,grocery,in_person,CA,CA,,
+tx_000117,2026-05-08T19:06:44,card_006,66.18,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000113,2026-05-08T19:34:03,card_006,13.99,Disney+,subscription,online,CA,US,dev_1321b774,70.50.19.105
+tx_000419,2026-05-08T19:35:10,card_022,11.99,Disney+,subscription,online,CA,US,dev_7730dc61,24.114.217.2
+tx_000915,2026-05-08T19:58:44,card_049,67.25,Amazon.ca,online_retail,online,CA,CA,dev_2d66c302,70.50.39.72
+tx_000567,2026-05-08T20:24:46,card_030,34.66,Cineplex,entertainment,in_person,DE,DE,,
+tx_000488,2026-05-08T21:24:21,card_026,8.83,Chevron,gas,in_person,US,US,,
+tx_000343,2026-05-08T21:26:55,card_018,41.80,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000631,2026-05-08T22:43:04,card_034,7.31,Chevron,gas,in_person,CA,CA,,
+tx_000384,2026-05-08T23:13:27,card_020,44.39,QuickPay Online,online_retail,online,US,CA,dev_2877f7d9,73.15.30.41
+tx_000481,2026-05-08T23:23:17,card_026,41.42,Petro-Canada,gas,in_person,US,US,,
+tx_000472,2026-05-08T23:54:10,card_025,200.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000876,2026-05-09T00:51:56,card_047,14.73,Amazon.com,online_retail,online,CA,US,dev_dcad83da,24.114.137.39
+tx_000100,2026-05-09T01:16:46,card_005,15.01,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000392,2026-05-09T02:23:08,card_021,58.55,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000373,2026-05-09T02:47:44,card_020,33.64,Amazon.com,online_retail,online,US,US,dev_2877f7d9,73.15.137.205
+tx_000864,2026-05-09T03:06:55,card_046,20.00,RBC ATM,atm,atm,CA,CA,,
+tx_000626,2026-05-09T03:24:31,card_034,24.73,Petro-Canada,gas,in_person,CA,CA,,
+tx_000516,2026-05-09T03:26:04,card_027,122.95,Metro,grocery,in_person,CA,CA,,
+tx_000514,2026-05-09T03:30:13,card_027,100.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000090,2026-05-09T03:55:11,card_005,40.00,BMO ATM,atm,atm,CA,CA,,
+tx_000663,2026-05-09T05:13:50,card_036,79.04,Esso,gas,in_person,CA,CA,,
+tx_000902,2026-05-09T06:54:29,card_048,14.42,Amazon.ca,online_retail,online,CA,CA,dev_3bbcb503,99.225.126.111
+tx_000574,2026-05-09T07:37:54,card_031,24.44,Etsy,online_retail,online,CA,US,dev_3692eb01,99.225.237.104
+tx_000827,2026-05-09T07:45:59,card_044,55.66,Metro,grocery,in_person,GB,GB,,
+tx_000344,2026-05-09T07:46:14,card_018,100.00,RBC ATM,atm,atm,CA,CA,,
+tx_000581,2026-05-09T07:51:45,card_031,13.81,IGA,grocery,in_person,CA,CA,,
+tx_000749,2026-05-09T09:18:47,card_040,41.50,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000322,2026-05-09T11:02:07,card_017,21.83,Shopify Merchant 1,online_retail,online,CA,CA,dev_d0ff1fad,142.112.242.111
+tx_000262,2026-05-09T11:20:45,card_014,5.48,Amazon.com,online_retail,online,FR,US,dev_415fec02,82.66.240.11
+tx_000829,2026-05-09T13:30:53,card_044,100.00,RBC ATM,atm,atm,GB,GB,,
+tx_000433,2026-05-09T14:04:53,card_023,106.90,Loblaws,grocery,in_person,CA,CA,,
+tx_000720,2026-05-09T15:32:10,card_038,14.31,Starbucks,restaurant,in_person,CA,CA,,
+tx_000458,2026-05-09T16:18:04,card_024,40.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000825,2026-05-09T16:55:37,card_044,40.00,BMO ATM,atm,atm,GB,GB,,
+tx_000676,2026-05-09T17:29:19,card_036,28.46,Chevron,gas,in_person,CA,CA,,
+tx_000633,2026-05-09T17:34:09,card_034,12.76,Amazon.com,online_retail,online,CA,US,dev_a9c78771,99.225.148.97
+tx_000893,2026-05-09T18:22:48,card_048,27.06,Etsy,online_retail,online,CA,US,dev_3bbcb503,70.50.153.50
+tx_000774,2026-05-09T18:41:55,card_041,471.21,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000258,2026-05-09T19:16:53,card_013,56.30,Shell,gas,in_person,CA,CA,,
+tx_000055,2026-05-09T19:30:09,card_003,33.11,Loblaws,grocery,in_person,CA,CA,,
+tx_000740,2026-05-09T20:11:49,card_040,170.53,Cineplex,entertainment,in_person,CA,CA,,
+tx_000605,2026-05-09T21:04:30,card_033,107.66,Chevron,gas,in_person,GB,GB,,
+tx_000451,2026-05-09T21:06:18,card_024,51.91,Loblaws,grocery,in_person,CA,CA,,
+tx_000660,2026-05-09T21:32:59,card_036,44.21,IGA,grocery,in_person,CA,CA,,
+tx_000003,2026-05-09T23:12:57,card_000,11.77,La Banquise,restaurant,in_person,CA,CA,,
+tx_000509,2026-05-10T02:00:06,card_027,19.82,Esso,gas,in_person,CA,CA,,
+tx_000790,2026-05-10T03:12:46,card_042,18.24,Whole Foods,grocery,in_person,US,US,,
+tx_000698,2026-05-10T05:05:42,card_037,174.12,McDonald's,restaurant,in_person,CA,CA,,
+tx_000128,2026-05-10T05:39:26,card_007,40.00,BMO ATM,atm,atm,US,US,,
+tx_000510,2026-05-10T06:23:57,card_027,63.43,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000568,2026-05-10T06:52:51,card_030,39.07,AliExpress,online_retail,online,DE,CN,dev_f7415d64,95.91.249.80
+tx_000072,2026-05-10T09:19:18,card_003,81.00,eBay,online_retail,online,CA,US,dev_6fdbe52d,70.50.165.146
+tx_000130,2026-05-10T09:55:56,card_007,12.34,Loblaws,grocery,in_person,US,US,,
+tx_000457,2026-05-10T10:15:45,card_024,34.48,Metro,grocery,in_person,CA,CA,,
+tx_000778,2026-05-10T12:05:43,card_041,69.94,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000278,2026-05-10T12:53:45,card_015,46.65,Starbucks,restaurant,in_person,CA,CA,,
+tx_000674,2026-05-10T13:08:32,card_036,200.00,RBC ATM,atm,atm,CA,CA,,
+tx_000766,2026-05-10T14:54:25,card_041,475.35,Cineplex,entertainment,in_person,CA,CA,,
+tx_000869,2026-05-10T16:42:02,card_046,56.29,Chipotle,restaurant,in_person,CA,CA,,
+tx_000757,2026-05-10T17:34:59,card_040,5.95,Shell,gas,in_person,CA,CA,,
+tx_000012,2026-05-10T18:09:35,card_000,19.81,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000032,2026-05-10T18:09:55,card_001,51.34,Shopify Merchant 1,online_retail,online,CA,CA,dev_8d790a73,99.225.164.236
+tx_000125,2026-05-10T19:13:29,card_007,19.14,IGA,grocery,in_person,US,US,,
+tx_000149,2026-05-10T22:58:54,card_008,96.96,Metro,grocery,in_person,CA,CA,,
+tx_000550,2026-05-10T23:21:01,card_029,18.54,Etsy,online_retail,online,CA,US,dev_72eedf3c,142.112.26.156
+tx_000810,2026-05-10T23:47:27,card_043,20.08,Amazon.com,online_retail,online,CA,US,dev_c832252e,70.50.158.7
+tx_000313,2026-05-10T23:52:41,card_017,31.47,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000409,2026-05-11T00:43:52,card_021,30.12,Etsy,online_retail,online,CA,US,dev_176def2c,99.225.251.216
+tx_000019,2026-05-11T01:11:16,card_000,74.42,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000602,2026-05-11T02:01:27,card_032,29.45,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000684,2026-05-11T03:42:56,card_037,49.58,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000039,2026-05-11T04:40:15,card_002,11.99,Spotify,subscription,online,MX,SE,dev_c2b98918,189.144.190.31
+tx_000464,2026-05-11T06:09:21,card_025,9.99,Disney+,subscription,online,CA,US,dev_0bded435,24.114.106.247
+tx_000261,2026-05-11T06:37:23,card_014,51.29,Joe Beef,restaurant,in_person,FR,FR,,
+tx_000484,2026-05-11T08:06:17,card_026,20.06,Tim Hortons,restaurant,in_person,US,US,,
+tx_000134,2026-05-11T08:26:20,card_007,20.72,Hydro-Quebec,utilities,online,US,CA,dev_5d017d53,98.207.123.245
+tx_000572,2026-05-11T10:01:43,card_031,56.96,Amazon.com,online_retail,online,CA,US,dev_3692eb01,142.112.99.200
+tx_000622,2026-05-11T11:25:02,card_033,20.14,Provigo,grocery,in_person,GB,GB,,
+tx_000679,2026-05-11T11:27:52,card_036,96.35,QuickPay Online,online_retail,online,CA,CA,dev_b7bc6824,70.50.226.70
+tx_000669,2026-05-11T12:01:14,card_036,83.40,eBay,online_retail,online,CA,US,dev_f8ffc747,24.114.247.230
+tx_000212,2026-05-11T12:47:36,card_011,8.71,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000968,2026-05-11T13:46:00,card_038,11.21,Shopify Merchant 1,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000969,2026-05-11T13:49:16,card_038,4.68,AliExpress,online_retail,online,CA,CN,dev_52f96bdf,208.54.80.124
+tx_000970,2026-05-11T13:52:42,card_038,5.72,Shopify Merchant 1,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000977,2026-05-11T13:53:16,card_038,5.39,Shopify Merchant 2,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000971,2026-05-11T13:53:38,card_038,3.64,Shopify Merchant 1,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000972,2026-05-11T13:56:05,card_038,11.41,Shopify Merchant 1,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000973,2026-05-11T14:00:25,card_038,2.70,Shopify Merchant 2,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000974,2026-05-11T14:04:25,card_038,11.57,Shopify Merchant 1,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000976,2026-05-11T14:06:56,card_038,4.17,Shopify Merchant 1,online_retail,online,CA,CA,dev_52f96bdf,208.54.80.124
+tx_000975,2026-05-11T14:08:47,card_038,11.32,AliExpress,online_retail,online,CA,CN,dev_52f96bdf,208.54.80.124
+tx_000553,2026-05-11T14:56:19,card_029,40.00,BMO ATM,atm,atm,CA,CA,,
+tx_000411,2026-05-11T15:57:40,card_021,90.00,Provigo,grocery,in_person,CA,CA,,
+tx_000659,2026-05-11T16:10:54,card_035,29.37,Videotron,utilities,online,CA,CA,dev_37f4b88c,24.114.151.64
+tx_000024,2026-05-11T16:33:53,card_001,55.49,AliExpress,online_retail,online,CA,CN,dev_8080a2c9,99.225.247.252
+tx_000426,2026-05-11T17:29:46,card_023,14.99,Shopify Merchant 2,online_retail,online,CA,CA,dev_72d3f36b,24.114.241.133
+tx_000204,2026-05-11T18:51:47,card_010,101.04,Amazon.com,online_retail,online,US,US,dev_94ddeaf2,208.54.42.229
+tx_000462,2026-05-11T19:51:01,card_024,40.00,BMO ATM,atm,atm,CA,CA,,
+tx_000275,2026-05-11T21:29:48,card_014,15.13,Joe Beef,restaurant,in_person,FR,FR,,
+tx_000429,2026-05-11T21:46:00,card_023,10.16,McDonald's,restaurant,in_person,CA,CA,,
+tx_000523,2026-05-11T22:14:13,card_028,80.00,BMO ATM,atm,atm,CA,CA,,
+tx_000089,2026-05-11T22:33:15,card_005,47.26,Whole Foods,grocery,in_person,CA,CA,,
+tx_000339,2026-05-11T23:57:27,card_018,20.99,Amazon.com,online_retail,online,CA,US,dev_b6cde5be,99.225.139.65
+tx_000059,2026-05-12T02:49:55,card_003,49.05,Amazon.com,online_retail,online,CA,US,dev_6fdbe52d,99.225.127.25
+tx_000225,2026-05-12T03:12:03,card_012,12.64,Amazon.ca,online_retail,online,CA,CA,dev_08e633ee,70.50.117.151
+tx_000652,2026-05-12T03:23:59,card_035,15.99,Spotify,subscription,online,CA,SE,dev_37f4b88c,99.225.12.169
+tx_000939,2026-05-12T05:12:00,card_023,10.98,Shopify Merchant 2,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000940,2026-05-12T05:14:19,card_023,11.58,QuickPay Online,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000941,2026-05-12T05:15:28,card_023,9.18,Shopify Merchant 1,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000945,2026-05-12T05:15:31,card_023,2.54,Shopify Merchant 1,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000942,2026-05-12T05:15:46,card_023,7.52,AliExpress,online_retail,online,CA,CN,dev_c71fd72a,189.144.75.233
+tx_000947,2026-05-12T05:19:04,card_023,1.50,Shopify Merchant 1,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000943,2026-05-12T05:20:11,card_023,10.45,QuickPay Online,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000944,2026-05-12T05:27:34,card_023,2.71,QuickPay Online,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000946,2026-05-12T05:33:26,card_023,3.51,Shopify Merchant 2,online_retail,online,CA,CA,dev_c71fd72a,189.144.75.233
+tx_000948,2026-05-12T05:38:41,card_023,10.26,AliExpress,online_retail,online,CA,CN,dev_c71fd72a,189.144.75.233
+tx_000112,2026-05-12T06:15:37,card_006,31.98,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000708,2026-05-12T06:53:25,card_038,12.99,La Banquise,restaurant,in_person,CA,CA,,
+tx_000399,2026-05-12T07:22:09,card_021,107.92,AliExpress,online_retail,online,CA,CN,dev_f61b4d97,24.114.177.180
+tx_000168,2026-05-12T08:13:21,card_009,19.99,Netflix,subscription,online,US,US,dev_b62b3697,73.15.27.37
+tx_000618,2026-05-12T09:01:34,card_033,23.99,Whole Foods,grocery,in_person,GB,GB,,
+tx_000776,2026-05-12T09:04:18,card_041,6.35,McDonald's,restaurant,in_person,CA,CA,,
+tx_000139,2026-05-12T09:26:43,card_007,40.00,RBC ATM,atm,atm,US,US,,
+tx_000645,2026-05-12T10:51:55,card_035,13.99,Disney+,subscription,online,CA,US,dev_37f4b88c,24.114.175.23
+tx_000868,2026-05-12T12:43:09,card_046,197.49,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000807,2026-05-12T13:40:46,card_043,35.84,Whole Foods,grocery,in_person,CA,CA,,
+tx_000785,2026-05-12T15:17:07,card_042,29.55,Tim Hortons,restaurant,in_person,US,US,,
+tx_000092,2026-05-12T17:21:50,card_005,20.33,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000247,2026-05-12T18:44:22,card_013,55.77,Chevron,gas,in_person,CA,CA,,
+tx_000197,2026-05-12T18:59:10,card_010,42.97,Petro-Canada,gas,in_person,US,US,,
+tx_000871,2026-05-12T19:24:55,card_047,22.95,eBay,online_retail,online,CA,US,dev_dcad83da,142.112.134.106
+tx_000094,2026-05-12T21:13:38,card_005,19.99,Netflix,subscription,online,CA,US,dev_379050df,70.50.164.212
+tx_000053,2026-05-12T23:11:02,card_002,35.69,Starbucks,restaurant,in_person,CA,CA,,
+tx_000889,2026-05-12T23:50:45,card_048,24.39,La Banquise,restaurant,in_person,CA,CA,,
+tx_000526,2026-05-12T23:55:27,card_028,76.71,Metro,grocery,in_person,CA,CA,,
+tx_000600,2026-05-13T00:07:35,card_032,31.04,McDonald's,restaurant,in_person,CA,CA,,
+tx_000169,2026-05-13T00:57:04,card_009,8.90,Etsy,online_retail,online,US,US,dev_b62b3697,172.58.153.128
+tx_000910,2026-05-13T01:10:52,card_049,18.46,Shopify Merchant 1,online_retail,online,CA,CA,dev_2d66c302,142.112.33.88
+tx_000104,2026-05-13T01:14:09,card_005,51.23,Amazon.ca,online_retail,online,CA,CA,dev_379050df,99.225.169.189
+tx_000088,2026-05-13T01:25:44,card_004,20.09,Esso,gas,in_person,CA,CA,,
+tx_000363,2026-05-13T01:36:14,card_019,12.05,QuickPay Online,online_retail,online,CA,CA,dev_95204a30,99.225.186.39
+tx_000839,2026-05-13T01:53:37,card_044,7.96,Loblaws,grocery,in_person,GB,GB,,
+tx_000365,2026-05-13T04:22:37,card_019,11.99,Disney+,subscription,online,CA,US,dev_95204a30,99.225.239.204
+tx_000238,2026-05-13T04:36:27,card_012,31.56,Amazon.com,online_retail,online,CA,US,dev_08e633ee,99.225.0.160
+tx_000069,2026-05-13T04:47:31,card_003,9.99,Netflix,subscription,online,CA,US,dev_6fdbe52d,99.225.180.92
+tx_000036,2026-05-13T05:08:18,card_002,9.34,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000733,2026-05-13T05:15:27,card_039,46.27,Amazon.ca,online_retail,online,GB,CA,dev_2ab5d40f,92.40.111.128
+tx_000610,2026-05-13T05:30:56,card_033,35.65,Metro,grocery,in_person,GB,GB,,
+tx_000303,2026-05-13T05:34:56,card_016,140.17,Hydro-Quebec,utilities,online,CA,CA,dev_bc979ff9,70.50.211.243
+tx_000715,2026-05-13T05:45:54,card_038,35.41,Shell,gas,in_person,CA,CA,,
+tx_000196,2026-05-13T06:10:22,card_010,25.45,Schwartz's,restaurant,in_person,US,US,,
+tx_000105,2026-05-13T08:38:24,card_006,63.31,Etsy,online_retail,online,CA,US,dev_1321b774,24.114.204.217
+tx_000315,2026-05-13T09:27:59,card_017,12.06,Loblaws,grocery,in_person,CA,CA,,
+tx_000885,2026-05-13T10:51:52,card_047,141.56,Amazon.ca,online_retail,online,CA,CA,dev_dcad83da,142.112.69.81
+tx_000326,2026-05-13T11:29:29,card_017,11.07,Starbucks,restaurant,in_person,CA,CA,,
+tx_000138,2026-05-13T12:37:18,card_007,40.61,Esso,gas,in_person,US,US,,
+tx_000585,2026-05-13T12:38:51,card_031,34.72,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000921,2026-05-13T13:07:45,card_021,1148.20,Apple Store,electronics,in_person,CA,CA,,
+tx_000115,2026-05-13T13:10:12,card_006,107.83,McDonald's,restaurant,in_person,CA,CA,,
+tx_000165,2026-05-13T14:05:58,card_008,25.33,IGA,grocery,in_person,CA,CA,,
+tx_000179,2026-05-13T14:26:19,card_009,15.60,Schwartz's,restaurant,in_person,US,US,,
+tx_000821,2026-05-13T15:13:52,card_044,36.60,Metro,grocery,in_person,GB,GB,,
+tx_000297,2026-05-13T15:22:12,card_016,65.21,Provigo,grocery,in_person,CA,CA,,
+tx_000537,2026-05-13T17:49:23,card_028,69.47,Shopify Merchant 1,online_retail,online,CA,CA,dev_bea30580,99.225.92.216
+tx_000816,2026-05-13T18:43:59,card_043,13.99,Disney+,subscription,online,CA,US,dev_c832252e,99.225.101.136
+tx_000525,2026-05-13T19:15:25,card_028,94.08,AliExpress,online_retail,online,CA,CN,dev_bea30580,70.50.107.53
+tx_000407,2026-05-13T19:54:07,card_021,101.49,La Banquise,restaurant,in_person,CA,CA,,
+tx_000465,2026-05-13T20:16:57,card_025,44.80,Shopify Merchant 1,online_retail,online,CA,CA,dev_0bded435,142.112.15.237
+tx_000836,2026-05-13T22:42:04,card_044,68.13,Metro,grocery,in_person,GB,GB,,
+tx_000338,2026-05-14T00:09:43,card_018,44.49,Whole Foods,grocery,in_person,CA,CA,,
+tx_000710,2026-05-14T01:45:38,card_038,22.71,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000672,2026-05-14T02:17:47,card_036,22.80,Shell,gas,in_person,CA,CA,,
+tx_000034,2026-05-14T03:19:24,card_001,30.94,Videotron,utilities,online,CA,CA,dev_8d790a73,142.112.27.249
+tx_000688,2026-05-14T04:00:20,card_037,112.32,McDonald's,restaurant,in_person,CA,CA,,
+tx_000450,2026-05-14T05:06:40,card_024,80.00,BMO ATM,atm,atm,CA,CA,,
+tx_000341,2026-05-14T05:15:23,card_018,23.25,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000136,2026-05-14T05:44:30,card_007,40.00,RBC ATM,atm,atm,US,US,,
+tx_000787,2026-05-14T06:26:17,card_042,13.57,Loblaws,grocery,in_person,US,US,,
+tx_000844,2026-05-14T07:02:57,card_045,22.53,Amazon.com,online_retail,online,FR,US,dev_ba413b67,90.5.126.36
+tx_000174,2026-05-14T07:35:38,card_009,34.05,Amazon.ca,online_retail,online,US,CA,dev_b62b3697,208.54.9.82
+tx_000494,2026-05-14T07:37:58,card_026,35.74,Videotron,utilities,online,US,CA,dev_7b9bf52e,73.15.189.166
+tx_000217,2026-05-14T08:19:13,card_011,9.73,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000336,2026-05-14T08:49:20,card_018,22.75,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000738,2026-05-14T09:11:41,card_039,27.57,Chipotle,restaurant,in_person,GB,GB,,
+tx_000251,2026-05-14T09:55:57,card_013,255.96,Bell Canada,utilities,online,CA,CA,dev_e5c2222f,24.114.120.141
+tx_000314,2026-05-14T10:18:17,card_017,14.67,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000097,2026-05-14T10:47:44,card_005,7.21,Whole Foods,grocery,in_person,CA,CA,,
+tx_000861,2026-05-14T11:56:33,card_046,200.00,RBC ATM,atm,atm,CA,CA,,
+tx_000122,2026-05-14T12:13:17,card_007,40.00,RBC ATM,atm,atm,US,US,,
+tx_000636,2026-05-14T14:05:08,card_034,13.51,Shell,gas,in_person,CA,CA,,
+tx_000298,2026-05-14T14:05:33,card_016,24.01,Petro-Canada,gas,in_person,CA,CA,,
+tx_000794,2026-05-14T14:21:31,card_042,49.19,Joe Beef,restaurant,in_person,US,US,,
+tx_000230,2026-05-14T16:01:51,card_012,15.62,Amazon.com,online_retail,online,CA,US,dev_08e633ee,70.50.223.145
+tx_000387,2026-05-14T17:16:28,card_020,27.07,eBay,online_retail,online,US,US,dev_2877f7d9,208.54.172.12
+tx_000216,2026-05-14T17:22:48,card_011,12.39,Cineplex,entertainment,in_person,CA,CA,,
+tx_000736,2026-05-14T18:00:23,card_039,6.59,IGA,grocery,in_person,GB,GB,,
+tx_000594,2026-05-14T18:46:44,card_032,52.84,Chipotle,restaurant,in_person,CA,CA,,
+tx_000549,2026-05-14T18:56:41,card_029,115.65,Chevron,gas,in_person,CA,CA,,
+tx_000617,2026-05-14T19:48:25,card_033,71.49,Joe Beef,restaurant,in_person,GB,GB,,
+tx_000119,2026-05-14T20:27:39,card_006,81.06,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000065,2026-05-14T20:39:25,card_003,43.74,Cineplex,entertainment,in_person,CA,CA,,
+tx_000823,2026-05-14T21:18:02,card_044,67.16,Tim Hortons,restaurant,in_person,GB,GB,,
+tx_000591,2026-05-14T21:24:09,card_032,40.94,Provigo,grocery,in_person,CA,CA,,
+tx_000957,2026-05-14T21:46:00,card_049,11.64,Shopify Merchant 1,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000959,2026-05-14T21:47:14,card_049,11.10,AliExpress,online_retail,online,CA,CN,dev_2520e98b,117.136.220.191
+tx_000958,2026-05-14T21:47:42,card_049,1.51,Shopify Merchant 2,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000960,2026-05-14T21:47:48,card_049,10.90,QuickPay Online,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000963,2026-05-14T21:50:55,card_049,8.44,Shopify Merchant 2,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000965,2026-05-14T21:52:41,card_049,14.88,AliExpress,online_retail,online,CA,CN,dev_2520e98b,117.136.220.191
+tx_000194,2026-05-14T21:58:18,card_010,94.84,Chevron,gas,in_person,US,US,,
+tx_000962,2026-05-14T21:59:00,card_049,4.15,Shopify Merchant 2,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000961,2026-05-14T21:59:04,card_049,10.72,QuickPay Online,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000967,2026-05-14T22:04:31,card_049,12.82,QuickPay Online,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000964,2026-05-14T22:08:56,card_049,9.56,Shopify Merchant 2,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000966,2026-05-14T22:11:52,card_049,2.63,QuickPay Online,online_retail,online,CA,CA,dev_2520e98b,117.136.220.191
+tx_000852,2026-05-14T22:25:31,card_045,24.44,Shopify Merchant 1,online_retail,online,FR,CA,dev_ba413b67,176.158.197.86
+tx_000049,2026-05-14T22:38:57,card_002,16.66,QuickPay Online,online_retail,online,CA,CA,dev_6200257c,142.112.102.86
+tx_000222,2026-05-14T23:35:10,card_011,8.26,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000629,2026-05-14T23:50:48,card_034,13.81,Bell Canada,utilities,online,CA,CA,dev_a9c78771,70.50.240.202
+tx_000988,2026-05-15T00:00:00,card_020,1474.93,Apple Store,electronics,online,US,CA,dev_8ce48e70,208.54.36.183
+tx_000989,2026-05-15T00:31:38,card_020,425.23,Newegg,electronics,online,US,US,dev_8ce48e70,208.54.36.183
+tx_000147,2026-05-15T00:48:41,card_008,18.70,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000351,2026-05-15T02:08:41,card_019,107.88,Shopify Merchant 1,online_retail,online,CA,CA,dev_95204a30,70.50.168.173
+tx_000318,2026-05-15T02:20:54,card_017,15.63,Shopify Merchant 1,online_retail,online,CA,CA,dev_d0ff1fad,99.225.20.99
+tx_000797,2026-05-15T02:22:24,card_042,27.43,Chipotle,restaurant,in_person,US,US,,
+tx_000991,2026-05-15T02:35:51,card_020,511.77,Newegg,electronics,online,US,US,dev_8ce48e70,208.54.36.183
+tx_000189,2026-05-15T03:27:00,card_010,20.00,RBC ATM,atm,atm,US,US,,
+tx_000990,2026-05-15T03:33:54,card_020,1158.32,Apple Store,electronics,online,US,CA,dev_8ce48e70,208.54.36.183
+tx_000007,2026-05-15T04:09:33,card_000,34.54,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000229,2026-05-15T04:22:15,card_012,20.77,Shopify Merchant 1,online_retail,online,CA,CA,dev_08e633ee,70.50.208.64
+tx_000767,2026-05-15T04:47:49,card_041,13.99,Disney+,subscription,online,CA,US,dev_614ef198,99.225.104.89
+tx_000748,2026-05-15T04:58:29,card_040,11.74,Chevron,gas,in_person,CA,CA,,
+tx_000266,2026-05-15T05:25:42,card_014,9.21,McDonald's,restaurant,in_person,FR,FR,,
+tx_000340,2026-05-15T06:43:20,card_018,19.86,Amazon.com,online_retail,online,CA,US,dev_9153fdea,24.114.181.241
+tx_000850,2026-05-15T06:48:03,card_045,20.00,Desjardins ATM,atm,atm,FR,FR,,
+tx_000666,2026-05-15T08:37:50,card_036,87.55,Petro-Canada,gas,in_person,CA,CA,,
+tx_000606,2026-05-15T08:53:35,card_033,228.35,Cafe Olimpico,restaurant,in_person,GB,GB,,
+tx_000833,2026-05-15T09:30:48,card_044,143.00,Shopify Merchant 2,online_retail,online,GB,CA,dev_98e65b27,86.150.201.35
+tx_000905,2026-05-15T10:42:01,card_049,15.99,Disney+,subscription,online,CA,US,dev_2d66c302,70.50.165.21
+tx_000417,2026-05-15T11:04:16,card_022,200.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000647,2026-05-15T11:48:47,card_035,37.14,McDonald's,restaurant,in_person,CA,CA,,
+tx_000330,2026-05-15T12:12:47,card_018,80.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000596,2026-05-15T12:46:40,card_032,158.28,McDonald's,restaurant,in_person,CA,CA,,
+tx_000837,2026-05-15T13:01:49,card_044,140.54,Amazon.com,online_retail,online,GB,US,dev_8ae75196,86.150.25.188
+tx_000500,2026-05-15T13:34:29,card_027,10.81,Cineplex,entertainment,in_person,CA,CA,,
+tx_000421,2026-05-15T14:46:21,card_022,40.00,BMO ATM,atm,atm,CA,CA,,
+tx_000527,2026-05-15T14:52:30,card_028,80.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000263,2026-05-15T14:53:25,card_014,7.44,Shopify Merchant 1,online_retail,online,FR,CA,dev_7c98f9e4,176.158.124.119
+tx_000721,2026-05-15T16:45:55,card_038,25.38,Chipotle,restaurant,in_person,CA,CA,,
+tx_000328,2026-05-15T17:01:31,card_017,80.00,RBC ATM,atm,atm,CA,CA,,
+tx_000817,2026-05-15T17:34:15,card_043,15.99,Disney+,subscription,online,CA,US,dev_c832252e,70.50.192.200
+tx_000383,2026-05-15T17:36:08,card_020,24.50,McDonald's,restaurant,in_person,US,US,,
+tx_000202,2026-05-15T19:29:20,card_010,78.76,Joe Beef,restaurant,in_person,US,US,,
+tx_000067,2026-05-15T20:18:06,card_003,19.99,Netflix,subscription,online,CA,US,dev_6fdbe52d,142.112.56.206
+tx_000483,2026-05-15T21:08:15,card_026,13.99,Spotify,subscription,online,US,SE,dev_db3feacf,172.58.143.139
+tx_000611,2026-05-15T21:25:49,card_033,85.44,La Banquise,restaurant,in_person,GB,GB,,
+tx_000491,2026-05-15T22:37:37,card_026,25.80,Videotron,utilities,online,US,CA,dev_7b9bf52e,73.15.152.117
+tx_000614,2026-05-15T23:21:32,card_033,101.49,Whole Foods,grocery,in_person,GB,GB,,
+tx_000744,2026-05-15T23:43:02,card_040,36.57,Chevron,gas,in_person,CA,CA,,
+tx_000354,2026-05-16T01:02:58,card_019,34.67,Whole Foods,grocery,in_person,CA,CA,,
+tx_000583,2026-05-16T01:28:46,card_031,80.00,RBC ATM,atm,atm,CA,CA,,
+tx_000246,2026-05-16T02:15:39,card_012,10.15,Amazon.com,online_retail,online,CA,US,dev_08e633ee,99.225.9.230
+tx_000911,2026-05-16T02:29:15,card_049,100.00,RBC ATM,atm,atm,CA,CA,,
+tx_000907,2026-05-16T03:25:33,card_049,85.75,eBay,online_retail,online,CA,US,dev_2d66c302,24.114.57.18
+tx_000106,2026-05-16T03:37:30,card_006,16.32,Esso,gas,in_person,CA,CA,,
+tx_000503,2026-05-16T04:02:11,card_027,100.00,RBC ATM,atm,atm,CA,CA,,
+tx_000906,2026-05-16T04:31:46,card_049,536.35,Amazon.ca,online_retail,online,CA,CA,dev_2d66c302,70.50.179.16
+tx_000913,2026-05-16T04:41:55,card_049,32.77,QuickPay Online,online_retail,online,CA,CA,dev_2d66c302,99.225.25.225
+tx_000555,2026-05-16T04:46:13,card_029,9.55,Chevron,gas,in_person,CA,CA,,
+tx_000831,2026-05-16T05:58:24,card_044,10.84,AliExpress,online_retail,online,GB,CN,dev_8ae75196,151.225.39.13
+tx_000725,2026-05-16T06:35:39,card_039,8.29,Shell,gas,in_person,GB,GB,,
+tx_000518,2026-05-16T06:40:53,card_028,16.11,Petro-Canada,gas,in_person,CA,CA,,
+tx_000182,2026-05-16T08:04:57,card_009,15.99,Netflix,subscription,online,US,US,dev_b62b3697,98.207.148.165
+tx_000302,2026-05-16T08:15:05,card_016,109.20,Cineplex,entertainment,in_person,CA,CA,,
+tx_000724,2026-05-16T09:04:37,card_039,16.53,Metro,grocery,in_person,GB,GB,,
+tx_000480,2026-05-16T09:23:22,card_025,45.18,eBay,online_retail,online,CA,US,dev_0bded435,142.112.60.51
+tx_000420,2026-05-16T09:47:05,card_022,60.43,Starbucks,restaurant,in_person,CA,CA,,
+tx_000022,2026-05-16T10:09:36,card_001,106.79,eBay,online_retail,online,CA,US,dev_8080a2c9,70.50.170.108
+tx_000040,2026-05-16T10:49:43,card_002,5.10,Amazon.ca,online_retail,online,CA,CA,dev_c2b98918,99.225.147.244
+tx_000305,2026-05-16T10:56:19,card_016,9.99,Disney+,subscription,online,CA,US,dev_bc979ff9,142.112.39.218
+tx_000584,2026-05-16T15:26:19,card_031,30.81,McDonald's,restaurant,in_person,CA,CA,,
+tx_000029,2026-05-16T15:53:05,card_001,19.99,Disney+,subscription,online,CA,US,dev_8d790a73,99.225.135.151
+tx_000560,2026-05-16T17:01:08,card_030,44.39,McDonald's,restaurant,in_person,DE,DE,,
+tx_000281,2026-05-16T17:17:36,card_015,48.95,Amazon.com,online_retail,online,CA,US,dev_22a1b746,70.50.207.125
+tx_000805,2026-05-16T17:30:35,card_043,21.73,Hydro-Quebec,utilities,online,CA,CA,dev_c832252e,142.112.197.101
+tx_000557,2026-05-16T18:53:51,card_030,19.88,Whole Foods,grocery,in_person,DE,DE,,
+tx_000548,2026-05-16T19:06:05,card_029,31.22,Etsy,online_retail,online,CA,US,dev_600be23f,99.225.174.214
+tx_000545,2026-05-16T19:57:53,card_029,12.25,Hydro-Quebec,utilities,online,CA,CA,dev_600be23f,99.225.96.67
+tx_000183,2026-05-16T20:31:44,card_009,59.32,AliExpress,online_retail,online,US,CN,dev_b62b3697,73.15.206.136
+tx_000443,2026-05-16T22:17:32,card_023,6.87,eBay,online_retail,online,CA,US,dev_72d3f36b,24.114.163.220
+tx_000703,2026-05-16T22:39:12,card_037,92.86,Provigo,grocery,in_person,CA,CA,,
+tx_000655,2026-05-16T23:16:52,card_035,15.99,Netflix,subscription,online,CA,US,dev_37f4b88c,142.112.95.71
+tx_000005,2026-05-16T23:34:15,card_000,32.26,Chipotle,restaurant,in_person,CA,CA,,
+tx_000035,2026-05-16T23:44:21,card_002,26.65,La Banquise,restaurant,in_person,CA,CA,,
+tx_000781,2026-05-17T00:04:51,card_042,19.69,Etsy,online_retail,online,US,US,dev_33892b01,98.207.52.118
+tx_000918,2026-05-17T00:28:52,card_049,57.94,Cineplex,entertainment,in_person,CA,CA,,
+tx_000980,2026-05-17T01:11:00,card_048,39.92,Bell Canada,utilities,in_person,CA,CA,,
+tx_000981,2026-05-17T01:37:00,card_048,944.80,AliExpress,online_retail,online,CA,CN,dev_f5f5128b,95.91.186.202
+tx_000908,2026-05-17T03:48:23,card_049,32.46,Amazon.ca,online_retail,online,CA,CA,dev_2d66c302,70.50.222.170
+tx_000337,2026-05-17T04:08:02,card_018,8.48,Loblaws,grocery,in_person,CA,CA,,
+tx_000517,2026-05-17T04:15:33,card_028,45.63,Etsy,online_retail,online,CA,US,dev_bea30580,24.114.154.204
+tx_000593,2026-05-17T06:22:30,card_032,60.00,RBC ATM,atm,atm,CA,CA,,
+tx_000037,2026-05-17T06:33:06,card_002,15.78,Cineplex,entertainment,in_person,CA,CA,,
+tx_000118,2026-05-17T07:53:35,card_006,198.88,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000586,2026-05-17T08:18:56,card_031,48.30,Metro,grocery,in_person,CA,CA,,
+tx_000346,2026-05-17T09:03:20,card_018,40.16,Metro,grocery,in_person,CA,CA,,
+tx_000043,2026-05-17T09:13:59,card_002,7.37,Etsy,online_retail,online,CA,US,dev_c2b98918,99.225.42.114
+tx_000746,2026-05-17T09:24:07,card_040,23.52,Cineplex,entertainment,in_person,CA,CA,,
+tx_000096,2026-05-17T11:49:05,card_005,13.77,QuickPay Online,online_retail,online,CA,CA,dev_45d2fa60,142.112.249.152
+tx_000364,2026-05-17T12:32:58,card_019,20.48,eBay,online_retail,online,CA,US,dev_95204a30,99.225.106.245
+tx_000070,2026-05-17T12:35:08,card_003,11.99,Spotify,subscription,online,CA,SE,dev_d52ac3b8,24.114.26.208
+tx_000009,2026-05-17T12:41:59,card_000,36.74,Bell Canada,utilities,online,CA,CA,dev_bc0178b6,70.50.190.79
+tx_000436,2026-05-17T12:43:45,card_023,13.23,AliExpress,online_retail,online,CA,CN,dev_72d3f36b,99.225.182.69
+tx_000107,2026-05-17T13:06:41,card_006,10.62,McDonald's,restaurant,in_person,CA,CA,,
+tx_000154,2026-05-17T14:07:55,card_008,29.46,Shopify Merchant 2,online_retail,online,CA,CA,dev_a088f010,99.225.166.144
+tx_001005,2026-05-17T14:10:26,card_037,311.05,QuickPay Online,online_retail,online,CA,CA,dev_f51148d2,172.58.223.233
+tx_001003,2026-05-17T14:11:07,card_009,835.40,QuickPay Online,online_retail,online,US,CA,dev_6b84a60e,172.58.128.27
+tx_001006,2026-05-17T14:20:42,card_030,345.74,QuickPay Online,online_retail,online,DE,CA,dev_eecda7b1,208.54.240.254
+tx_001001,2026-05-17T14:53:49,card_036,426.59,QuickPay Online,online_retail,online,CA,CA,dev_d77b2e23,172.58.244.57
+tx_001004,2026-05-17T15:09:02,card_029,724.05,QuickPay Online,online_retail,online,CA,CA,dev_d0e72b61,172.58.68.100
+tx_001007,2026-05-17T15:20:50,card_040,579.49,QuickPay Online,online_retail,online,CA,CA,dev_fe70507a,172.58.33.50
+tx_001002,2026-05-17T15:22:21,card_007,820.61,QuickPay Online,online_retail,online,US,CA,dev_399a3e32,73.15.130.57
+tx_000842,2026-05-17T17:10:22,card_045,46.74,Amazon.ca,online_retail,online,FR,CA,dev_ba413b67,176.158.226.64
+tx_000562,2026-05-17T17:54:19,card_030,35.55,Starbucks,restaurant,in_person,DE,DE,,
+tx_000162,2026-05-17T18:02:24,card_008,17.73,Whole Foods,grocery,in_person,CA,CA,,
+tx_000630,2026-05-17T18:58:04,card_034,18.80,Amazon.com,online_retail,online,CA,US,dev_a9c78771,99.225.92.234
+tx_000986,2026-05-17T21:00:00,card_016,1157.81,Gift Card Mall,gift_card,online,CA,US,dev_7bbcb493,177.20.160.195
+tx_000987,2026-05-17T21:40:52,card_016,1511.01,Apple Gift Card,gift_card,online,CA,US,dev_7bbcb493,177.20.160.195
+tx_000886,2026-05-17T22:55:55,card_047,90.49,Hydro-Quebec,utilities,online,CA,CA,dev_dcad83da,70.50.118.142
+tx_000793,2026-05-17T23:37:43,card_042,32.44,IGA,grocery,in_person,US,US,,
+tx_000030,2026-05-18T00:04:25,card_001,45.50,Amazon.com,online_retail,online,CA,US,dev_8d790a73,99.225.157.62
+tx_000332,2026-05-18T02:20:13,card_018,38.25,eBay,online_retail,online,CA,US,dev_b6cde5be,24.114.165.220
+tx_000930,2026-05-18T02:34:02,card_045,42.97,IGA,grocery,in_person,FR,FR,,
+tx_000559,2026-05-18T03:23:27,card_030,28.32,La Banquise,restaurant,in_person,DE,DE,,
+tx_000925,2026-05-18T03:41:43,card_022,40.73,Starbucks,restaurant,in_person,CA,CA,,
+tx_000271,2026-05-18T04:03:15,card_014,13.60,Whole Foods,grocery,in_person,FR,FR,,
+tx_000668,2026-05-18T04:07:04,card_036,13.99,Disney+,subscription,online,CA,US,dev_b7bc6824,142.112.30.155
+tx_000926,2026-05-18T05:04:01,card_022,20.88,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000547,2026-05-18T05:20:45,card_029,19.69,Bell Canada,utilities,online,CA,CA,dev_600be23f,99.225.210.16
+tx_000719,2026-05-18T05:31:29,card_038,38.92,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000438,2026-05-18T05:35:26,card_023,12.04,eBay,online_retail,online,CA,US,dev_72d3f36b,70.50.33.201
+tx_000867,2026-05-18T06:07:30,card_046,40.00,BMO ATM,atm,atm,CA,CA,,
+tx_000927,2026-05-18T06:42:41,card_022,100.00,RBC ATM,atm,atm,CA,CA,,
+tx_000632,2026-05-18T07:39:30,card_034,7.78,Hydro-Quebec,utilities,online,CA,CA,dev_a0256e48,99.225.199.138
+tx_000718,2026-05-18T08:19:14,card_038,15.00,La Banquise,restaurant,in_person,CA,CA,,
+tx_000691,2026-05-18T08:40:23,card_037,52.58,Shell,gas,in_person,CA,CA,,
+tx_000277,2026-05-18T08:43:44,card_014,22.72,Tim Hortons,restaurant,in_person,FR,FR,,
+tx_000345,2026-05-18T09:54:17,card_018,18.31,eBay,online_retail,online,CA,US,dev_9153fdea,70.50.240.96
+tx_000620,2026-05-18T10:07:29,card_033,88.54,Starbucks,restaurant,in_person,GB,GB,,
+tx_000511,2026-05-18T10:11:32,card_027,60.00,RBC ATM,atm,atm,CA,CA,,
+tx_000095,2026-05-18T10:28:16,card_005,19.99,Netflix,subscription,online,CA,US,dev_45d2fa60,99.225.231.211
+tx_000789,2026-05-18T11:57:28,card_042,71.34,Whole Foods,grocery,in_person,US,US,,
+tx_000888,2026-05-18T13:38:53,card_048,20.00,BMO ATM,atm,atm,GB,GB,,
+tx_000334,2026-05-18T15:31:56,card_018,30.51,Whole Foods,grocery,in_person,CA,CA,,
+tx_000899,2026-05-18T15:57:27,card_048,30.82,QuickPay Online,online_retail,online,GB,CA,dev_3bbcb503,86.150.57.207
+tx_000739,2026-05-18T16:55:07,card_040,17.93,Shell,gas,in_person,CA,CA,,
+tx_000199,2026-05-18T19:27:17,card_010,8.38,QuickPay Online,online_retail,online,US,CA,dev_26274369,208.54.43.71
+tx_000482,2026-05-18T19:53:54,card_026,13.55,Chevron,gas,in_person,US,US,,
+tx_000912,2026-05-18T20:12:23,card_049,35.51,Cineplex,entertainment,in_person,CA,CA,,
+tx_000301,2026-05-18T21:12:02,card_016,59.15,IGA,grocery,in_person,CA,CA,,
+tx_000931,2026-05-18T21:40:44,card_045,39.38,Metro,grocery,in_person,FR,FR,,
+tx_000193,2026-05-18T23:08:46,card_010,14.85,Cafe Olimpico,restaurant,in_person,US,US,,
+tx_000741,2026-05-18T23:27:55,card_040,58.56,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000361,2026-05-18T23:44:58,card_019,20.44,AliExpress,online_retail,online,CA,CN,dev_95204a30,70.50.39.58
+tx_000233,2026-05-19T00:54:36,card_012,11.69,Videotron,utilities,online,CA,CA,dev_08e633ee,99.225.239.166
+tx_000207,2026-05-19T01:31:18,card_011,10.39,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000751,2026-05-19T02:02:03,card_040,13.99,Netflix,subscription,online,CA,US,dev_abd8db53,24.114.138.190
+tx_000846,2026-05-19T03:15:35,card_045,29.58,McDonald's,restaurant,in_person,FR,FR,,
+tx_000304,2026-05-19T04:44:14,card_016,71.31,Shell,gas,in_person,CA,CA,,
+tx_000775,2026-05-19T04:52:43,card_041,15.27,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000228,2026-05-19T05:59:52,card_012,25.11,Shopify Merchant 1,online_retail,online,CA,CA,dev_08e633ee,99.225.96.55
+tx_000242,2026-05-19T06:09:44,card_012,30.52,Loblaws,grocery,in_person,CA,CA,,
+tx_000254,2026-05-19T06:26:18,card_013,15.99,Netflix,subscription,online,CA,US,dev_e5c2222f,70.50.200.162
+tx_000532,2026-05-19T07:03:14,card_028,13.33,AliExpress,online_retail,online,CA,CN,dev_bea30580,70.50.232.23
+tx_000531,2026-05-19T07:51:01,card_028,27.11,IGA,grocery,in_person,CA,CA,,
+tx_000017,2026-05-19T08:05:05,card_000,17.07,Starbucks,restaurant,in_person,CA,CA,,
+tx_000576,2026-05-19T08:14:12,card_031,57.72,Videotron,utilities,online,CA,CA,dev_3692eb01,99.225.122.22
+tx_000240,2026-05-19T08:37:31,card_012,24.35,Amazon.ca,online_retail,online,CA,CA,dev_08e633ee,142.112.147.125
+tx_000920,2026-05-19T08:43:15,card_016,1900.28,Apple Store,electronics,in_person,CA,CA,,
+tx_000561,2026-05-19T10:21:33,card_030,30.90,Videotron,utilities,online,DE,CA,dev_f7415d64,77.10.213.121
+tx_000470,2026-05-19T11:34:30,card_025,26.95,eBay,online_retail,online,CA,US,dev_0bded435,24.114.53.12
+tx_000477,2026-05-19T13:07:23,card_025,15.99,Spotify,subscription,online,CA,SE,dev_0bded435,24.114.21.59
+tx_000461,2026-05-19T13:29:58,card_024,17.54,IGA,grocery,in_person,CA,CA,,
+tx_000597,2026-05-19T14:59:41,card_032,63.02,AliExpress,online_retail,online,CA,CN,dev_52854151,99.225.17.161
+tx_000542,2026-05-19T16:14:26,card_029,35.82,AliExpress,online_retail,online,CA,CN,dev_72eedf3c,99.225.95.3
+tx_000923,2026-05-19T16:17:03,card_036,614.82,Air Canada,travel,online,CA,CA,dev_f8ffc747,99.225.215.80
+tx_000002,2026-05-19T17:02:20,card_000,39.34,Shell,gas,in_person,CA,CA,,
+tx_000205,2026-05-19T17:27:26,card_011,25.43,McDonald's,restaurant,in_person,CA,CA,,
+tx_000166,2026-05-19T17:30:23,card_008,18.64,Chipotle,restaurant,in_person,CA,CA,,
+tx_000160,2026-05-19T17:56:45,card_008,21.06,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000323,2026-05-19T21:46:55,card_017,40.00,RBC ATM,atm,atm,CA,CA,,
+tx_000432,2026-05-19T22:16:48,card_023,22.60,La Banquise,restaurant,in_person,CA,CA,,
+tx_000076,2026-05-19T22:17:58,card_004,23.59,McDonald's,restaurant,in_person,CA,CA,,
+tx_000588,2026-05-19T23:10:32,card_031,60.00,RBC ATM,atm,atm,CA,CA,,
+tx_000248,2026-05-19T23:23:05,card_013,23.10,Amazon.ca,online_retail,online,CA,CA,dev_e5c2222f,99.225.135.12
+tx_000071,2026-05-20T00:07:49,card_003,61.80,Amazon.ca,online_retail,online,CA,CA,dev_6fdbe52d,99.225.211.146
+tx_000379,2026-05-20T01:33:44,card_020,16.09,Chevron,gas,in_person,US,US,,
+tx_000763,2026-05-20T01:43:35,card_041,26.41,Metro,grocery,in_person,CA,CA,,
+tx_000599,2026-05-20T01:45:18,card_032,40.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000824,2026-05-20T01:54:37,card_044,277.64,QuickPay Online,online_retail,online,GB,CA,dev_8ae75196,151.225.63.111
+tx_000592,2026-05-20T02:16:42,card_032,108.65,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000646,2026-05-20T03:01:33,card_035,15.99,Disney+,subscription,online,CA,US,dev_37f4b88c,70.50.79.29
+tx_000804,2026-05-20T03:49:37,card_043,11.18,Hydro-Quebec,utilities,online,CA,CA,dev_c832252e,142.112.148.67
+tx_000471,2026-05-20T04:59:02,card_025,100.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000706,2026-05-20T05:28:59,card_038,6.90,Petro-Canada,gas,in_person,CA,CA,,
+tx_000687,2026-05-20T07:03:42,card_037,23.22,Provigo,grocery,in_person,CA,CA,,
+tx_000245,2026-05-20T07:54:11,card_012,18.98,QuickPay Online,online_retail,online,CA,CA,dev_08e633ee,70.50.164.104
+tx_000064,2026-05-20T08:55:21,card_003,24.42,Loblaws,grocery,in_person,CA,CA,,
+tx_000558,2026-05-20T10:24:57,card_030,31.79,AliExpress,online_retail,online,DE,CN,dev_f003a772,188.62.30.240
+tx_000758,2026-05-20T10:34:33,card_040,10.19,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000335,2026-05-20T11:09:02,card_018,20.50,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000929,2026-05-20T12:24:55,card_045,17.36,Tim Hortons,restaurant,in_person,FR,FR,,
+tx_000575,2026-05-20T12:51:58,card_031,10.07,Amazon.ca,online_retail,online,CA,CA,dev_e92d5721,24.114.61.171
+tx_000044,2026-05-20T13:06:24,card_002,10.90,Etsy,online_retail,online,CA,US,dev_6200257c,24.114.16.187
+tx_000272,2026-05-20T13:10:14,card_014,18.35,Provigo,grocery,in_person,FR,FR,,
+tx_000192,2026-05-20T13:17:05,card_010,53.94,Schwartz's,restaurant,in_person,US,US,,
+tx_000938,2026-05-20T13:23:24,card_048,28.03,Bell Canada,utilities,online,CA,CA,dev_01dc5240,99.225.135.67
+tx_000506,2026-05-20T14:00:14,card_027,17.83,Loblaws,grocery,in_person,CA,CA,,
+tx_000367,2026-05-20T14:29:49,card_019,46.05,eBay,online_retail,online,CA,US,dev_95204a30,99.225.182.196
+tx_000347,2026-05-20T15:29:41,card_018,33.07,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000449,2026-05-20T15:40:10,card_024,30.56,Chevron,gas,in_person,CA,CA,,
+tx_000435,2026-05-20T16:27:43,card_023,79.77,eBay,online_retail,online,CA,US,dev_72d3f36b,70.50.197.113
+tx_000299,2026-05-20T18:34:44,card_016,106.00,Bell Canada,utilities,online,CA,CA,dev_bc979ff9,24.114.83.26
+tx_000808,2026-05-20T19:02:46,card_043,40.31,Etsy,online_retail,online,CA,US,dev_c832252e,24.114.75.27
+tx_000933,2026-05-20T19:29:09,card_045,52.08,Joe Beef,restaurant,in_person,FR,FR,,
+tx_000924,2026-05-20T19:52:11,card_022,15.99,Netflix,subscription,online,CA,US,dev_5b97f233,142.112.39.195
+tx_000734,2026-05-20T20:23:03,card_039,10.42,Chevron,gas,in_person,GB,GB,,
+tx_000675,2026-05-20T20:25:56,card_036,36.55,IGA,grocery,in_person,CA,CA,,
+tx_000424,2026-05-20T20:33:41,card_022,19.55,Whole Foods,grocery,in_person,CA,CA,,
+tx_000252,2026-05-20T20:36:10,card_013,39.28,Hydro-Quebec,utilities,online,CA,CA,dev_e5c2222f,99.225.0.251
+tx_000696,2026-05-20T21:03:48,card_037,43.98,Esso,gas,in_person,CA,CA,,
+tx_000167,2026-05-20T21:09:17,card_009,20.23,McDonald's,restaurant,in_person,US,US,,
+tx_000578,2026-05-20T21:14:19,card_031,54.85,La Banquise,restaurant,in_person,CA,CA,,
+tx_000155,2026-05-20T22:24:36,card_008,25.17,La Banquise,restaurant,in_person,CA,CA,,
+tx_000786,2026-05-20T22:37:30,card_042,12.81,Loblaws,grocery,in_person,US,US,,
+tx_000362,2026-05-20T23:31:38,card_019,13.99,Disney+,subscription,online,CA,US,dev_95204a30,142.112.200.70
+tx_000732,2026-05-21T00:05:37,card_039,31.21,Videotron,utilities,online,GB,CA,dev_2ab5d40f,151.225.203.156
+tx_000639,2026-05-21T00:16:34,card_034,13.16,Shell,gas,in_person,CA,CA,,
+tx_000184,2026-05-21T00:47:08,card_010,22.76,Shell,gas,in_person,US,US,,
+tx_000700,2026-05-21T01:21:09,card_037,17.65,Starbucks,restaurant,in_person,CA,CA,,
+tx_000013,2026-05-21T01:29:40,card_000,36.32,Hydro-Quebec,utilities,online,CA,CA,dev_bc0178b6,99.225.243.244
+tx_000634,2026-05-21T02:02:52,card_034,40.00,BMO ATM,atm,atm,CA,CA,,
+tx_000015,2026-05-21T02:24:52,card_000,193.99,Tim Hortons,restaurant,in_person,CA,CA,,
+tx_000508,2026-05-21T03:52:42,card_027,22.37,Bell Canada,utilities,online,CA,CA,dev_7bf3c924,24.114.231.224
+tx_000295,2026-05-21T04:30:11,card_015,78.98,Videotron,utilities,online,CA,CA,dev_22a1b746,142.112.109.64
+tx_000992,2026-05-21T05:00:00,card_018,1753.33,Gift Card Mall,gift_card,online,CA,US,dev_8e47e75b,208.54.164.45
+tx_000671,2026-05-21T05:58:39,card_036,54.73,Amazon.ca,online_retail,online,CA,CA,dev_b7bc6824,99.225.56.158
+tx_000423,2026-05-21T06:00:45,card_022,41.84,Metro,grocery,in_person,CA,CA,,
+tx_000994,2026-05-21T06:20:52,card_018,1147.16,Apple Gift Card,gift_card,online,CA,US,dev_8e47e75b,208.54.164.45
+tx_000993,2026-05-21T06:46:49,card_018,1138.68,Gift Card Mall,gift_card,online,CA,US,dev_8e47e75b,208.54.164.45
+tx_000163,2026-05-21T07:15:13,card_008,54.36,eBay,online_retail,online,CA,US,dev_a088f010,24.114.163.12
+tx_000826,2026-05-21T08:44:32,card_044,67.93,La Banquise,restaurant,in_person,GB,GB,,
+tx_000697,2026-05-21T08:50:07,card_037,212.16,Cineplex,entertainment,in_person,CA,CA,,
+tx_000255,2026-05-21T10:01:33,card_013,24.32,AliExpress,online_retail,online,CA,CN,dev_e5c2222f,24.114.200.24
+tx_000928,2026-05-21T11:23:46,card_045,19.91,eBay,online_retail,online,FR,US,dev_ef83b35f,82.66.26.135
+tx_000239,2026-05-21T12:03:13,card_012,14.46,AliExpress,online_retail,online,CA,CN,dev_08e633ee,24.114.133.144
+tx_000079,2026-05-21T12:17:37,card_004,12.50,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000380,2026-05-21T12:26:41,card_020,60.54,La Banquise,restaurant,in_person,US,US,,
+tx_000653,2026-05-21T13:07:33,card_035,28.88,Starbucks,restaurant,in_person,CA,CA,,
+tx_000074,2026-05-21T13:32:08,card_004,28.24,Shell,gas,in_person,CA,CA,,
+tx_000894,2026-05-21T13:42:22,card_048,31.11,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000860,2026-05-21T14:55:17,card_046,25.63,Chevron,gas,in_person,CA,CA,,
+tx_000936,2026-05-21T15:31:41,card_048,22.41,Amazon.ca,online_retail,online,CA,CA,dev_01dc5240,142.112.2.198
+tx_000211,2026-05-21T15:50:31,card_011,28.32,Starbucks,restaurant,in_person,CA,CA,,
+tx_000571,2026-05-21T16:08:05,card_030,32.61,Tim Hortons,restaurant,in_person,DE,DE,,
+tx_000060,2026-05-21T16:39:03,card_003,136.88,Amazon.ca,online_retail,online,CA,CA,dev_d52ac3b8,142.112.227.158
+tx_000123,2026-05-21T16:52:19,card_007,108.47,Provigo,grocery,in_person,US,US,,
+tx_000728,2026-05-21T17:34:46,card_039,19.99,Netflix,subscription,online,GB,US,dev_a07baaec,92.40.46.185
+tx_000405,2026-05-21T19:36:39,card_021,51.31,La Banquise,restaurant,in_person,CA,CA,,
+tx_000891,2026-05-21T21:42:10,card_048,31.72,Shopify Merchant 1,online_retail,online,CA,CA,dev_3bbcb503,70.50.220.214
+tx_000866,2026-05-21T22:21:34,card_046,100.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000519,2026-05-22T01:46:15,card_028,132.25,Chevron,gas,in_person,CA,CA,,
+tx_000730,2026-05-22T01:50:24,card_039,22.42,Starbucks,restaurant,in_person,GB,GB,,
+tx_000144,2026-05-22T02:13:08,card_008,8.56,Chevron,gas,in_person,CA,CA,,
+tx_000704,2026-05-22T02:28:32,card_038,40.00,BMO ATM,atm,atm,CA,CA,,
+tx_000874,2026-05-22T02:32:26,card_047,73.01,Amazon.com,online_retail,online,CA,US,dev_dcad83da,70.50.88.152
+tx_000820,2026-05-22T04:24:14,card_044,54.65,La Banquise,restaurant,in_person,GB,GB,,
+tx_000863,2026-05-22T04:36:04,card_046,28.92,Starbucks,restaurant,in_person,CA,CA,,
+tx_000402,2026-05-22T05:31:42,card_021,28.65,Metro,grocery,in_person,CA,CA,,
+tx_000404,2026-05-22T05:46:54,card_021,33.13,Starbucks,restaurant,in_person,CA,CA,,
+tx_000812,2026-05-22T05:52:48,card_043,21.83,IGA,grocery,in_person,CA,CA,,
+tx_000195,2026-05-22T06:06:51,card_010,40.76,Schwartz's,restaurant,in_person,US,US,,
+tx_000369,2026-05-22T06:38:43,card_020,71.96,QuickPay Online,online_retail,online,US,CA,dev_2877f7d9,73.15.92.225
+tx_000650,2026-05-22T06:46:14,card_035,54.45,Amazon.ca,online_retail,online,CA,CA,dev_37f4b88c,70.50.32.190
+tx_000008,2026-05-22T07:05:41,card_000,77.44,Esso,gas,in_person,CA,CA,,
+tx_000539,2026-05-22T07:13:58,card_029,38.86,Shell,gas,in_person,CA,CA,,
+tx_000359,2026-05-22T07:14:06,card_019,28.46,Shopify Merchant 1,online_retail,online,CA,CA,dev_95204a30,24.114.179.61
+tx_000841,2026-05-22T07:16:56,card_045,22.29,Etsy,online_retail,online,FR,US,dev_ba413b67,176.158.165.165
+tx_000159,2026-05-22T08:18:39,card_008,11.99,Netflix,subscription,online,CA,US,dev_a088f010,142.112.173.246
+tx_000469,2026-05-22T08:40:07,card_025,41.49,Amazon.com,online_retail,online,CA,US,dev_d9156309,70.50.19.22
+tx_000535,2026-05-22T08:52:26,card_028,5.66,Metro,grocery,in_person,CA,CA,,
+tx_000473,2026-05-22T09:26:25,card_025,19.99,Spotify,subscription,online,CA,SE,dev_d9156309,70.50.44.238
+tx_000093,2026-05-22T11:48:40,card_005,16.22,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000556,2026-05-22T12:24:32,card_029,47.02,McDonald's,restaurant,in_person,CA,CA,,
+tx_000020,2026-05-22T13:34:35,card_001,132.86,Hydro-Quebec,utilities,online,CA,CA,dev_8080a2c9,142.112.199.194
+tx_000236,2026-05-22T13:51:36,card_012,13.01,Shopify Merchant 1,online_retail,online,CA,CA,dev_08e633ee,142.112.143.27
+tx_000934,2026-05-22T14:52:23,card_048,15.47,QuickPay Online,online_retail,online,CA,CA,dev_01dc5240,24.114.112.177
+tx_000190,2026-05-22T15:40:00,card_010,115.62,Shopify Merchant 2,online_retail,online,US,CA,dev_94ddeaf2,73.15.50.109
+tx_000033,2026-05-22T15:59:57,card_001,22.87,AliExpress,online_retail,online,CA,CN,dev_8d790a73,142.112.59.148
+tx_000309,2026-05-22T16:16:23,card_016,44.01,Cineplex,entertainment,in_person,CA,CA,,
+tx_000791,2026-05-22T17:22:02,card_042,15.65,Tim Hortons,restaurant,in_person,US,US,,
+tx_000209,2026-05-22T17:42:12,card_011,5.87,Starbucks,restaurant,in_person,CA,CA,,
+tx_000467,2026-05-22T17:51:50,card_025,38.06,Amazon.com,online_retail,online,CA,US,dev_0bded435,70.50.199.49
+tx_000455,2026-05-22T18:50:22,card_024,57.62,Shell,gas,in_person,CA,CA,,
+tx_000919,2026-05-22T19:54:59,card_049,9.99,Netflix,subscription,online,CA,US,dev_2d66c302,70.50.198.122
+tx_000857,2026-05-22T20:29:35,card_046,13.99,Spotify,subscription,online,CA,SE,dev_b8fe1cb0,99.225.92.23
+tx_000223,2026-05-22T20:29:39,card_011,6.42,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000492,2026-05-22T22:02:16,card_026,15.99,Netflix,subscription,online,US,US,dev_db3feacf,73.15.250.152
+tx_000762,2026-05-22T23:01:44,card_041,11.99,Netflix,subscription,online,CA,US,dev_614ef198,99.225.180.83
+tx_000502,2026-05-23T01:32:21,card_027,32.00,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000818,2026-05-23T03:53:51,card_044,4.56,AliExpress,online_retail,online,GB,CN,dev_8ae75196,86.150.97.181
+tx_000541,2026-05-23T04:59:24,card_029,200.00,BMO ATM,atm,atm,CA,CA,,
+tx_000269,2026-05-23T06:03:35,card_014,57.98,Cineplex,entertainment,in_person,FR,FR,,
+tx_000290,2026-05-23T06:07:53,card_015,102.60,Videotron,utilities,online,CA,CA,dev_22a1b746,99.225.114.61
+tx_000046,2026-05-23T06:53:57,card_002,19.94,Whole Foods,grocery,in_person,CA,CA,,
+tx_000086,2026-05-23T06:56:32,card_004,23.48,Petro-Canada,gas,in_person,CA,CA,,
+tx_000153,2026-05-23T06:57:08,card_008,25.74,Loblaws,grocery,in_person,CA,CA,,
+tx_000004,2026-05-23T07:05:41,card_000,176.05,Bell Canada,utilities,online,CA,CA,dev_bc0178b6,24.114.3.48
+tx_000025,2026-05-23T07:45:13,card_001,57.73,Videotron,utilities,online,CA,CA,dev_8080a2c9,99.225.213.186
+tx_000673,2026-05-23T08:54:03,card_036,13.99,Spotify,subscription,online,CA,SE,dev_f8ffc747,142.112.195.97
+tx_000431,2026-05-23T09:28:09,card_023,12.76,Amazon.ca,online_retail,online,CA,CA,dev_72d3f36b,142.112.221.207
+tx_000754,2026-05-23T09:34:28,card_040,10.09,Joe Beef,restaurant,in_person,CA,CA,,
+tx_000357,2026-05-23T09:52:14,card_019,46.52,Amazon.com,online_retail,online,CA,US,dev_95204a30,99.225.56.150
+tx_000937,2026-05-23T10:08:18,card_048,20.00,BMO ATM,atm,atm,CA,CA,,
+tx_000582,2026-05-23T10:17:14,card_031,16.37,eBay,online_retail,online,CA,US,dev_e92d5721,70.50.217.130
+tx_000366,2026-05-23T10:23:26,card_019,29.71,Etsy,online_retail,online,CA,US,dev_95204a30,24.114.77.211
+tx_000082,2026-05-23T11:00:57,card_004,13.99,Netflix,subscription,online,CA,US,dev_56520353,24.114.88.94
+tx_000601,2026-05-23T12:08:59,card_032,74.54,Schwartz's,restaurant,in_person,CA,CA,,
+tx_000798,2026-05-23T12:24:50,card_042,19.78,Schwartz's,restaurant,in_person,US,US,,
+tx_000016,2026-05-23T12:29:14,card_000,87.62,Chevron,gas,in_person,CA,CA,,
+tx_000171,2026-05-23T12:33:59,card_009,9.99,Spotify,subscription,online,US,SE,dev_b62b3697,98.207.152.41
+tx_000498,2026-05-23T13:14:34,card_027,200.00,RBC ATM,atm,atm,CA,CA,,
+tx_000834,2026-05-23T16:05:54,card_044,176.63,Metro,grocery,in_person,GB,GB,,
+tx_000439,2026-05-23T17:58:53,card_023,24.44,Amazon.ca,online_retail,online,CA,CA,dev_72d3f36b,24.114.127.133
+tx_000237,2026-05-23T18:59:04,card_012,28.66,Etsy,online_retail,online,CA,US,dev_08e633ee,24.114.89.6
+tx_000625,2026-05-23T19:11:48,card_034,13.89,Shell,gas,in_person,CA,CA,,
+tx_000158,2026-05-23T19:58:49,card_008,44.02,Etsy,online_retail,online,CA,US,dev_a088f010,142.112.207.59
+tx_000152,2026-05-23T20:08:09,card_008,41.73,QuickPay Online,online_retail,online,CA,CA,dev_a088f010,24.114.51.209
+tx_000058,2026-05-23T21:26:52,card_003,40.00,Desjardins ATM,atm,atm,CA,CA,,
+tx_000026,2026-05-23T23:29:04,card_001,84.21,Bell Canada,utilities,online,CA,CA,dev_8d790a73,70.50.37.206
+tx_000208,2026-05-23T23:52:43,card_011,8.57,Starbucks,restaurant,in_person,CA,CA,,
+tx_000191,2026-05-24T01:39:42,card_010,43.05,McDonald's,restaurant,in_person,US,US,,
+tx_000296,2026-05-24T02:07:06,card_015,23.86,Etsy,online_retail,online,CA,US,dev_22a1b746,70.50.209.7
+tx_000042,2026-05-24T02:24:37,card_002,200.00,BMO ATM,atm,atm,CA,CA,,
+tx_000371,2026-05-24T02:52:26,card_020,11.99,Disney+,subscription,online,US,US,dev_2877f7d9,73.15.118.228
+tx_000723,2026-05-24T03:07:35,card_039,7.53,eBay,online_retail,online,GB,US,dev_2ab5d40f,151.225.51.247
+tx_000109,2026-05-24T03:23:33,card_006,23.93,Videotron,utilities,online,CA,CA,dev_1321b774,99.225.23.133
+tx_000227,2026-05-24T03:52:56,card_012,20.76,Amazon.com,online_retail,online,CA,US,dev_08e633ee,99.225.89.43
+tx_000146,2026-05-24T04:20:11,card_008,22.38,Metro,grocery,in_person,CA,CA,,
+tx_000707,2026-05-24T07:01:54,card_038,15.99,Disney+,subscription,online,CA,US,dev_9b386adc,99.225.140.18
+tx_000386,2026-05-24T07:40:52,card_020,15.99,Disney+,subscription,online,US,US,dev_2877f7d9,208.54.28.38
+tx_000590,2026-05-24T07:57:46,card_032,92.60,QuickPay Online,online_retail,online,CA,CA,dev_52854151,24.114.107.222
+tx_000892,2026-05-24T08:14:13,card_048,15.24,McDonald's,restaurant,in_person,CA,CA,,
+tx_000121,2026-05-24T08:14:33,card_006,25.13,Amazon.com,online_retail,online,CA,US,dev_1321b774,24.114.65.217
+tx_000773,2026-05-24T08:15:13,card_041,24.96,Metro,grocery,in_person,CA,CA,,
+tx_000772,2026-05-24T08:20:43,card_041,71.29,Shell,gas,in_person,CA,CA,,
+tx_000011,2026-05-24T10:25:11,card_000,16.87,Shell,gas,in_person,CA,CA,,
+tx_000713,2026-05-24T10:48:35,card_038,20.91,Cineplex,entertainment,in_person,CA,CA,,
+tx_000148,2026-05-24T11:04:46,card_008,11.86,Cafe Olimpico,restaurant,in_person,CA,CA,,
+tx_000468,2026-05-24T11:18:16,card_025,20.00,RBC ATM,atm,atm,CA,CA,,
+tx_000370,2026-05-24T11:32:23,card_020,61.67,Shopify Merchant 2,online_retail,online,US,CA,dev_2877f7d9,98.207.187.231
+tx_000932,2026-05-24T11:43:50,card_045,17.66,Shopify Merchant 2,online_retail,online,FR,CA,dev_ef83b35f,90.5.36.7
+tx_000507,2026-05-24T11:56:38,card_027,23.12,Whole Foods,grocery,in_person,CA,CA,,
+tx_000777,2026-05-24T14:35:20,card_041,140.25,Videotron,utilities,online,CA,CA,dev_614ef198,24.114.187.195
+tx_000010,2026-05-24T15:26:59,card_000,11.85,Videotron,utilities,online,CA,CA,dev_bc0178b6,70.50.128.169
+tx_000150,2026-05-24T15:36:39,card_008,15.28,Etsy,online_retail,online,CA,US,dev_a088f010,142.112.47.170
+tx_000811,2026-05-24T17:14:02,card_043,9.99,Spotify,subscription,online,CA,SE,dev_c832252e,142.112.106.156
+tx_000726,2026-05-24T17:34:40,card_039,21.06,Amazon.ca,online_retail,online,GB,CA,dev_2ab5d40f,92.40.8.115
+tx_000360,2026-05-24T18:17:42,card_019,11.99,Disney+,subscription,online,CA,US,dev_95204a30,24.114.172.229
+tx_000769,2026-05-24T18:41:39,card_041,15.99,Disney+,subscription,online,CA,US,dev_614ef198,99.225.109.92
+tx_000291,2026-05-24T18:57:21,card_015,19.89,Esso,gas,in_person,CA,CA,,
+tx_000722,2026-05-24T19:16:39,card_039,45.52,IGA,grocery,in_person,GB,GB,,
+tx_000176,2026-05-24T20:36:40,card_009,53.92,Shopify Merchant 1,online_retail,online,US,CA,dev_b62b3697,208.54.100.140
+tx_000270,2026-05-24T20:38:43,card_014,19.81,Amazon.ca,online_retail,online,FR,CA,dev_7c98f9e4,176.158.221.253
+tx_000935,2026-05-24T20:43:02,card_048,43.64,Shopify Merchant 1,online_retail,online,CA,CA,dev_01dc5240,99.225.185.103
+tx_000486,2026-05-24T20:43:48,card_026,21.69,Starbucks,restaurant,in_person,US,US,,
+tx_000187,2026-05-24T20:50:55,card_010,15.99,Disney+,subscription,online,US,US,dev_26274369,208.54.199.53
+tx_000847,2026-05-24T21:17:48,card_045,39.13,La Banquise,restaurant,in_person,FR,FR,,
+tx_000021,2026-05-24T21:52:23,card_001,11.99,Disney+,subscription,online,CA,US,dev_8d790a73,24.114.160.30
+tx_000683,2026-05-24T22:48:39,card_037,17.67,Joe Beef,restaurant,in_person,CA,CA,,
