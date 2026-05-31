@@ -97,31 +97,35 @@ def build_tx_record(row: pd.Series, min_score: float, max_score: float) -> dict:
       ts, score, merchant, loc, txid, ip, reason
     }
     """
-    score     = float(row.get("fraud_score", 0))
-    amount    = float(row.get("amount", 0))
-    ip        = row.get("ip_address", "N/A")
-    ip        = "N/A" if pd.isna(ip) else str(ip)
+    score      = float(row.get("fraud_score", 0))
+    amount     = float(row.get("amount", 0))
+    ip         = row.get("ip_address", "N/A")
+    ip         = "N/A" if pd.isna(ip) else str(ip)
+    is_flagged = bool(row.get("is_flagged", False))
+    status     = str(row.get("review_status", "pending" if is_flagged else "clear"))
 
     return {
         "id":         f"#{row['transaction_id']}",
         "card":       str(row["card_id"]),
         "amount":     f"${amount:,.2f}",
         "amountNum":  round(amount, 2),
-        "pattern":    pattern_label(row),
-        "badgeClass": badge_class(score),
+        "pattern":    pattern_label(row) if is_flagged else "",
+        "badgeClass": badge_class(score) if is_flagged else "badge-accent",
         "ts":         format_timestamp(str(row.get("timestamp", ""))),
-        "score": score_to_100(score, min_score, max_score),
+        "score":      score_to_100(score, min_score, max_score) if is_flagged else 0,
         "merchant":   str(row.get("merchant_name", "")),
         "loc":        format_location(row),
         "txid":       str(row["transaction_id"]),
         "ip":         ip,
-        "reason":     str(row.get("flag_reasons", "Anomaly score threshold exceeded")),
+        "reason":     str(row.get("flag_reasons", "Anomaly score threshold exceeded")) if is_flagged else "Normal transaction. No fraud pattern detected.",
+        "isFlagged":  is_flagged,
+        "reviewStatus": status,
     }
 
 
 # ── Dashboard summary stats ───────────────────────────────────────────────────
 # The frontend has two stat elements: stat-total-frauds and stat-money-loss.
-# We also update the gauge score and the pattern card counts.
+# Pattern cards are rendered dynamically in 67.html from the injected txData.
 
 def build_stats(flagged: pd.DataFrame, all_df: pd.DataFrame) -> dict:
     total_flagged  = len(flagged)
@@ -172,31 +176,9 @@ def inject_into_html(records: list[dict], stats: dict, html_path: Path) -> None:
         html
     )
 
-    # 4. Update pattern card resolve counts to reflect real data
-    # Pattern A = Velocity Burst
-    html = re.sub(
-        r'(Pattern A.*?resolve-count[^>]*>)\d+ to resolve',
-        rf'\g<1>{stats["velocity_count"]} to resolve',
-        html, flags=re.DOTALL
-    )
-    # Pattern B = Merchant Burst (mapped to BIN Mismatch slot)
-    html = re.sub(
-        r'(Pattern B.*?resolve-count[^>]*>)\d+ to resolve',
-        rf'\g<1>{stats["burst_count"]} to resolve',
-        html, flags=re.DOTALL
-    )
-    # Pattern C = Gift Card (mapped to Micro-auth slot)
-    html = re.sub(
-        r'(Pattern C.*?resolve-count[^>]*>)\d+ to resolve',
-        rf'\g<1>{stats["gift_count"]} to resolve',
-        html, flags=re.DOTALL
-    )
-    # Pattern D = Amount Anomaly (mapped to Geo-Hopping slot)
-    html = re.sub(
-        r'(Pattern D.*?resolve-count[^>]*>)\d+ to resolve',
-        rf'\g<1>{stats["amount_count"]} to resolve',
-        html, flags=re.DOTALL
-    )
+    # 4. Pattern names, counts, and bars are now computed in 67.html from txData.
+    # Do not overwrite them here; this keeps the dashboard aligned with any
+    # backend-detected pattern labels.
 
     html_path.write_text(html, encoding="utf-8")
 
@@ -219,12 +201,16 @@ def run():
     print(f"  Loaded: {len(df):,} total transactions")
 
     flagged = df[df["is_flagged"] == True].copy()
-    flagged = flagged.sort_values("fraud_score", ascending=False).reset_index(drop=True)
-    print(f"  Flagged: {len(flagged)} transactions to inject")
+    print(f"  Flagged: {len(flagged)} transactions")
 
-    min_score = flagged["fraud_score"].min()
-    max_score = flagged["fraud_score"].max()
-    records = [build_tx_record(row, min_score, max_score) for _, row in flagged.iterrows()]
+    if flagged.empty:
+        min_score = 0
+        max_score = 1
+    else:
+        min_score = flagged["fraud_score"].min()
+        max_score = flagged["fraud_score"].max()
+
+    records = [build_tx_record(row, min_score, max_score) for _, row in df.iterrows()]
     stats   = build_stats(flagged, df)
 
     inject_into_html(records, stats, HTML_PATH)

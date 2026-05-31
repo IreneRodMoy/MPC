@@ -353,36 +353,7 @@
           </div>
 
           <!-- Pattern cards -->
-          <div class="pattern-grid">
-            <div class="pattern-card" onclick="openPattern('Velocity Spike')">
-              <div class="pattern-label">Pattern A</div>
-              <div class="pattern-name">Velocity Spike</div>
-              <div class="pattern-desc">Transactions exceeding 5 units/min per IP.</div>
-              <div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--red)"></div></div>
-              <div class="resolve-count" id="count-velocity">23 to resolve</div>
-            </div>
-            <div class="pattern-card" onclick="openPattern('BIN Mismatch')">
-              <div class="pattern-label">Pattern B</div>
-              <div class="pattern-name">BIN Mismatch</div>
-              <div class="pattern-desc">Card origin differs from transaction IP.</div>
-              <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--blue)"></div></div>
-              <div class="resolve-count" id="count-bin">44 to resolve</div>
-            </div>
-            <div class="pattern-card" onclick="openPattern('Micro-auth')">
-              <div class="pattern-label">Pattern C</div>
-              <div class="pattern-name">Micro-auth Test</div>
-              <div class="pattern-desc">Low-value attempts on new accounts.</div>
-              <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--green)"></div></div>
-              <div class="resolve-count" id="count-micro">7 to resolve</div>
-            </div>
-            <div class="pattern-card" onclick="openPattern('Geo-Hopping')">
-              <div class="pattern-label">Pattern D</div>
-              <div class="pattern-name">Geo-Hopping</div>
-              <div class="pattern-desc">Impossible travel between transactions.</div>
-              <div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--amber)"></div></div>
-              <div class="resolve-count" id="count-geo">37 to resolve</div>
-            </div>
-          </div>
+          <div class="pattern-grid" id="pattern-grid"></div>
         </div>
 
         <!-- Action queue -->
@@ -430,10 +401,6 @@
                 <label>Pattern</label>
                 <select class="filter-select" id="f-pattern">
                   <option value="">All</option>
-                  <option value="Velocity Spike">Velocity Spike</option>
-                  <option value="Micro-auth">Micro-auth</option>
-                  <option value="Geo-Hopping">Geo-Hopping</option>
-                  <option value="BIN Mismatch">BIN Mismatch</option>
                 </select>
               </div>
               <div class="filter-group">
@@ -1516,15 +1483,72 @@ function calcSummaryStats() {
   const money = txData.reduce((s, t) => s + t.amountNum, 0);
   document.getElementById('stat-total-frauds').textContent = total + ' flagged';
   document.getElementById('stat-money-loss').textContent = '$' + money.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-  updatePatternCounts();
+  renderPatternCards();
+  renderPatternFilterOptions();
 }
 
-function updatePatternCounts() {
-  const countPattern = patternName => txData.filter(t => t.pattern === patternName).length;
-  document.getElementById('count-velocity').textContent = countPattern('Velocity Spike') + ' to resolve';
-  document.getElementById('count-bin').textContent = countPattern('BIN Mismatch') + ' to resolve';
-  document.getElementById('count-micro').textContent = countPattern('Micro-auth') + ' to resolve';
-  document.getElementById('count-geo').textContent = countPattern('Geo-Hopping') + ' to resolve';
+function getPatternStats() {
+  const counts = txData.reduce((acc, t) => {
+    const pattern = t.pattern || 'Uncategorized';
+    acc[pattern] = (acc[pattern] || 0) + 1;
+    return acc;
+  }, {});
+
+  return Object.entries(counts)
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+}
+
+function patternDescription(patternName) {
+  const lower = patternName.toLowerCase();
+  if (lower.includes('velocity')) return 'Rapid transaction activity detected on one card.';
+  if (lower.includes('gift')) return 'Gift-card related fraud signal detected.';
+  if (lower.includes('electronics')) return 'Electronics purchase spike detected.';
+  if (lower.includes('amount')) return 'Transaction amount is unusual for the card.';
+  if (lower.includes('merchant')) return 'Many flagged transactions share one merchant.';
+  if (lower.includes('risk')) return 'Backend risk score exceeded the review threshold.';
+  return 'Backend-detected fraud pattern from uploaded data.';
+}
+
+function patternColor(index) {
+  return ['var(--red)', 'var(--blue)', 'var(--green)', 'var(--amber)'][index % 4];
+}
+
+function renderPatternCards() {
+  const grid = document.getElementById('pattern-grid');
+  const patterns = getPatternStats().slice(0, 4);
+  const maxCount = Math.max(...patterns.map(p => p.count), 1);
+
+  if (!patterns.length) {
+    grid.innerHTML = '<div class="pattern-card"><div class="pattern-label">No Patterns</div><div class="pattern-name">No flagged transactions</div><div class="pattern-desc">Upload and analyze a CSV to populate detected patterns.</div><div class="bar-track"><div class="bar-fill" style="width:0%;background:var(--accent)"></div></div><div class="resolve-count">0 to resolve</div></div>';
+    return;
+  }
+
+  grid.innerHTML = patterns.map((pattern, index) => {
+    const label = 'Pattern ' + String.fromCharCode(65 + index);
+    const barWidth = Math.max(8, Math.round((pattern.count / maxCount) * 100));
+    const color = patternColor(index);
+    return `
+      <div class="pattern-card" onclick="openPattern(${JSON.stringify(pattern.name).replace(/"/g, '&quot;')})">
+        <div class="pattern-label">${label}</div>
+        <div class="pattern-name">${pattern.name}</div>
+        <div class="pattern-desc">${patternDescription(pattern.name)}</div>
+        <div class="bar-track"><div class="bar-fill" style="width:${barWidth}%;background:${color}"></div></div>
+        <div class="resolve-count">${pattern.count} to resolve</div>
+      </div>`;
+  }).join('');
+}
+
+function renderPatternFilterOptions() {
+  const selected = document.getElementById('f-pattern').value;
+  const options = getPatternStats()
+    .map(pattern => `<option value="${pattern.name.replace(/"/g, '&quot;')}">${pattern.name}</option>`)
+    .join('');
+
+  document.getElementById('f-pattern').innerHTML = '<option value="">All</option>' + options;
+  if (getPatternStats().some(pattern => pattern.name === selected)) {
+    document.getElementById('f-pattern').value = selected;
+  }
 }
 
 /* ─── PAGE NAV ─── */
@@ -1588,7 +1612,7 @@ function applyFilter() {
     if (risk === 'medium' && (t.score < 70 || t.score >= 85)) return false;
     if (risk === 'low'    && t.score >= 70) return false;
     if (t.amountNum < amtMin || t.amountNum > amtMax) return false;
-    if (pat && !t.pattern.includes(pat)) return false;
+    if (pat && t.pattern !== pat) return false;
     if (stat) {
       const s = txStatus[t.origIdx] || 'pending';
       const actualStat = s === 'approve' ? 'approved' : s === 'reject' ? 'rejected' : s === 'escalate' ? 'escalated' : 'pending';
