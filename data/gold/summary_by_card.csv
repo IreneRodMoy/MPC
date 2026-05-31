@@ -1,0 +1,51 @@
+card_id,total_tx,flagged_tx,max_fraud_score,total_amount,flag_rate,top_reason
+card_020,27,4,0.5,4308.76,0.15,Amount 34.4× card median · Electronics spike · Odd hours: 3am
+card_018,22,3,0.5,4700.2,0.14,Amount 55.1× card median · Gift card purchase · Odd hours: 5am
+card_023,28,7,0.5,541.16,0.25,Velocity burst: 4 transactions in 30 min · Merchant burst: 17 cards hit AliExpress in 24h · Odd hours: 5am
+card_038,29,7,0.45,824.95,0.24,Velocity burst: 9 transactions in 30 min · Merchant burst: 16 cards hit AliExpress in 24h
+card_030,17,2,0.45,1588.67,0.12,Amount 20.1× card median · Electronics spike
+card_021,22,1,0.45,2379.2200000000003,0.05,Amount 23.1× card median · Electronics spike
+card_019,22,2,0.45,1961.29,0.09,Amount 11.7× card median · Gift card purchase
+card_049,27,8,0.45,1324.79,0.3,Velocity burst: 10 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h
+card_045,22,1,0.45,2150.2599999999998,0.05,Amount 42.2× card median · Gift card purchase
+card_042,29,4,0.45,643.35,0.14,Velocity burst: 5 transactions in 30 min · Merchant burst: 8 cards hit Shopify Merchant 1 in 24h
+card_000,21,1,0.45,2196.82,0.05,Amount 28.1× card median · Electronics spike
+card_016,18,3,0.45,5444.49,0.17,Amount 30.6× card median · Electronics spike
+card_002,21,2,0.4,1370.18,0.1,Amount 10.0× card median · Merchant burst: 16 cards hit BMO ATM in 24h · Odd hours: 2am
+card_039,18,1,0.4,712.2099999999999,0.06,Amount 20.3× card median · Merchant burst: 10 cards hit QuickPay Online in 24h · Odd hours: 3am
+card_046,16,1,0.4,1856.98,0.06,Amount 27.1× card median · Merchant burst: 11 cards hit QuickPay Online in 24h · Odd hours: 3am
+card_032,17,1,0.4,1785.66,0.06,Amount 13.7× card median · Merchant burst: 6 cards hit QuickPay Online in 24h · Odd hours: 2am
+card_009,18,1,0.35,1242.72,0.06,Amount 46.3× card median · Merchant burst: 22 cards hit QuickPay Online in 24h
+card_014,17,1,0.35,518.71,0.06,Amount 8.2× card median · Merchant burst: 8 cards hit Cafe Olimpico in 24h
+card_048,23,1,0.35,1563.16,0.04,Amount 34.9× card median · Merchant burst: 21 cards hit AliExpress in 24h
+card_041,20,2,0.35,1937.67,0.1,Amount 18.5× card median · Merchant burst: 11 cards hit Cineplex in 24h
+card_040,22,2,0.35,1335.02,0.09,Amount 8.5× card median · Merchant burst: 11 cards hit Cineplex in 24h
+card_017,17,2,0.35,840.8199999999999,0.12,Amount 9.2× card median · Merchant burst: 5 cards hit RBC ATM in 24h
+card_007,22,1,0.35,1661.45,0.05,Amount 20.5× card median · Merchant burst: 26 cards hit QuickPay Online in 24h
+card_036,23,1,0.35,2169.08,0.04,Amount 8.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h
+card_029,20,1,0.35,1546.08,0.05,Amount 21.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h
+card_011,19,0,0.25,355.57,0.0,
+card_003,19,0,0.15,847.91,0.0,
+card_001,15,0,0.15,1103.81,0.0,
+card_012,22,0,0.15,441.13,0.0,
+card_013,14,0,0.15,944.16,0.0,
+card_005,15,0,0.15,325.9,0.0,
+card_004,14,0,0.15,540.99,0.0,
+card_006,17,0,0.15,946.42,0.0,
+card_008,23,0,0.15,771.24,0.0,
+card_015,19,0,0.15,1090.35,0.0,
+card_010,21,0,0.15,1006.27,0.0,
+card_027,20,0,0.15,1088.5,0.0,
+card_028,21,0,0.15,1373.72,0.0,
+card_026,16,0,0.15,431.22,0.0,
+card_022,18,0,0.15,835.07,0.0,
+card_024,19,0,0.15,838.38,0.0,
+card_025,17,0,0.15,684.85,0.0,
+card_035,15,0,0.15,463.14,0.0,
+card_033,19,0,0.15,1335.33,0.0,
+card_037,25,0,0.15,2332.58,0.0,
+card_034,21,0,0.15,396.95,0.0,
+card_044,23,0,0.15,1690.52,0.0,
+card_043,16,0,0.15,344.78000000000003,0.0,
+card_047,17,0,0.15,709.4300000000001,0.0,
+card_031,17,0,0.1,723.75,0.0,

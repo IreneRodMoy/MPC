@@ -1,0 +1,11 @@
+2026-05-30 19:24:01,300 [INFO] Orchestrator-Core: --- Entering Stage 1: Bronze Ingestion Gating ---
+2026-05-30 19:24:01,301 [INFO] Orchestrator-Core: Bronze layer processing triggered for asset path: data/bronze/transactions.csv
+2026-05-30 19:24:01,320 [INFO] Orchestrator-Core: Executing vectorized lower-case string matching normalizations...
+2026-05-30 19:24:01,365 [INFO] Orchestrator-Core: Bronze layer pipeline finished cleanly. Validated row payload matrix size: 1000
+2026-05-30 19:24:01,366 [INFO] Orchestrator-Core: --- Entering Stage 2: Silver Feature Laboratoring ---
+2026-05-30 19:24:01,371 [INFO] Orchestrator-Core: Silver feature extraction initialized across 1000 records.
+2026-05-30 19:24:01,461 [INFO] Orchestrator-Core: Silver processing executed successfully. Matrix expanded to 27 data rails.
+2026-05-30 19:24:01,461 [INFO] Orchestrator-Core: --- Entering Stage 3: Gold Composite Risk Scoring & Packaging ---
+2026-05-30 19:24:01,466 [INFO] Orchestrator-Core: Computing fast vectorized composite risk values...
+2026-05-30 19:24:01,469 [INFO] Orchestrator-Core: Compiling natural language explanation payloads for UI mapping...
+2026-05-30 19:24:01,523 [INFO] Orchestrator-Core: Gold scoring processing complete. Flagged threat stream size: 8 elements.
