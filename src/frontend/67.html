@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>67Frauders — Vigilance System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-page:      #0d0f1a;
+      --bg-surface:   #141625;
+      --bg-card:      #1a1d30;
+      --bg-hover:     #21253a;
+      --border:       rgba(255,255,255,0.07);
+      --border-mid:   rgba(255,255,255,0.13);
+      --accent:       #7c9efc;
+      --accent-dim:   rgba(124,158,252,0.12);
+      --accent-glow:  rgba(124,158,252,0.25);
+      --text-1:       #e8eaf6;
+      --text-2:       #8890b0;
+      --text-3:       #4a5070;
+      --red:          #e24b4a;
+      --red-dim:      rgba(226,75,74,0.15);
+      --amber:        #f0a030;
+      --amber-dim:    rgba(240,160,48,0.15);
+      --green:        #3ec97e;
+      --green-dim:    rgba(62,201,126,0.15);
+      --blue:         #5aa8f8;
+      --blue-dim:     rgba(90,168,248,0.15);
+      --radius-sm:    6px;
+      --radius-md:    10px;
+      --radius-lg:    14px;
+      --font-display: 'Syne', sans-serif;
+      --font-mono:    'IBM Plex Mono', monospace;
+    }
+
+    html, body { height: 100%; background: var(--bg-page); color: var(--text-1); font-family: var(--font-display); font-size: 14px; line-height: 1.5; }
+
+    .app { display: flex; height: 100vh; overflow: hidden; }
+
+    /* SIDEBAR */
+    .sidebar { width: 200px; min-width: 200px; background: var(--bg-surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+    .sidebar-logo { padding: 22px 20px 18px; border-bottom: 1px solid var(--border); }
+    .sidebar-logo .brand { font-size: 16px; font-weight: 600; letter-spacing: 1px; color: var(--text-1); }
+    .sidebar-logo .brand span { color: var(--accent); }
+    .sidebar-logo .sub { font-size: 10px; color: var(--text-3); margin-top: 2px; font-family: var(--font-mono); letter-spacing: .5px; }
+    .sidebar-nav { flex: 1; padding: 14px 10px; display: flex; flex-direction: column; gap: 2px; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius-md); color: var(--text-2); font-size: 13px; cursor: pointer; transition: all .15s; border: 1px solid transparent; text-decoration: none; }
+    .nav-item:hover { color: var(--text-1); background: var(--bg-hover); }
+    .nav-item.active { color: var(--accent); background: var(--accent-dim); border-color: rgba(124,158,252,0.2); }
+    .nav-item i { font-size: 17px; }
+    .sidebar-footer { padding: 12px 10px 14px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 2px; }
+    .new-inv-btn { margin: 0 10px 14px; padding: 11px; background: var(--accent); color: #0d0f1a; border: none; border-radius: var(--radius-md); font-family: var(--font-display); font-size: 12px; font-weight: 600; letter-spacing: .5px; cursor: pointer; transition: opacity .15s, transform .1s; }
+    .new-inv-btn:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* MAIN */
+    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    /* TOPBAR */
+    .topbar { background: var(--bg-surface); border-bottom: 1px solid var(--border); padding: 10px 24px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; position: relative; }
+    .search { flex: 1; padding: 8px 14px 8px 36px; background: var(--bg-card); border: 1px solid var(--border-mid); border-radius: var(--radius-md); color: var(--text-1); font-family: var(--font-display); font-size: 13px; outline: none; transition: border-color .15s; }
+    .search:focus { border-color: var(--accent); }
+    .search::placeholder { color: var(--text-3); }
+    .search-wrap { position: relative; flex: 1; }
+    .search-wrap i { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--text-3); font-size: 16px; pointer-events: none; }
+    .topbar-icons { display: flex; align-items: center; gap: 14px; color: var(--text-2); }
+    .topbar-icons i { font-size: 18px; cursor: pointer; transition: color .15s; }
+    .topbar-icons i:hover { color: var(--text-1); }
+    .user-chip { display: flex; align-items: center; gap: 9px; }
+    .user-chip span { font-size: 13px; color: var(--text-2); }
+    .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--accent-dim); border: 1.5px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--accent); }
+
+    /* SEARCH DROPDOWN */
+    .search-dropdown { position: absolute; top: calc(100% + 4px); left: 24px; right: 24px; background: var(--bg-card); border: 1px solid var(--border-mid); border-radius: var(--radius-md); z-index: 200; max-height: 240px; overflow-y: auto; display: none; box-shadow: 0 8px 32px rgba(0,0,0,.4); }
+    .search-dropdown.open { display: block; }
+    .search-result-item { padding: 10px 14px; cursor: pointer; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border); transition: background .1s; }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover { background: var(--bg-hover); }
+    .search-result-item .sr-id { font-family: var(--font-mono); font-size: 11px; color: var(--accent); }
+    .search-result-item .sr-name { font-size: 13px; }
+    .search-result-item .sr-badge { margin-left: auto; }
+    .search-no-result { padding: 14px; font-size: 13px; color: var(--text-3); text-align: center; font-family: var(--font-mono); }
+
+    /* CONTENT */
+    .content { flex: 1; overflow-y: auto; padding: 24px; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .page-title { font-size: 20px; font-weight: 600; margin-bottom: 20px; color: var(--text-1); }
+
+    /* CARDS */
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; }
+
+    /* DASHBOARD GRID */
+    .dash-top { display: grid; grid-template-columns: 240px 1fr; gap: 16px; margin-bottom: 16px; }
+    .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    /* RISK GAUGE */
+    .risk-card { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .risk-label { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 14px; }
+    .gauge-wrap { position: relative; width: 150px; height: 86px; margin-bottom: 10px; }
+    .risk-badge { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(124,158,252,0.25); font-size: 11px; padding: 3px 12px; border-radius: 20px; font-family: var(--font-mono); margin-bottom: 14px; }
+    .risk-meta { display: flex; gap: 24px; }
+    .risk-meta-item label { font-size: 10px; color: var(--text-3); display: block; margin-bottom: 3px; text-transform: uppercase; font-family: var(--font-mono); letter-spacing: .4px; }
+    .risk-meta-item .val { font-size: 13px; font-weight: 600; }
+    .val-red { color: var(--red); }
+    .val-amber { color: var(--amber); }
+
+    /* PATTERN CARDS */
+    .pattern-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 14px; cursor: pointer; transition: border-color .15s, background .15s; }
+    .pattern-card:hover { border-color: var(--border-mid); background: var(--bg-hover); }
+    .pattern-label { font-size: 9px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .7px; margin-bottom: 4px; }
+    .pattern-name { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+    .pattern-desc { font-size: 11px; color: var(--text-2); margin-bottom: 10px; line-height: 1.5; }
+    .bar-track { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; margin-bottom: 6px; }
+    .bar-fill { height: 3px; border-radius: 2px; transition: width .4s ease; }
+    .resolve-count { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); }
+
+    /* TABLE */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-title { font-size: 15px; font-weight: 600; }
+    .section-sub { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin-top: 2px; }
+    .btn-outline { padding: 6px 14px; border: 1px solid var(--border-mid); border-radius: var(--radius-sm); font-family: var(--font-display); font-size: 12px; background: transparent; color: var(--text-2); cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 6px; }
+    .btn-outline:hover { color: var(--text-1); border-color: rgba(255,255,255,.25); }
+    .btn-primary { padding: 6px 14px; border: none; border-radius: var(--radius-sm); font-family: var(--font-display); font-size: 12px; font-weight: 600; background: var(--accent); color: #0d0f1a; cursor: pointer; transition: opacity .15s; display: flex; align-items: center; gap: 6px; }
+    .btn-primary:hover { opacity: .85; }
+    .btns { display: flex; gap: 8px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th { text-align: left; padding: 8px 12px; font-size: 10px; font-weight: 500; color: var(--text-3); border-bottom: 1px solid var(--border); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .5px; }
+    tbody td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: var(--text-1); }
+    tbody tr:hover { background: rgba(255,255,255,.02); }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* BADGES */
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); letter-spacing: .3px; }
+    .badge-red    { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(226,75,74,.3); }
+    .badge-blue   { background: var(--blue-dim);  color: var(--blue);  border: 1px solid rgba(90,168,248,.3); }
+    .badge-green  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(62,201,126,.3); }
+    .badge-amber  { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(240,160,48,.3); }
+    .badge-accent { background: var(--accent-dim);color: var(--accent);border: 1px solid rgba(124,158,252,.3); }
+
+    /* STATUS BADGES for action queue */
+    .status-badge-approved  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(62,201,126,.3); display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); }
+    .status-badge-rejected  { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(226,75,74,.3);  display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); }
+    .status-badge-escalated { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(240,160,48,.3); display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); }
+    .status-badge-pending   { background: rgba(255,255,255,.05); color: var(--text-3); border: 1px solid var(--border); display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); }
+
+    /* SCORE BAR */
+    .score-bar { display: flex; align-items: center; gap: 8px; }
+    .score-track { width: 56px; height: 3px; background: rgba(255,255,255,.06); border-radius: 2px; }
+    .score-fill { height: 3px; border-radius: 2px; }
+    .score-num { font-size: 12px; font-family: var(--font-mono); color: var(--text-2); }
+
+    .action-btn { padding: 4px 11px; border-radius: var(--radius-sm); font-size: 11px; border: 1px solid var(--border-mid); background: transparent; cursor: pointer; color: var(--text-2); font-family: var(--font-display); transition: all .15s; }
+    .action-btn:hover { color: var(--accent); border-color: rgba(124,158,252,.4); }
+
+    /* PAGINATION */
+    .table-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+    .table-count { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); }
+    .pagination { display: flex; gap: 4px; }
+    .page-btn { width: 28px; height: 28px; border-radius: var(--radius-sm); border: 1px solid var(--border-mid); background: transparent; color: var(--text-2); font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all .15s; }
+    .page-btn.active { background: var(--accent-dim); color: var(--accent); border-color: rgba(124,158,252,.3); }
+    .page-btn:hover:not(.active) { color: var(--text-1); border-color: var(--border-mid); }
+    .page-btn:disabled { opacity: .3; cursor: default; }
+
+    /* FILTER PANEL */
+    .filter-panel { background: var(--bg-card); border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 16px; margin-bottom: 16px; display: none; }
+    .filter-panel.open { display: block; }
+    .filter-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+    .filter-group { display: flex; flex-direction: column; gap: 5px; }
+    .filter-group label { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .5px; }
+    .filter-select, .filter-input { padding: 7px 10px; background: var(--bg-surface); border: 1px solid var(--border-mid); border-radius: var(--radius-sm); color: var(--text-1); font-family: var(--font-display); font-size: 12px; outline: none; cursor: pointer; }
+    .filter-select:focus, .filter-input:focus { border-color: var(--accent); }
+    .filter-input { width: 100px; }
+    .filter-actions { display: flex; gap: 8px; margin-left: auto; }
+    .btn-sm { padding: 7px 12px; border-radius: var(--radius-sm); font-family: var(--font-display); font-size: 11px; font-weight: 600; cursor: pointer; border: none; transition: opacity .15s; }
+    .btn-sm-primary { background: var(--accent); color: #0d0f1a; }
+    .btn-sm-outline { background: transparent; border: 1px solid var(--border-mid); color: var(--text-2); }
+    .btn-sm-outline:hover { color: var(--text-1); }
+
+    /* REVIEW PAGE */
+    .review-wrap { max-width: 760px; }
+    .progress-section { margin-bottom: 20px; }
+    .progress-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .progress-label { font-size: 12px; color: var(--text-2); font-family: var(--font-mono); }
+    .progress-bar { height: 4px; background: rgba(255,255,255,.07); border-radius: 2px; }
+    .progress-fill { height: 4px; border-radius: 2px; background: var(--accent); transition: width .4s ease; }
+
+    .review-card { margin-bottom: 14px; }
+    .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+    .review-id { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin-bottom: 6px; }
+    .review-amount { font-size: 30px; font-weight: 600; letter-spacing: -.5px; }
+    .detail-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 18px; }
+    .detail-item label { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 4px; }
+    .detail-item span { font-size: 14px; font-weight: 500; }
+
+    .fraud-reason { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius-md); padding: 14px 16px; margin-bottom: 18px; }
+    .fraud-reason h4 { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 8px; }
+    .fraud-reason p { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+
+    /* COST SLIDER */
+    .cost-slider-section { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-bottom: 18px; }
+    .cost-slider-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .cost-slider-title { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .5px; }
+    .cost-result { font-size: 11px; font-family: var(--font-mono); color: var(--accent); }
+    .slider-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-3); font-family: var(--font-mono); margin-bottom: 6px; }
+    input[type=range] { width: 100%; accent-color: var(--accent); height: 4px; cursor: pointer; }
+    .cost-desc { font-size: 12px; color: var(--text-2); margin-top: 10px; line-height: 1.6; }
+    .cost-flags { display: flex; gap: 14px; margin-top: 8px; }
+    .cost-flag-item { font-size: 11px; font-family: var(--font-mono); }
+    .cost-flag-item span { font-weight: 600; }
+
+    .action-row { display: flex; gap: 10px; margin-bottom: 16px; }
+    .action-opt { flex: 1; padding: 11px; border: 1px solid var(--border-mid); border-radius: var(--radius-md); font-family: var(--font-display); font-size: 13px; font-weight: 500; background: transparent; color: var(--text-2); cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: 7px; }
+    .action-opt:hover { color: var(--text-1); border-color: var(--border-mid); background: var(--bg-hover); }
+    .action-opt.selected-approve { background: var(--green-dim); border-color: rgba(62,201,126,.4); color: var(--green); }
+    .action-opt.selected-reject  { background: var(--red-dim);   border-color: rgba(226,75,74,.4);  color: var(--red); }
+    .action-opt.selected-escalate{ background: var(--amber-dim); border-color: rgba(240,160,48,.4); color: var(--amber); }
+
+    /* KEYBOARD SHORTCUTS HINT */
+    .kbd-hints { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .kbd-hint { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text-3); font-family: var(--font-mono); }
+    .kbd { display: inline-flex; align-items: center; justify-content: center; padding: 2px 6px; border: 1px solid var(--border-mid); border-radius: 4px; background: rgba(255,255,255,.04); font-size: 10px; color: var(--text-2); min-width: 22px; }
+
+    .msg-label { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 8px; }
+    .msg-box { width: 100%; padding: 12px 14px; background: rgba(255,255,255,.03); border: 1px solid var(--border-mid); border-radius: var(--radius-md); color: var(--text-1); font-family: var(--font-display); font-size: 13px; min-height: 80px; resize: vertical; outline: none; transition: border-color .15s; }
+    .msg-box:focus { border-color: var(--accent); }
+    .msg-box::placeholder { color: var(--text-3); }
+
+    .review-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; }
+    .nav-arrow { display: flex; align-items: center; gap: 7px; padding: 9px 18px; border: 1px solid var(--border-mid); border-radius: var(--radius-md); font-family: var(--font-display); font-size: 13px; background: transparent; color: var(--text-2); cursor: pointer; transition: all .15s; }
+    .nav-arrow:hover { color: var(--text-1); border-color: rgba(255,255,255,.25); }
+    .nav-arrow:disabled { opacity: .3; cursor: default; pointer-events: none; }
+
+    .back-to-dash { display: inline-flex; align-items: center; gap: 7px; margin-bottom: 18px; padding: 8px 16px; border: 1px solid var(--border-mid); border-radius: var(--radius-md); font-family: var(--font-display); font-size: 12px; background: transparent; color: var(--text-2); cursor: pointer; transition: all .15s; }
+    .back-to-dash:hover { color: var(--text-1); border-color: rgba(255,255,255,.25); }
+
+    /* UPLOAD PAGE */
+    .drop-zone { border: 1.5px dashed var(--border-mid); border-radius: var(--radius-lg); padding: 60px 20px; text-align: center; background: rgba(255,255,255,.02); transition: border-color .2s, background .2s; cursor: pointer; }
+    .drop-zone:hover { border-color: var(--accent); background: var(--accent-dim); }
+    .drop-zone i { font-size: 44px; color: var(--text-3); margin-bottom: 14px; display: block; }
+    .drop-zone-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .drop-zone-sub { font-size: 13px; color: var(--text-2); }
+    .drop-zone-sub span { color: var(--accent); cursor: pointer; }
+    .upload-file-info { margin: 14px 0; padding: 12px 16px; background: var(--accent-dim); border: 1px solid rgba(124,158,252,.2); border-radius: var(--radius-md); display: flex; align-items: center; gap: 10px; display: none; }
+    .upload-file-info i { color: var(--accent); font-size: 18px; }
+    .upload-file-name { font-size: 13px; color: var(--text-1); }
+    .analyze-btn { width: 100%; margin-top: 14px; padding: 13px; background: var(--accent); color: #0d0f1a; border: none; border-radius: var(--radius-md); font-family: var(--font-display); font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity .15s; display: none; }
+    .analyze-btn:hover { opacity: .85; }
+
+    /* ANALYSIS MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.7); display: flex; align-items: center; justify-content: center; z-index: 500; opacity: 0; pointer-events: none; transition: opacity .25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--bg-card); border: 1px solid var(--border-mid); border-radius: var(--radius-lg); padding: 28px 32px; width: 380px; }
+    .modal-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .modal-sub { font-size: 12px; color: var(--text-3); font-family: var(--font-mono); margin-bottom: 24px; }
+    .modal-steps { display: flex; flex-direction: column; gap: 10px; }
+    .modal-step { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-2); }
+    .step-icon { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-pending { background: rgba(255,255,255,.05); border: 1px solid var(--border-mid); }
+    .step-running { background: var(--accent-dim); border: 1px solid rgba(124,158,252,.3); }
+    .step-done    { background: var(--green-dim);  border: 1px solid rgba(62,201,126,.3); color: var(--green); }
+    .step-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); }
+    .step-spinner { width: 10px; height: 10px; border: 1.5px solid var(--accent); border-top-color: transparent; border-radius: 50%; animation: spin .6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .step-check { font-size: 12px; }
+    .step-label { flex: 1; }
+    .step-done-label { color: var(--text-1); }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--bg-card); border: 1px solid var(--border-mid); color: var(--text-1); padding: 12px 18px; border-radius: var(--radius-md); font-size: 13px; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; pointer-events: none; z-index: 999; max-width: 320px; font-family: var(--font-mono); }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="brand"><span>67</span>FRAUDERS</div>
+      <div class="sub">Vigilance System</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a class="nav-item" onclick="goPage('dashboard')" id="nav-dashboard"><i class="ti ti-layout-dashboard"></i> Dashboard</a>
+      <a class="nav-item" onclick="goPage('history')" id="nav-history"><i class="ti ti-clipboard-list"></i> History</a>
+      <a class="nav-item" onclick="goPage('upload')" id="nav-upload"><i class="ti ti-file-upload"></i> Upload</a>
+    </nav>
+    <button class="new-inv-btn" onclick="goPage('action')">Swipe and Review</button>
+    <div class="sidebar-footer">
+      <a class="nav-item"><i class="ti ti-settings"></i> Settings</a>
+      <a class="nav-item"><i class="ti ti-help"></i> Support</a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="search-wrap">
+        <i class="ti ti-search"></i>
+        <input class="search" id="global-search" placeholder="Search card IDs, case IDs, or patterns…" autocomplete="off" oninput="handleSearch(this.value)" onfocus="handleSearch(this.value)" />
+        <div class="search-dropdown" id="search-dropdown"></div>
+      </div>
+      <div class="topbar-icons">
+        <i class="ti ti-bell"></i>
+        <i class="ti ti-history"></i>
+        <i class="ti ti-help-circle"></i>
+      </div>
+      <div class="user-chip">
+        <span>Alex Rivera</span>
+        <div class="avatar">AR</div>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content" id="main-content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="dash-top">
+          <!-- Risk gauge -->
+          <div class="card risk-card">
+            <div class="risk-label">Global System Sentiment</div>
+            <div class="gauge-wrap">
+              <svg viewBox="0 0 150 86" width="150" height="86">
+                <path d="M 12 76 A 63 63 0 0 1 138 76" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14" stroke-linecap="round"/>
+                <path d="M 12 76 A 63 63 0 0 1 138 76" fill="none" stroke="#7c9efc" stroke-width="14" stroke-linecap="round" stroke-dasharray="197.9" stroke-dashoffset="70" opacity=".9"/>
+                <text x="75" y="65" text-anchor="middle" font-size="24" font-weight="600" fill="#e8eaf6" font-family="Syne,sans-serif">60</text>
+                <text x="75" y="78" text-anchor="middle" font-size="10" fill="#4a5070" font-family="IBM Plex Mono,monospace">/100</text>
+              </svg>
+            </div>
+            <div class="risk-badge">Elevated Vigilance</div>
+            <div class="risk-meta">
+              <div class="risk-meta-item">
+                <label>Total Frauds</label>
+                <div class="val val-red" id="stat-total-frauds">282</div>
+              </div>
+              <div class="risk-meta-item">
+                <label>Potential Loss</label>
+                <div class="val val-amber" id="stat-money-loss">$127,430</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pattern cards -->
+          <div class="pattern-grid">
+            <div class="pattern-card" onclick="openPattern('Velocity Spike')">
+              <div class="pattern-label">Pattern A</div>
+              <div class="pattern-name">Velocity Spike</div>
+              <div class="pattern-desc">Transactions exceeding 5 units/min per IP.</div>
+              <div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--red)"></div></div>
+              <div class="resolve-count" id="count-velocity">23 to resolve</div>
+            </div>
+            <div class="pattern-card" onclick="openPattern('BIN Mismatch')">
+              <div class="pattern-label">Pattern B</div>
+              <div class="pattern-name">BIN Mismatch</div>
+              <div class="pattern-desc">Card origin differs from transaction IP.</div>
+              <div class="bar-track"><div class="bar-fill" style="width:55%;background:var(--blue)"></div></div>
+              <div class="resolve-count" id="count-bin">44 to resolve</div>
+            </div>
+            <div class="pattern-card" onclick="openPattern('Micro-auth')">
+              <div class="pattern-label">Pattern C</div>
+              <div class="pattern-name">Micro-auth Test</div>
+              <div class="pattern-desc">Low-value attempts on new accounts.</div>
+              <div class="bar-track"><div class="bar-fill" style="width:25%;background:var(--green)"></div></div>
+              <div class="resolve-count" id="count-micro">7 to resolve</div>
+            </div>
+            <div class="pattern-card" onclick="openPattern('Geo-Hopping')">
+              <div class="pattern-label">Pattern D</div>
+              <div class="pattern-name">Geo-Hopping</div>
+              <div class="pattern-desc">Impossible travel between transactions.</div>
+              <div class="bar-track"><div class="bar-fill" style="width:18%;background:var(--amber)"></div></div>
+              <div class="resolve-count" id="count-geo">37 to resolve</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action queue -->
+        <div class="card">
+          <div class="section-header">
+            <div>
+              <div class="section-title">Action Queue</div>
+              <div class="section-sub">High-priority transaction review</div>
+            </div>
+            <div class="btns">
+              <button class="btn-outline" onclick="toggleFilter()"><i class="ti ti-filter"></i> Filter</button>
+              <button class="btn-primary" onclick="exportCSV()"><i class="ti ti-download"></i> Export CSV</button>
+            </div>
+          </div>
+
+          <!-- FILTER PANEL -->
+          <div class="filter-panel" id="filter-panel">
+            <div class="filter-row">
+              <div class="filter-group">
+                <label>Risk Score</label>
+                <select class="filter-select" id="f-risk">
+                  <option value="">All</option>
+                  <option value="high">High (≥85)</option>
+                  <option value="medium">Medium (70–84)</option>
+                  <option value="low">Low (&lt;70)</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Sort Risk</label>
+                <select class="filter-select" id="f-risk-sort">
+                  <option value="">Default</option>
+                  <option value="desc">Highest First</option>
+                  <option value="asc">Lowest First</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Min Amount ($)</label>
+                <input class="filter-input" id="f-amt-min" type="number" placeholder="0" />
+              </div>
+              <div class="filter-group">
+                <label>Max Amount ($)</label>
+                <input class="filter-input" id="f-amt-max" type="number" placeholder="Any" />
+              </div>
+              <div class="filter-group">
+                <label>Pattern</label>
+                <select class="filter-select" id="f-pattern">
+                  <option value="">All</option>
+                  <option value="Velocity Spike">Velocity Spike</option>
+                  <option value="Micro-auth">Micro-auth</option>
+                  <option value="Geo-Hopping">Geo-Hopping</option>
+                  <option value="BIN Mismatch">BIN Mismatch</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Status</label>
+                <select class="filter-select" id="f-status">
+                  <option value="">All</option>
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="rejected">Rejected</option>
+                  <option value="escalated">Escalated</option>
+                </select>
+              </div>
+              <div class="filter-actions">
+                <button class="btn-sm btn-sm-primary" onclick="applyFilter()">Apply</button>
+                <button class="btn-sm btn-sm-outline" onclick="clearFilter()">Reset</button>
+              </div>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Card ID</th>
+                <th>Amount</th>
+                <th>Pattern</th>
+                <th>Risk Score</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="queue-body"></tbody>
+          </table>
+          <div class="table-footer">
+            <span class="table-count" id="table-count-label">Showing 1–5 of 282</span>
+            <div class="pagination" id="pagination"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY -->
+      <div class="page" id="page-history">
+        <div class="page-title">History</div>
+        <div class="card">
+          <table>
+            <thead>
+              <tr><th>Case ID</th><th>Card</th><th>Pattern</th><th>Status</th><th>Analyst</th><th>Updated</th></tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- UPLOAD -->
+      <div class="page" id="page-upload">
+        <div class="page-title">Document Analysis</div>
+        <div style="margin-bottom:14px">
+          <button class="btn-outline" onclick="goPage('history')"><i class="ti ti-file-text"></i> View previous transaction document</button>
+        </div>
+        <div class="card">
+          <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+            <i class="ti ti-cloud-upload"></i>
+            <div class="drop-zone-title">+ New Document Analysis</div>
+            <div class="drop-zone-sub">Drop file here or <span>browse files</span></div>
+            <input type="file" id="file-input" style="display:none" accept=".pdf,.csv,.xlsx" onchange="handleFileUpload(this)" />
+          </div>
+          <div class="upload-file-info" id="upload-file-info">
+            <i class="ti ti-file-text"></i>
+            <span class="upload-file-name" id="upload-file-name"></span>
+          </div>
+          <button class="analyze-btn" id="analyze-btn" onclick="startAnalysis()">Analyze</button>
+        </div>
+      </div>
+
+      <!-- ACTION REVIEW -->
+      <div class="page" id="page-action">
+        <button class="back-to-dash" onclick="goPage('dashboard')"><i class="ti ti-arrow-left"></i> Back to Dashboard</button>
+        <div class="page-title">Transaction Review</div>
+        <div class="review-wrap">
+          <div class="progress-section">
+            <div class="progress-meta">
+              <span class="progress-label" id="prog-label">Transaction 1 of 4</span>
+              <span class="progress-label" id="prog-pct">25%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:25%"></div></div>
+          </div>
+
+          <!-- Keyboard shortcuts -->
+          <div class="kbd-hints">
+            <div class="kbd-hint"><span class="kbd">A</span> Approve</div>
+            <div class="kbd-hint"><span class="kbd">D</span> Dismiss</div>
+            <div class="kbd-hint"><span class="kbd">E</span> Escalate</div>
+            <div class="kbd-hint"><span class="kbd">U</span> Undo</div>
+            <div class="kbd-hint"><span class="kbd">→</span> Next</div>
+            <div class="kbd-hint"><span class="kbd">←</span> Previous</div>
+          </div>
+
+          <div class="card review-card">
+            <div class="review-header">
+              <div>
+                <div class="review-id" id="rev-id">Case #C-8821 · **** 9842</div>
+                <div class="review-amount" id="rev-amount">$1,492.00</div>
+              </div>
+              <span class="badge" id="rev-badge">Velocity Spike</span>
+            </div>
+
+            <div class="detail-grid">
+              <div class="detail-item"><label>Timestamp</label><span id="rev-ts">14:22:05.12</span></div>
+              <div class="detail-item"><label>Risk Score</label><span id="rev-score">92 / 100</span></div>
+              <div class="detail-item"><label>Merchant</label><span id="rev-merchant">TechGadgets EU</span></div>
+              <div class="detail-item"><label>Location</label><span id="rev-loc">Frankfurt, DE</span></div>
+              <div class="detail-item"><label>Transaction ID</label><span id="rev-txid" style="font-family:var(--font-mono);font-size:12px"></span></div>
+              <div class="detail-item"><label>IP Address</label><span id="rev-ip" style="font-family:var(--font-mono);font-size:12px"></span></div>
+            </div>
+
+            <div class="fraud-reason">
+              <h4>Reason of fraud pattern</h4>
+              <p id="rev-reason"></p>
+            </div>
+
+            <!-- COST SLIDER (Modification 10) -->
+            <div class="cost-slider-section">
+              <div class="cost-slider-header">
+                <span class="cost-slider-title">Cost Threshold: False Positive vs. Missed Fraud</span>
+                <span class="cost-result" id="cost-result-label">Balanced</span>
+              </div>
+              <div class="slider-labels">
+                <span>Minimize False Positives</span>
+                <span>Minimize Missed Fraud</span>
+              </div>
+              <input type="range" id="cost-slider" min="0" max="100" value="50" oninput="updateCostSlider(this.value)" />
+              <div class="cost-desc" id="cost-desc"></div>
+              <div class="cost-flags" id="cost-flags"></div>
+            </div>
+
+            <div class="action-row">
+              <button class="action-opt" id="btn-approve" onclick="selectAction('approve')"><i class="ti ti-check"></i> Approve <span style="font-size:10px;opacity:.5;font-family:var(--font-mono)">[A]</span></button>
+              <button class="action-opt" id="btn-reject"  onclick="selectAction('reject')"><i class="ti ti-x"></i> Reject <span style="font-size:10px;opacity:.5;font-family:var(--font-mono)">[D]</span></button>
+              <button class="action-opt" id="btn-escalate" onclick="selectAction('escalate')"><i class="ti ti-alert-triangle"></i> Escalate <span style="font-size:10px;opacity:.5;font-family:var(--font-mono)">[E]</span></button>
+            </div>
+
+            <label class="msg-label">Message / Notes</label>
+            <textarea class="msg-box" id="rev-msg" placeholder="Add investigation notes…"></textarea>
+          </div>
+
+          <div class="review-nav">
+            <button class="nav-arrow" id="btn-undo" onclick="prevTx()"><i class="ti ti-arrow-left"></i> Undo <span style="font-size:10px;opacity:.5;font-family:var(--font-mono)">[U/←]</span></button>
+            <button class="btn-primary" onclick="submitAndNext()" style="padding:10px 22px;font-size:13px">Submit &amp; Next <i class="ti ti-arrow-right"></i></button>
+            <button class="nav-arrow" id="btn-skip" onclick="nextTx()">Skip <i class="ti ti-arrow-right"></i> <span style="font-size:10px;opacity:.5;font-family:var(--font-mono)">[→]</span></button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ANALYSIS MODAL -->
+<div class="modal-overlay" id="analysis-modal">
+  <div class="modal">
+    <div class="modal-title">Analyzing Document</div>
+    <div class="modal-sub" id="modal-file-name">Processing your file…</div>
+    <div class="modal-steps" id="modal-steps"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ─── DATA ─── */
+const txData = [
+  {
+    "id": "#tx_000942",
+    "card": "card_023",
+    "amount": "$7.52",
+    "amountNum": 7.52,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:15:46",
+    "score": 100,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000942",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 17 cards hit AliExpress in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000944",
+    "card": "card_023",
+    "amount": "$2.71",
+    "amountNum": 2.71,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:27:34",
+    "score": 100,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000944",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 20 cards hit QuickPay Online in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000943",
+    "card": "card_023",
+    "amount": "$10.45",
+    "amountNum": 10.45,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:20:11",
+    "score": 100,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000943",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 20 cards hit QuickPay Online in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000947",
+    "card": "card_023",
+    "amount": "$1.50",
+    "amountNum": 1.5,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:19:04",
+    "score": 100,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000947",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 1 in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000990",
+    "card": "card_020",
+    "amount": "$1,158.32",
+    "amountNum": 1158.32,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-red",
+    "ts": "03:33:54",
+    "score": 100,
+    "merchant": "Apple Store",
+    "loc": "CA · Online",
+    "txid": "tx_000990",
+    "ip": "208.54.36.183",
+    "reason": "Amount 34.4× card median · Electronics spike · Odd hours: 3am"
+  },
+  {
+    "id": "#tx_000992",
+    "card": "card_018",
+    "amount": "$1,753.33",
+    "amountNum": 1753.33,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-red",
+    "ts": "05:00:00",
+    "score": 100,
+    "merchant": "Gift Card Mall",
+    "loc": "US · Online",
+    "txid": "tx_000992",
+    "ip": "208.54.164.45",
+    "reason": "Amount 55.1× card median · Gift card purchase · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000991",
+    "card": "card_020",
+    "amount": "$511.77",
+    "amountNum": 511.77,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-red",
+    "ts": "02:35:51",
+    "score": 100,
+    "merchant": "Newegg",
+    "loc": "US · Online",
+    "txid": "tx_000991",
+    "ip": "208.54.36.183",
+    "reason": "Amount 15.2× card median · Electronics spike · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000948",
+    "card": "card_023",
+    "amount": "$10.26",
+    "amountNum": 10.26,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:38:41",
+    "score": 100,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000948",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 17 cards hit AliExpress in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000946",
+    "card": "card_023",
+    "amount": "$3.51",
+    "amountNum": 3.51,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:33:26",
+    "score": 100,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000946",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 2 in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000955",
+    "card": "card_042",
+    "amount": "$4.36",
+    "amountNum": 4.36,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "11:11:22",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000955",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 8 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000956",
+    "card": "card_042",
+    "amount": "$2.97",
+    "amountNum": 2.97,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "11:20:20",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000956",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 6 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000952",
+    "card": "card_042",
+    "amount": "$7.46",
+    "amountNum": 7.46,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "11:07:39",
+    "score": 67,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000952",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 10 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_000975",
+    "card": "card_038",
+    "amount": "$11.32",
+    "amountNum": 11.32,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:08:47",
+    "score": 67,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000975",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 16 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_000974",
+    "card": "card_038",
+    "amount": "$11.57",
+    "amountNum": 11.57,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:04:25",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000974",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000966",
+    "card": "card_049",
+    "amount": "$2.63",
+    "amountNum": 2.63,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "22:11:52",
+    "score": 67,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000966",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 10 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000964",
+    "card": "card_049",
+    "amount": "$9.56",
+    "amountNum": 9.56,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "22:08:56",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000964",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000961",
+    "card": "card_049",
+    "amount": "$10.72",
+    "amountNum": 10.72,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:59:04",
+    "score": 67,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000961",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000967",
+    "card": "card_049",
+    "amount": "$12.82",
+    "amountNum": 12.82,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "22:04:31",
+    "score": 67,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000967",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000962",
+    "card": "card_049",
+    "amount": "$4.15",
+    "amountNum": 4.15,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:59:00",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000962",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000965",
+    "card": "card_049",
+    "amount": "$14.88",
+    "amountNum": 14.88,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:52:41",
+    "score": 67,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000965",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 20 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_000979",
+    "card": "card_019",
+    "amount": "$378.05",
+    "amountNum": 378.05,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "01:36:00",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000979",
+    "ip": "82.66.129.145",
+    "reason": "Amount 11.7× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000971",
+    "card": "card_038",
+    "amount": "$3.64",
+    "amountNum": 3.64,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "13:53:38",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000971",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000973",
+    "card": "card_038",
+    "amount": "$2.70",
+    "amountNum": 2.7,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:00:25",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000973",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 11 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000972",
+    "card": "card_038",
+    "amount": "$11.41",
+    "amountNum": 11.41,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "13:56:05",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000972",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000983",
+    "card": "card_000",
+    "amount": "$1,032.48",
+    "amountNum": 1032.48,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "17:13:00",
+    "score": 67,
+    "merchant": "Newegg",
+    "loc": "US · Online",
+    "txid": "tx_000983",
+    "ip": "189.144.34.189",
+    "reason": "Amount 28.1× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000985",
+    "card": "card_045",
+    "amount": "$1,274.84",
+    "amountNum": 1274.84,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "20:57:00",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000985",
+    "ip": "177.20.183.221",
+    "reason": "Amount 42.2× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000922",
+    "card": "card_030",
+    "amount": "$696.48",
+    "amountNum": 696.48,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "15:59:37",
+    "score": 67,
+    "merchant": "Best Buy",
+    "loc": "DE · In Person",
+    "txid": "tx_000922",
+    "ip": "N/A",
+    "reason": "Amount 20.1× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000976",
+    "card": "card_038",
+    "amount": "$4.17",
+    "amountNum": 4.17,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:06:56",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000976",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000989",
+    "card": "card_020",
+    "amount": "$425.23",
+    "amountNum": 425.23,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "00:31:38",
+    "score": 67,
+    "merchant": "Newegg",
+    "loc": "US · Online",
+    "txid": "tx_000989",
+    "ip": "208.54.36.183",
+    "reason": "Amount 12.6× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000988",
+    "card": "card_020",
+    "amount": "$1,474.93",
+    "amountNum": 1474.93,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "00:00:00",
+    "score": 67,
+    "merchant": "Apple Store",
+    "loc": "CA · Online",
+    "txid": "tx_000988",
+    "ip": "208.54.36.183",
+    "reason": "Amount 43.8× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000994",
+    "card": "card_018",
+    "amount": "$1,147.16",
+    "amountNum": 1147.16,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "06:20:52",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000994",
+    "ip": "208.54.164.45",
+    "reason": "Amount 36.1× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000920",
+    "card": "card_016",
+    "amount": "$1,900.28",
+    "amountNum": 1900.28,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "08:43:15",
+    "score": 67,
+    "merchant": "Apple Store",
+    "loc": "CA · In Person",
+    "txid": "tx_000920",
+    "ip": "N/A",
+    "reason": "Amount 30.6× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000987",
+    "card": "card_016",
+    "amount": "$1,511.01",
+    "amountNum": 1511.01,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "21:40:52",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000987",
+    "ip": "177.20.160.195",
+    "reason": "Amount 24.3× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000993",
+    "card": "card_018",
+    "amount": "$1,138.68",
+    "amountNum": 1138.68,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "06:46:49",
+    "score": 67,
+    "merchant": "Gift Card Mall",
+    "loc": "US · Online",
+    "txid": "tx_000993",
+    "ip": "208.54.164.45",
+    "reason": "Amount 35.8× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000986",
+    "card": "card_016",
+    "amount": "$1,157.81",
+    "amountNum": 1157.81,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "21:00:00",
+    "score": 67,
+    "merchant": "Gift Card Mall",
+    "loc": "US · Online",
+    "txid": "tx_000986",
+    "ip": "177.20.160.195",
+    "reason": "Amount 18.6× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000921",
+    "card": "card_021",
+    "amount": "$1,148.20",
+    "amountNum": 1148.2,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "13:07:45",
+    "score": 67,
+    "merchant": "Apple Store",
+    "loc": "CA · In Person",
+    "txid": "tx_000921",
+    "ip": "N/A",
+    "reason": "Amount 23.1× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000963",
+    "card": "card_049",
+    "amount": "$8.44",
+    "amountNum": 8.44,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:50:55",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000963",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000999",
+    "card": "card_039",
+    "amount": "$370.50",
+    "amountNum": 370.5,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "03:22:40",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000999",
+    "ip": "98.207.23.36",
+    "reason": "Amount 20.3× card median · Merchant burst: 10 cards hit QuickPay Online in 24h · Odd hours: 3am"
+  },
+  {
+    "id": "#tx_000042",
+    "card": "card_002",
+    "amount": "$200.00",
+    "amountNum": 200.0,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:24:37",
+    "score": 33,
+    "merchant": "BMO ATM",
+    "loc": "CA · Atm",
+    "txid": "tx_000042",
+    "ip": "N/A",
+    "reason": "Amount 10.0× card median · Merchant burst: 16 cards hit BMO ATM in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000996",
+    "card": "card_032",
+    "amount": "$791.49",
+    "amountNum": 791.49,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:15:14",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000996",
+    "ip": "98.207.131.10",
+    "reason": "Amount 13.7× card median · Merchant burst: 6 cards hit QuickPay Online in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000998",
+    "card": "card_046",
+    "amount": "$935.27",
+    "amountNum": 935.27,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "03:27:16",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000998",
+    "ip": "208.54.251.27",
+    "reason": "Amount 27.1× card median · Merchant burst: 11 cards hit QuickPay Online in 24h · Odd hours: 3am"
+  },
+  {
+    "id": "#tx_000997",
+    "card": "card_038",
+    "amount": "$356.29",
+    "amountNum": 356.29,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:45:19",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000997",
+    "ip": "98.207.247.39",
+    "reason": "Amount 23.8× card median · Merchant burst: 9 cards hit QuickPay Online in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000995",
+    "card": "card_002",
+    "amount": "$735.44",
+    "amountNum": 735.44,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:25:59",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000995",
+    "ip": "172.58.196.128",
+    "reason": "Amount 36.8× card median · Merchant burst: 8 cards hit QuickPay Online in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000906",
+    "card": "card_049",
+    "amount": "$536.35",
+    "amountNum": 536.35,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "04:31:46",
+    "score": 33,
+    "merchant": "Amazon.ca",
+    "loc": "CA · Online",
+    "txid": "tx_000906",
+    "ip": "70.50.179.16",
+    "reason": "Amount 33.5× card median · Merchant burst: 12 cards hit Amazon.ca in 24h · Odd hours: 4am"
+  },
+  {
+    "id": "#tx_000766",
+    "card": "card_041",
+    "amount": "$475.35",
+    "amountNum": 475.35,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:54:25",
+    "score": 0,
+    "merchant": "Cineplex",
+    "loc": "CA · In Person",
+    "txid": "tx_000766",
+    "ip": "N/A",
+    "reason": "Amount 18.5× card median · Merchant burst: 11 cards hit Cineplex in 24h"
+  },
+  {
+    "id": "#tx_000433",
+    "card": "card_023",
+    "amount": "$106.90",
+    "amountNum": 106.9,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:04:53",
+    "score": 0,
+    "merchant": "Loblaws",
+    "loc": "CA · In Person",
+    "txid": "tx_000433",
+    "ip": "N/A",
+    "reason": "Amount 9.5× card median · Merchant burst: 10 cards hit Loblaws in 24h"
+  },
+  {
+    "id": "#tx_000774",
+    "card": "card_041",
+    "amount": "$471.21",
+    "amountNum": 471.21,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "18:41:55",
+    "score": 0,
+    "merchant": "Schwartz's",
+    "loc": "CA · In Person",
+    "txid": "tx_000774",
+    "ip": "N/A",
+    "reason": "Amount 18.4× card median · Merchant burst: 7 cards hit Schwartz's in 24h"
+  },
+  {
+    "id": "#tx_000740",
+    "card": "card_040",
+    "amount": "$170.53",
+    "amountNum": 170.53,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "20:11:49",
+    "score": 0,
+    "merchant": "Cineplex",
+    "loc": "CA · In Person",
+    "txid": "tx_000740",
+    "ip": "N/A",
+    "reason": "Amount 8.5× card median · Merchant burst: 11 cards hit Cineplex in 24h"
+  },
+  {
+    "id": "#tx_000321",
+    "card": "card_017",
+    "amount": "$200.00",
+    "amountNum": 200.0,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "13:47:48",
+    "score": 0,
+    "merchant": "RBC ATM",
+    "loc": "CA · Atm",
+    "txid": "tx_000321",
+    "ip": "N/A",
+    "reason": "Amount 9.2× card median · Merchant burst: 5 cards hit RBC ATM in 24h"
+  },
+  {
+    "id": "#tx_000324",
+    "card": "card_017",
+    "amount": "$194.41",
+    "amountNum": 194.41,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "20:42:20",
+    "score": 0,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000324",
+    "ip": "142.112.175.54",
+    "reason": "Amount 8.9× card median · Merchant burst: 7 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000954",
+    "card": "card_042",
+    "amount": "$14.27",
+    "amountNum": 14.27,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-blue",
+    "ts": "11:15:14",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000954",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 6 transactions in 30 min"
+  },
+  {
+    "id": "#tx_000356",
+    "card": "card_019",
+    "amount": "$497.46",
+    "amountNum": 497.46,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "12:36:53",
+    "score": 0,
+    "merchant": "Loblaws",
+    "loc": "CA · In Person",
+    "txid": "tx_000356",
+    "ip": "N/A",
+    "reason": "Amount 15.4× card median · Merchant burst: 6 cards hit Loblaws in 24h"
+  },
+  {
+    "id": "#tx_000264",
+    "card": "card_014",
+    "amount": "$150.51",
+    "amountNum": 150.51,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "22:04:24",
+    "score": 0,
+    "merchant": "Cafe Olimpico",
+    "loc": "FR · In Person",
+    "txid": "tx_000264",
+    "ip": "N/A",
+    "reason": "Amount 8.2× card median · Merchant burst: 8 cards hit Cafe Olimpico in 24h"
+  },
+  {
+    "id": "#tx_001004",
+    "card": "card_029",
+    "amount": "$724.05",
+    "amountNum": 724.05,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "15:09:02",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001004",
+    "ip": "172.58.68.100",
+    "reason": "Amount 21.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001007",
+    "card": "card_040",
+    "amount": "$579.49",
+    "amountNum": 579.49,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "15:20:50",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001007",
+    "ip": "172.58.33.50",
+    "reason": "Amount 28.8× card median · Merchant burst: 25 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001006",
+    "card": "card_030",
+    "amount": "$345.74",
+    "amountNum": 345.74,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:20:42",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001006",
+    "ip": "208.54.240.254",
+    "reason": "Amount 10.0× card median · Merchant burst: 23 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001003",
+    "card": "card_009",
+    "amount": "$835.40",
+    "amountNum": 835.4,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:11:07",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001003",
+    "ip": "172.58.128.27",
+    "reason": "Amount 46.3× card median · Merchant burst: 22 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000981",
+    "card": "card_048",
+    "amount": "$944.80",
+    "amountNum": 944.8,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "01:37:00",
+    "score": 0,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000981",
+    "ip": "95.91.186.202",
+    "reason": "Amount 34.9× card median · Merchant burst: 21 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_001001",
+    "card": "card_036",
+    "amount": "$426.59",
+    "amountNum": 426.59,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:53:49",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001001",
+    "ip": "172.58.244.57",
+    "reason": "Amount 8.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001002",
+    "card": "card_007",
+    "amount": "$820.61",
+    "amountNum": 820.61,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "15:22:21",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001002",
+    "ip": "73.15.130.57",
+    "reason": "Amount 20.5× card median · Merchant burst: 26 cards hit QuickPay Online in 24h"
+  }
+];
+
+/* Status per transaction index */
+const txStatus = {};
+
+/* Dashboard summary stats derived from data */
+function calcSummaryStats() {
+  const total = txData.length;
+  const money = txData.reduce((s, t) => s + t.amountNum, 0);
+  document.getElementById('stat-total-frauds').textContent = total + ' flagged';
+  document.getElementById('stat-money-loss').textContent = '$' + money.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  updatePatternCounts();
+}
+
+function updatePatternCounts() {
+  const countPattern = patternName => txData.filter(t => t.pattern === patternName).length;
+  document.getElementById('count-velocity').textContent = countPattern('Velocity Spike') + ' to resolve';
+  document.getElementById('count-bin').textContent = countPattern('BIN Mismatch') + ' to resolve';
+  document.getElementById('count-micro').textContent = countPattern('Micro-auth') + ' to resolve';
+  document.getElementById('count-geo').textContent = countPattern('Geo-Hopping') + ' to resolve';
+}
+
+/* ─── PAGE NAV ─── */
+function goPage(name, options = {}) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const pageMap = { dashboard:'page-dashboard', history:'page-history', upload:'page-upload', action:'page-action' };
+  const pg = document.getElementById(pageMap[name]);
+  if (pg) pg.classList.add('active');
+  const nav = document.getElementById('nav-' + name);
+  if (nav) nav.classList.add('active');
+  if (name === 'action' && !options.keepCurrentReview) {
+    reviewQueue = txData.map((_, i) => i);
+    reviewPos = 0;
+    curIdx = reviewQueue[reviewPos];
+    selectedAction = null;
+    renderReview();
+  }
+  if (name === 'dashboard') { applyFilter(); renderCases(); }
+  if (name === 'history') renderCases();
+  closeSearch();
+}
+
+/* ─── CASES PAGE ─── */
+function renderCases() {
+  const statusBadge = (idx) => {
+    const s = txStatus[idx];
+    if (!s) return '<span class="status-badge-pending">Pending</span>';
+    if (s==='approve') return '<span class="status-badge-approved">Approved</span>';
+    if (s==='reject')  return '<span class="status-badge-rejected">Rejected</span>';
+    if (s==='escalate')return '<span class="status-badge-escalated">Escalated</span>';
+    return '';
+  };
+  const tbody = document.getElementById('history-body');
+  tbody.innerHTML = txData.map((t,i) => `
+    <tr>
+      <td style="font-family:var(--font-mono);font-size:12px">${t.id}</td>
+      <td style="font-family:var(--font-mono);font-size:12px;cursor:pointer;color:var(--accent)" onclick="openReview(${i})">${t.card}</td>
+      <td><span class="badge ${t.badgeClass}">${t.pattern}</span></td>
+      <td>${statusBadge(i)}</td>
+      <td>A. Rivera</td>
+      <td style="color:var(--text-2);font-size:12px">Today ${t.ts.split('.')[0]}</td>
+    </tr>`).join('');
+}
+
+/* ─── QUEUE TABLE WITH PAGINATION & FILTER ─── */
+const PAGE_SIZE = 5;
+let currentPage = 1;
+let filteredData = [...txData.map((t,i)=>({...t, origIdx:i}))];
+
+function applyFilter() {
+  const risk = document.getElementById('f-risk').value;
+  const riskSort = document.getElementById('f-risk-sort').value;
+  const amtMin = parseFloat(document.getElementById('f-amt-min').value) || 0;
+  const amtMax = parseFloat(document.getElementById('f-amt-max').value) || Infinity;
+  const pat = document.getElementById('f-pattern').value;
+  const stat = document.getElementById('f-status').value;
+
+  filteredData = txData.map((t,i)=>({...t,origIdx:i})).filter(t => {
+    if (risk === 'high'   && t.score < 85) return false;
+    if (risk === 'medium' && (t.score < 70 || t.score >= 85)) return false;
+    if (risk === 'low'    && t.score >= 70) return false;
+    if (t.amountNum < amtMin || t.amountNum > amtMax) return false;
+    if (pat && !t.pattern.includes(pat)) return false;
+    if (stat) {
+      const s = txStatus[t.origIdx] || 'pending';
+      const actualStat = s === 'approve' ? 'approved' : s === 'reject' ? 'rejected' : s === 'escalate' ? 'escalated' : 'pending';
+      if (actualStat !== stat) return false;
+    }
+    return true;
+  });
+
+  if (riskSort === 'desc') filteredData.sort((a,b) => b.score - a.score);
+  if (riskSort === 'asc')  filteredData.sort((a,b) => a.score - b.score);
+
+  currentPage = 1;
+  renderQueue();
+}
+
+function clearFilter() {
+  ['f-risk','f-risk-sort','f-pattern','f-status'].forEach(id => document.getElementById(id).value = '');
+  ['f-amt-min','f-amt-max'].forEach(id => document.getElementById(id).value = '');
+  applyFilter();
+}
+
+function toggleFilter() {
+  document.getElementById('filter-panel').classList.toggle('open');
+}
+
+function openPattern(patternName) {
+  const patternIndices = txData
+    .map((t, i) => ({ pattern: t.pattern, idx: i }))
+    .filter(t => t.pattern === patternName)
+    .map(t => t.idx);
+
+  if (!patternIndices.length) {
+    showToast('No transactions found for ' + patternName + '.');
+    return;
+  }
+
+  openReview(patternIndices[0], patternIndices);
+  showToast('Reviewing ' + patternName + ' transactions.');
+}
+
+function renderQueue() {
+  const tbody = document.getElementById('queue-body');
+  const totalItems = filteredData.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const slice = filteredData.slice(start, start + PAGE_SIZE);
+
+  const statusBadge = (origIdx) => {
+    const s = txStatus[origIdx];
+    if (!s) return '<span class="status-badge-pending">Pending</span>';
+    if (s==='approve') return '<span class="status-badge-approved">Approved</span>';
+    if (s==='reject')  return '<span class="status-badge-rejected">Rejected</span>';
+    if (s==='escalate')return '<span class="status-badge-escalated">Escalated</span>';
+  };
+
+  tbody.innerHTML = slice.map(t => {
+    const barWidth = Math.round((t.score / 100) * 56);
+    const barColor = t.score > 85 ? 'var(--red)' : t.score > 70 ? 'var(--amber)' : 'var(--blue)';
+    return `<tr>
+      <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-2)">${t.ts}</td>
+      <td style="font-family:var(--font-mono);font-size:12px;cursor:pointer;color:var(--accent)" onclick="openReview(${t.origIdx})">${t.card}</td>
+      <td style="font-weight:600">${t.amount}</td>
+      <td><span class="badge ${t.badgeClass}">${t.pattern}</span></td>
+      <td><div class="score-bar"><div class="score-track"><div class="score-fill" style="width:${barWidth}px;background:${barColor}"></div></div><span class="score-num">${t.score}</span></div></td>
+      <td>${statusBadge(t.origIdx)}</td>
+      <td><button class="action-btn" onclick="openReview(${t.origIdx})">Review</button></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('table-count-label').textContent =
+    totalItems === 0 ? 'No results' :
+    `Showing ${start+1}–${Math.min(start+PAGE_SIZE, totalItems)} of ${totalItems}`;
+
+  renderPagination(totalPages);
+}
+
+function renderPagination(totalPages) {
+  const pg = document.getElementById('pagination');
+  let html = `<button class="page-btn" onclick="changePage(${currentPage-1})" ${currentPage===1?'disabled':''}>‹</button>`;
+  for (let i = 1; i <= totalPages; i++) {
+    html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="changePage(${i})">${i}</button>`;
+  }
+  html += `<button class="page-btn" onclick="changePage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>›</button>`;
+  pg.innerHTML = html;
+}
+
+function changePage(p) {
+  const totalPages = Math.max(1, Math.ceil(filteredData.length / PAGE_SIZE));
+  if (p < 1 || p > totalPages) return;
+  currentPage = p;
+  renderQueue();
+}
+
+/* ─── OPEN SPECIFIC REVIEW ─── */
+function openReview(origIdx, contextIndices) {
+  const numericIdx = Number(origIdx);
+  if (!Number.isInteger(numericIdx) || !txData[numericIdx]) return;
+
+  reviewQueue = Array.isArray(contextIndices) && contextIndices.length
+    ? contextIndices.filter(idx => txData[idx])
+    : txData.map((_, i) => i);
+  reviewPos = reviewQueue.indexOf(numericIdx);
+  if (reviewPos === -1) reviewPos = 0;
+  curIdx = reviewQueue[reviewPos];
+  selectedAction = txStatus[curIdx] || null;
+  goPage('action', { keepCurrentReview: true });
+  renderReview();
+}
+
+/* ─── REVIEW STATE ─── */
+let curIdx = 0;
+let selectedAction = null;
+let reviewQueue = txData.map((_, i) => i);
+let reviewPos = 0;
+
+function renderReview() {
+  const t = txData[curIdx];
+  document.getElementById('rev-id').textContent      = t.id + ' · ' + t.card;
+  document.getElementById('rev-amount').textContent  = t.amount;
+  const badge = document.getElementById('rev-badge');
+  badge.className = 'badge ' + t.badgeClass;
+  badge.textContent = t.pattern;
+  document.getElementById('rev-ts').textContent       = t.ts;
+  document.getElementById('rev-score').textContent    = t.score + ' / 100';
+  document.getElementById('rev-merchant').textContent = t.merchant;
+  document.getElementById('rev-loc').textContent      = t.loc;
+  document.getElementById('rev-txid').textContent     = t.txid;
+  document.getElementById('rev-ip').textContent       = t.ip;
+  document.getElementById('rev-reason').textContent   = t.reason;
+  document.getElementById('rev-msg').value = '';
+  document.getElementById('cost-slider').value = 50;
+  updateCostSlider(50);
+
+  selectedAction = txStatus[curIdx] || null;
+  ['approve','reject','escalate'].forEach(a => {
+    document.getElementById('btn-'+a).className = 'action-opt';
+  });
+  if (selectedAction) {
+    document.getElementById('btn-'+selectedAction).className = 'action-opt selected-'+selectedAction;
+  }
+
+  const totalDisplayed = reviewQueue.length;
+  const pos = reviewPos + 1;
+  const pct = Math.round((pos / totalDisplayed) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = 'Transaction ' + pos + ' of ' + totalDisplayed;
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('btn-undo').disabled = reviewPos === 0;
+}
+
+/* ─── COST SLIDER ─── */
+function updateCostSlider(val) {
+  val = parseInt(val);
+  const t = txData[curIdx];
+  let label, desc, shown, hidden;
+
+  if (val < 30) {
+    label = 'Minimize False Positives';
+    desc  = 'Threshold set to reduce friction for good customers. Only transactions above score 90 are flagged. Risk: more fraud may slip through.';
+    shown = txData.filter(x => x.score >= 90).length;
+    hidden = txData.length - shown;
+  } else if (val > 70) {
+    label = 'Minimize Missed Fraud';
+    desc  = 'Aggressive threshold: all transactions above score 55 are flagged. Risk: higher analyst workload, more false positives for legitimate customers.';
+    shown = txData.filter(x => x.score >= 55).length;
+    hidden = txData.length - shown;
+  } else {
+    label = 'Balanced';
+    desc  = 'Balanced threshold at score 70. Flags high-confidence fraud while keeping false positive rates manageable.';
+    shown = txData.filter(x => x.score >= 70).length;
+    hidden = txData.length - shown;
+  }
+
+  document.getElementById('cost-result-label').textContent = label;
+  document.getElementById('cost-desc').textContent = desc;
+  document.getElementById('cost-flags').innerHTML =
+    `<div class="cost-flag-item" style="color:var(--red)">Flagged: <span>${shown}</span></div>
+     <div class="cost-flag-item" style="color:var(--green)">Passed: <span>${hidden}</span></div>
+     <div class="cost-flag-item" style="color:var(--text-2)">Threshold score: <span>${val < 30 ? '90' : val > 70 ? '55' : '70'}</span></div>`;
+}
+
+/* ─── SELECT DECISION ─── */
+function selectAction(a) {
+  selectedAction = a;
+  ['approve','reject','escalate'].forEach(x => {
+    document.getElementById('btn-'+x).className = 'action-opt';
+  });
+  document.getElementById('btn-'+a).className = 'action-opt selected-'+a;
+}
+
+/* ─── SUBMIT ─── */
+function submitAndNext() {
+  if (!selectedAction) { showToast('⚠ Select approve, reject, or escalate first.'); return; }
+  txStatus[curIdx] = selectedAction;
+  showToast('✓ ' + selectedAction.toUpperCase() + ' saved for ' + txData[curIdx].card);
+  renderCases();
+  if (reviewPos < reviewQueue.length - 1) { reviewPos++; curIdx = reviewQueue[reviewPos]; renderReview(); }
+  else { showToast('✓ All transactions reviewed!'); setTimeout(() => goPage('dashboard'), 1600); }
+}
+
+function nextTx() { if (reviewPos < reviewQueue.length - 1) { reviewPos++; curIdx = reviewQueue[reviewPos]; renderReview(); } }
+function prevTx() { if (reviewPos > 0) { reviewPos--; curIdx = reviewQueue[reviewPos]; renderReview(); } }
+
+/* ─── KEYBOARD SHORTCUTS ─── */
+document.addEventListener('keydown', e => {
+  const tag = document.activeElement.tagName.toLowerCase();
+  if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+  if (!document.getElementById('page-action').classList.contains('active')) return;
+  switch(e.key) {
+    case 'a': case 'A': selectAction('approve'); break;
+    case 'd': case 'D': selectAction('reject'); break;
+    case 'e': case 'E': selectAction('escalate'); break;
+    case 'u': case 'U': case 'ArrowLeft': prevTx(); break;
+    case 'ArrowRight': nextTx(); break;
+  }
+});
+
+/* ─── SEARCH ─── */
+function handleSearch(q) {
+  const dd = document.getElementById('search-dropdown');
+  q = q.trim().toLowerCase();
+  if (!q) { dd.classList.remove('open'); dd.innerHTML = ''; return; }
+
+  const results = txData.map((t,i)=>({...t,origIdx:i})).filter(t =>
+    t.card.toLowerCase().includes(q) ||
+    t.id.toLowerCase().includes(q) ||
+    t.txid.toLowerCase().includes(q) ||
+    t.pattern.toLowerCase().includes(q) ||
+    t.merchant.toLowerCase().includes(q)
+  ).slice(0, 6);
+
+  if (!results.length) {
+    dd.innerHTML = '<div class="search-no-result">No results found</div>';
+    dd.classList.add('open');
+    return;
+  }
+  dd.innerHTML = results.map(t => `
+    <div class="search-result-item" onclick="searchSelect(${t.origIdx})">
+      <span class="sr-id">${t.txid}</span>
+      <span class="sr-name">${t.card} · ${t.merchant}</span>
+      <span class="sr-badge badge ${t.badgeClass}">${t.pattern}</span>
+    </div>`).join('');
+  dd.classList.add('open');
+}
+
+function searchSelect(idx) {
+  closeSearch();
+  document.getElementById('global-search').value = '';
+  openReview(idx);
+}
+
+function closeSearch() {
+  const dd = document.getElementById('search-dropdown');
+  dd.classList.remove('open');
+  dd.innerHTML = '';
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.search-wrap')) closeSearch();
+});
+
+/* ─── EXPORT CSV ─── */
+function exportCSV() {
+  const statusLabel = (origIdx) => {
+    const s = txStatus[origIdx];
+    if (!s) return 'Pending';
+    if (s === 'approve') return 'Approved';
+    if (s === 'reject') return 'Rejected';
+    if (s === 'escalate') return 'Escalated';
+    return 'Pending';
+  };
+
+  const headers = ['Case ID','Card','Transaction ID','IP Address','Timestamp','Amount','Pattern','Risk Score','Merchant','Location','Status'];
+  const rows = txData.map((t,i) => [
+    t.id, t.card, t.txid, t.ip, t.ts, t.amount, t.pattern, t.score, t.merchant, t.loc, statusLabel(i)
+  ]);
+
+  const csv = [headers, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a'); a.href = url; a.download = '67frauders_transactions.csv'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('✓ CSV exported successfully.');
+}
+
+/* ─── FILE UPLOAD ─── */
+function handleFileUpload(input) {
+  if (input.files.length > 0) {
+    const name = input.files[0].name;
+    document.getElementById('upload-file-name').textContent = name;
+    document.getElementById('upload-file-info').style.display = 'flex';
+    document.getElementById('analyze-btn').style.display = 'block';
+    showToast('✓ File "' + name + '" ready for analysis.');
+  }
+}
+
+/* ─── ANALYSIS MODAL ─── */
+const analysisSteps = [
+  'File Uploaded',
+  'Cleaning Data',
+  'Building Card Profiles',
+  'Detecting Fraud Signals',
+  'Generating Risk Scores',
+  'Building Review Queue'
+];
+
+function startAnalysis() {
+  const fileName = document.getElementById('upload-file-name').textContent;
+  document.getElementById('modal-file-name').textContent = fileName || 'Processing your file…';
+  const stepsEl = document.getElementById('modal-steps');
+  stepsEl.innerHTML = analysisSteps.map((s,i) =>
+    `<div class="modal-step" id="mstep-${i}">
+      <div class="step-icon step-pending" id="micon-${i}"><div class="step-dot"></div></div>
+      <span class="step-label" id="mlabel-${i}">${s}</span>
+    </div>`).join('');
+  document.getElementById('analysis-modal').classList.add('open');
+  runStep(0);
+}
+
+function runStep(i) {
+  if (i >= analysisSteps.length) {
+    setTimeout(() => {
+      document.getElementById('analysis-modal').classList.remove('open');
+      showToast('✓ Analysis complete! Navigating to dashboard…');
+      setTimeout(() => goPage('dashboard'), 800);
+    }, 600);
+    return;
+  }
+  const icon = document.getElementById('micon-'+i);
+  const label = document.getElementById('mlabel-'+i);
+  icon.className = 'step-icon step-running';
+  icon.innerHTML = '<div class="step-spinner"></div>';
+  label.style.color = 'var(--text-1)';
+  setTimeout(() => {
+    icon.className = 'step-icon step-done';
+    icon.innerHTML = '<span class="step-check">✓</span>';
+    label.style.color = 'var(--text-1)';
+    runStep(i + 1);
+  }, 700 + Math.random() * 400);
+}
+
+/* ─── TOAST ─── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ─── INIT ─── */
+calcSummaryStats();
+applyFilter();
+renderCases();
+document.getElementById('nav-dashboard').classList.add('active');
+</script>
+</body>
+</html>
