@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <!-- Graph library (vis-network) for dynamic fraud constellation -->
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -138,6 +140,14 @@
 
     /* BADGES */
     .badge { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); letter-spacing: .3px; }
+    /* CONSTELLATION (graph) */
+    .constellation-wrap { display:flex; gap:16px; }
+    #constellation-network { flex: 1; height: 640px; border-radius: var(--radius-md); border:1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent); }
+    .constellation-sidebar { width: 360px; min-width: 260px; max-width: 360px; background: var(--bg-card); border:1px solid var(--border); border-radius: var(--radius-md); padding: 14px; }
+    .constellation-controls { display:flex; gap:8px; margin-bottom:12px; align-items:center; }
+    .constellation-search { width:100%; padding:8px 10px; border-radius:8px; border:1px solid var(--border-mid); background:transparent; color:var(--text-1); }
+    .node-type-card { display:flex; gap:8px; align-items:center; padding:8px; border-radius:8px; border:1px solid var(--border); margin-bottom:8px; }
+    .node-type-dot { width:12px; height:12px; border-radius:50%; display:inline-block; }
     .badge-red    { background: var(--red-dim);   color: var(--red);   border: 1px solid rgba(226,75,74,.3); }
     .badge-blue   { background: var(--blue-dim);  color: var(--blue);  border: 1px solid rgba(90,168,248,.3); }
     .badge-green  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(62,201,126,.3); }
@@ -294,6 +304,7 @@
       <a class="nav-item" onclick="goPage('dashboard')" id="nav-dashboard"><i class="ti ti-layout-dashboard"></i> Dashboard</a>
       <a class="nav-item" onclick="goPage('history')" id="nav-history"><i class="ti ti-clipboard-list"></i> History</a>
       <a class="nav-item" onclick="goPage('upload')" id="nav-upload"><i class="ti ti-file-upload"></i> Upload</a>
+      <a class="nav-item" onclick="goPage('constellation')" id="nav-constellation"><i class="ti ti-device-cctv"></i> Fraud Constellation</a>
     </nav>
     <button class="new-inv-btn" onclick="goPage('action')">Swipe and Review</button>
     <div class="sidebar-footer">
@@ -407,6 +418,7 @@
                 <label>Status</label>
                 <select class="filter-select" id="f-status">
                   <option value="">All</option>
+                  <option value="clear">Clear</option>
                   <option value="pending">Pending</option>
                   <option value="approved">Approved</option>
                   <option value="rejected">Rejected</option>
@@ -475,6 +487,32 @@
         </div>
       </div>
 
+      <!-- CONSTELLATION -->
+      <div class="page" id="page-constellation">
+        <div class="page-title">Fraud Constellation</div>
+        <div class="card">
+          <div class="constellation-wrap">
+            <div id="constellation-network"></div>
+            <div class="constellation-sidebar">
+              <div class="constellation-controls">
+                <input id="constellation-search" class="constellation-search" placeholder="Search card, device, IP, merchant, txid..." oninput="searchConstellation(this.value)" />
+                <button class="btn-outline" onclick="resetConstellation()">Reset</button>
+              </div>
+              <div id="node-details">Click a node to see details</div>
+              <div style="margin-top:12px"><strong>Filters</strong></div>
+              <select id="filter-node-type" onchange="applyConstellationFilters()" style="width:100%;margin-top:8px;padding:8px;border-radius:6px;background:transparent;border:1px solid var(--border-mid);color:var(--text-1)">
+                <option value="">All node types</option>
+                <option value="card">Card</option>
+                <option value="device">Device</option>
+                <option value="ip">IP</option>
+                <option value="merchant">Merchant</option>
+                <option value="transaction">Transaction</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- ACTION REVIEW -->
       <div class="page" id="page-action">
         <button class="back-to-dash" onclick="goPage('dashboard')"><i class="ti ti-arrow-left"></i> Back to Dashboard</button>
@@ -512,7 +550,7 @@
               <div class="detail-item"><label>Risk Score</label><span id="rev-score">92 / 100</span></div>
               <div class="detail-item"><label>Merchant</label><span id="rev-merchant">TechGadgets EU</span></div>
               <div class="detail-item"><label>Location</label><span id="rev-loc">Frankfurt, DE</span></div>
-              <div class="detail-item"><label>Transaction ID</label><span id="rev-txid" style="font-family:var(--font-mono);font-size:12px"></span></div>
+              <div class="detail-item"><label>Transaction ID</label><span id="rev-txid" style="font-family:var(--font-mono);font-size:12px;cursor:pointer;color:var(--accent)" onclick="viewInConstellation(this.textContent.replace(/^#/,''))"></span></div>
               <div class="detail-item"><label>IP Address</label><span id="rev-ip" style="font-family:var(--font-mono);font-size:12px"></span></div>
             </div>
 
@@ -571,920 +609,917 @@
 
 <script>
 /* ─── DATA ─── */
-let txData = []
-// const txData = [
-//   {
-//     "id": "#tx_000942",
-//     "card": "card_023",
-//     "amount": "$7.52",
-//     "amountNum": 7.52,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-red",
-//     "ts": "05:15:46",
-//     "score": 100,
-//     "merchant": "AliExpress",
-//     "loc": "CN · Online",
-//     "txid": "tx_000942",
-//     "ip": "189.144.75.233",
-//     "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 17 cards hit AliExpress in 24h · Odd hours: 5am"
-//   },
-//   {
-//     "id": "#tx_000944",
-//     "card": "card_023",
-//     "amount": "$2.71",
-//     "amountNum": 2.71,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-red",
-//     "ts": "05:27:34",
-//     "score": 100,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000944",
-//     "ip": "189.144.75.233",
-//     "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 20 cards hit QuickPay Online in 24h · Odd hours: 5am"
-//   },
-//   {
-//     "id": "#tx_000943",
-//     "card": "card_023",
-//     "amount": "$10.45",
-//     "amountNum": 10.45,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-red",
-//     "ts": "05:20:11",
-//     "score": 100,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000943",
-//     "ip": "189.144.75.233",
-//     "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 20 cards hit QuickPay Online in 24h · Odd hours: 5am"
-//   },
-//   {
-//     "id": "#tx_000947",
-//     "card": "card_023",
-//     "amount": "$1.50",
-//     "amountNum": 1.5,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-red",
-//     "ts": "05:19:04",
-//     "score": 100,
-//     "merchant": "Shopify Merchant 1",
-//     "loc": "CA · Online",
-//     "txid": "tx_000947",
-//     "ip": "189.144.75.233",
-//     "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 1 in 24h · Odd hours: 5am"
-//   },
-//   {
-//     "id": "#tx_000990",
-//     "card": "card_020",
-//     "amount": "$1,158.32",
-//     "amountNum": 1158.32,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-red",
-//     "ts": "03:33:54",
-//     "score": 100,
-//     "merchant": "Apple Store",
-//     "loc": "CA · Online",
-//     "txid": "tx_000990",
-//     "ip": "208.54.36.183",
-//     "reason": "Amount 34.4× card median · Electronics spike · Odd hours: 3am"
-//   },
-//   {
-//     "id": "#tx_000992",
-//     "card": "card_018",
-//     "amount": "$1,753.33",
-//     "amountNum": 1753.33,
-//     "pattern": "Gift Card Fraud",
-//     "badgeClass": "badge-red",
-//     "ts": "05:00:00",
-//     "score": 100,
-//     "merchant": "Gift Card Mall",
-//     "loc": "US · Online",
-//     "txid": "tx_000992",
-//     "ip": "208.54.164.45",
-//     "reason": "Amount 55.1× card median · Gift card purchase · Odd hours: 5am"
-//   },
-//   {
-//     "id": "#tx_000991",
-//     "card": "card_020",
-//     "amount": "$511.77",
-//     "amountNum": 511.77,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-red",
-//     "ts": "02:35:51",
-//     "score": 100,
-//     "merchant": "Newegg",
-//     "loc": "US · Online",
-//     "txid": "tx_000991",
-//     "ip": "208.54.36.183",
-//     "reason": "Amount 15.2× card median · Electronics spike · Odd hours: 2am"
-//   },
-//   {
-//     "id": "#tx_000948",
-//     "card": "card_023",
-//     "amount": "$10.26",
-//     "amountNum": 10.26,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-red",
-//     "ts": "05:38:41",
-//     "score": 100,
-//     "merchant": "AliExpress",
-//     "loc": "CN · Online",
-//     "txid": "tx_000948",
-//     "ip": "189.144.75.233",
-//     "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 17 cards hit AliExpress in 24h · Odd hours: 5am"
-//   },
-//   {
-//     "id": "#tx_000946",
-//     "card": "card_023",
-//     "amount": "$3.51",
-//     "amountNum": 3.51,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-red",
-//     "ts": "05:33:26",
-//     "score": 100,
-//     "merchant": "Shopify Merchant 2",
-//     "loc": "CA · Online",
-//     "txid": "tx_000946",
-//     "ip": "189.144.75.233",
-//     "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 2 in 24h · Odd hours: 5am"
-//   },
-//   {
-//     "id": "#tx_000955",
-//     "card": "card_042",
-//     "amount": "$4.36",
-//     "amountNum": 4.36,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "11:11:22",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 1",
-//     "loc": "CA · Online",
-//     "txid": "tx_000955",
-//     "ip": "201.116.232.148",
-//     "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 8 cards hit Shopify Merchant 1 in 24h"
-//   },
-//   {
-//     "id": "#tx_000956",
-//     "card": "card_042",
-//     "amount": "$2.97",
-//     "amountNum": 2.97,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "11:20:20",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 2",
-//     "loc": "CA · Online",
-//     "txid": "tx_000956",
-//     "ip": "201.116.232.148",
-//     "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 6 cards hit Shopify Merchant 2 in 24h"
-//   },
-//   {
-//     "id": "#tx_000952",
-//     "card": "card_042",
-//     "amount": "$7.46",
-//     "amountNum": 7.46,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "11:07:39",
-//     "score": 67,
-//     "merchant": "AliExpress",
-//     "loc": "CN · Online",
-//     "txid": "tx_000952",
-//     "ip": "201.116.232.148",
-//     "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 10 cards hit AliExpress in 24h"
-//   },
-//   {
-//     "id": "#tx_000975",
-//     "card": "card_038",
-//     "amount": "$11.32",
-//     "amountNum": 11.32,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "14:08:47",
-//     "score": 67,
-//     "merchant": "AliExpress",
-//     "loc": "CN · Online",
-//     "txid": "tx_000975",
-//     "ip": "208.54.80.124",
-//     "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 16 cards hit AliExpress in 24h"
-//   },
-//   {
-//     "id": "#tx_000974",
-//     "card": "card_038",
-//     "amount": "$11.57",
-//     "amountNum": 11.57,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "14:04:25",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 1",
-//     "loc": "CA · Online",
-//     "txid": "tx_000974",
-//     "ip": "208.54.80.124",
-//     "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
-//   },
-//   {
-//     "id": "#tx_000966",
-//     "card": "card_049",
-//     "amount": "$2.63",
-//     "amountNum": 2.63,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "22:11:52",
-//     "score": 67,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000966",
-//     "ip": "117.136.220.191",
-//     "reason": "Velocity burst: 10 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_000964",
-//     "card": "card_049",
-//     "amount": "$9.56",
-//     "amountNum": 9.56,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "22:08:56",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 2",
-//     "loc": "CA · Online",
-//     "txid": "tx_000964",
-//     "ip": "117.136.220.191",
-//     "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
-//   },
-//   {
-//     "id": "#tx_000961",
-//     "card": "card_049",
-//     "amount": "$10.72",
-//     "amountNum": 10.72,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "21:59:04",
-//     "score": 67,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000961",
-//     "ip": "117.136.220.191",
-//     "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_000967",
-//     "card": "card_049",
-//     "amount": "$12.82",
-//     "amountNum": 12.82,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "22:04:31",
-//     "score": 67,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000967",
-//     "ip": "117.136.220.191",
-//     "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_000962",
-//     "card": "card_049",
-//     "amount": "$4.15",
-//     "amountNum": 4.15,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "21:59:00",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 2",
-//     "loc": "CA · Online",
-//     "txid": "tx_000962",
-//     "ip": "117.136.220.191",
-//     "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
-//   },
-//   {
-//     "id": "#tx_000965",
-//     "card": "card_049",
-//     "amount": "$14.88",
-//     "amountNum": 14.88,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "21:52:41",
-//     "score": 67,
-//     "merchant": "AliExpress",
-//     "loc": "CN · Online",
-//     "txid": "tx_000965",
-//     "ip": "117.136.220.191",
-//     "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 20 cards hit AliExpress in 24h"
-//   },
-//   {
-//     "id": "#tx_000979",
-//     "card": "card_019",
-//     "amount": "$378.05",
-//     "amountNum": 378.05,
-//     "pattern": "Gift Card Fraud",
-//     "badgeClass": "badge-amber",
-//     "ts": "01:36:00",
-//     "score": 67,
-//     "merchant": "Apple Gift Card",
-//     "loc": "US · Online",
-//     "txid": "tx_000979",
-//     "ip": "82.66.129.145",
-//     "reason": "Amount 11.7× card median · Gift card purchase"
-//   },
-//   {
-//     "id": "#tx_000971",
-//     "card": "card_038",
-//     "amount": "$3.64",
-//     "amountNum": 3.64,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "13:53:38",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 1",
-//     "loc": "CA · Online",
-//     "txid": "tx_000971",
-//     "ip": "208.54.80.124",
-//     "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
-//   },
-//   {
-//     "id": "#tx_000973",
-//     "card": "card_038",
-//     "amount": "$2.70",
-//     "amountNum": 2.7,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "14:00:25",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 2",
-//     "loc": "CA · Online",
-//     "txid": "tx_000973",
-//     "ip": "208.54.80.124",
-//     "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 11 cards hit Shopify Merchant 2 in 24h"
-//   },
-//   {
-//     "id": "#tx_000972",
-//     "card": "card_038",
-//     "amount": "$11.41",
-//     "amountNum": 11.41,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "13:56:05",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 1",
-//     "loc": "CA · Online",
-//     "txid": "tx_000972",
-//     "ip": "208.54.80.124",
-//     "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
-//   },
-//   {
-//     "id": "#tx_000983",
-//     "card": "card_000",
-//     "amount": "$1,032.48",
-//     "amountNum": 1032.48,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-amber",
-//     "ts": "17:13:00",
-//     "score": 67,
-//     "merchant": "Newegg",
-//     "loc": "US · Online",
-//     "txid": "tx_000983",
-//     "ip": "189.144.34.189",
-//     "reason": "Amount 28.1× card median · Electronics spike"
-//   },
-//   {
-//     "id": "#tx_000985",
-//     "card": "card_045",
-//     "amount": "$1,274.84",
-//     "amountNum": 1274.84,
-//     "pattern": "Gift Card Fraud",
-//     "badgeClass": "badge-amber",
-//     "ts": "20:57:00",
-//     "score": 67,
-//     "merchant": "Apple Gift Card",
-//     "loc": "US · Online",
-//     "txid": "tx_000985",
-//     "ip": "177.20.183.221",
-//     "reason": "Amount 42.2× card median · Gift card purchase"
-//   },
-//   {
-//     "id": "#tx_000922",
-//     "card": "card_030",
-//     "amount": "$696.48",
-//     "amountNum": 696.48,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-amber",
-//     "ts": "15:59:37",
-//     "score": 67,
-//     "merchant": "Best Buy",
-//     "loc": "DE · In Person",
-//     "txid": "tx_000922",
-//     "ip": "N/A",
-//     "reason": "Amount 20.1× card median · Electronics spike"
-//   },
-//   {
-//     "id": "#tx_000976",
-//     "card": "card_038",
-//     "amount": "$4.17",
-//     "amountNum": 4.17,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "14:06:56",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 1",
-//     "loc": "CA · Online",
-//     "txid": "tx_000976",
-//     "ip": "208.54.80.124",
-//     "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
-//   },
-//   {
-//     "id": "#tx_000989",
-//     "card": "card_020",
-//     "amount": "$425.23",
-//     "amountNum": 425.23,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-amber",
-//     "ts": "00:31:38",
-//     "score": 67,
-//     "merchant": "Newegg",
-//     "loc": "US · Online",
-//     "txid": "tx_000989",
-//     "ip": "208.54.36.183",
-//     "reason": "Amount 12.6× card median · Electronics spike"
-//   },
-//   {
-//     "id": "#tx_000988",
-//     "card": "card_020",
-//     "amount": "$1,474.93",
-//     "amountNum": 1474.93,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-amber",
-//     "ts": "00:00:00",
-//     "score": 67,
-//     "merchant": "Apple Store",
-//     "loc": "CA · Online",
-//     "txid": "tx_000988",
-//     "ip": "208.54.36.183",
-//     "reason": "Amount 43.8× card median · Electronics spike"
-//   },
-//   {
-//     "id": "#tx_000994",
-//     "card": "card_018",
-//     "amount": "$1,147.16",
-//     "amountNum": 1147.16,
-//     "pattern": "Gift Card Fraud",
-//     "badgeClass": "badge-amber",
-//     "ts": "06:20:52",
-//     "score": 67,
-//     "merchant": "Apple Gift Card",
-//     "loc": "US · Online",
-//     "txid": "tx_000994",
-//     "ip": "208.54.164.45",
-//     "reason": "Amount 36.1× card median · Gift card purchase"
-//   },
-//   {
-//     "id": "#tx_000920",
-//     "card": "card_016",
-//     "amount": "$1,900.28",
-//     "amountNum": 1900.28,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-amber",
-//     "ts": "08:43:15",
-//     "score": 67,
-//     "merchant": "Apple Store",
-//     "loc": "CA · In Person",
-//     "txid": "tx_000920",
-//     "ip": "N/A",
-//     "reason": "Amount 30.6× card median · Electronics spike"
-//   },
-//   {
-//     "id": "#tx_000987",
-//     "card": "card_016",
-//     "amount": "$1,511.01",
-//     "amountNum": 1511.01,
-//     "pattern": "Gift Card Fraud",
-//     "badgeClass": "badge-amber",
-//     "ts": "21:40:52",
-//     "score": 67,
-//     "merchant": "Apple Gift Card",
-//     "loc": "US · Online",
-//     "txid": "tx_000987",
-//     "ip": "177.20.160.195",
-//     "reason": "Amount 24.3× card median · Gift card purchase"
-//   },
-//   {
-//     "id": "#tx_000993",
-//     "card": "card_018",
-//     "amount": "$1,138.68",
-//     "amountNum": 1138.68,
-//     "pattern": "Gift Card Fraud",
-//     "badgeClass": "badge-amber",
-//     "ts": "06:46:49",
-//     "score": 67,
-//     "merchant": "Gift Card Mall",
-//     "loc": "US · Online",
-//     "txid": "tx_000993",
-//     "ip": "208.54.164.45",
-//     "reason": "Amount 35.8× card median · Gift card purchase"
-//   },
-//   {
-//     "id": "#tx_000986",
-//     "card": "card_016",
-//     "amount": "$1,157.81",
-//     "amountNum": 1157.81,
-//     "pattern": "Gift Card Fraud",
-//     "badgeClass": "badge-amber",
-//     "ts": "21:00:00",
-//     "score": 67,
-//     "merchant": "Gift Card Mall",
-//     "loc": "US · Online",
-//     "txid": "tx_000986",
-//     "ip": "177.20.160.195",
-//     "reason": "Amount 18.6× card median · Gift card purchase"
-//   },
-//   {
-//     "id": "#tx_000921",
-//     "card": "card_021",
-//     "amount": "$1,148.20",
-//     "amountNum": 1148.2,
-//     "pattern": "Electronics Spike",
-//     "badgeClass": "badge-amber",
-//     "ts": "13:07:45",
-//     "score": 67,
-//     "merchant": "Apple Store",
-//     "loc": "CA · In Person",
-//     "txid": "tx_000921",
-//     "ip": "N/A",
-//     "reason": "Amount 23.1× card median · Electronics spike"
-//   },
-//   {
-//     "id": "#tx_000963",
-//     "card": "card_049",
-//     "amount": "$8.44",
-//     "amountNum": 8.44,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-amber",
-//     "ts": "21:50:55",
-//     "score": 67,
-//     "merchant": "Shopify Merchant 2",
-//     "loc": "CA · Online",
-//     "txid": "tx_000963",
-//     "ip": "117.136.220.191",
-//     "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
-//   },
-//   {
-//     "id": "#tx_000999",
-//     "card": "card_039",
-//     "amount": "$370.50",
-//     "amountNum": 370.5,
-//     "pattern": "Amount Anomaly",
-//     "badgeClass": "badge-amber",
-//     "ts": "03:22:40",
-//     "score": 33,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000999",
-//     "ip": "98.207.23.36",
-//     "reason": "Amount 20.3× card median · Merchant burst: 10 cards hit QuickPay Online in 24h · Odd hours: 3am"
-//   },
-//   {
-//     "id": "#tx_000042",
-//     "card": "card_002",
-//     "amount": "$200.00",
-//     "amountNum": 200.0,
-//     "pattern": "Amount Anomaly",
-//     "badgeClass": "badge-amber",
-//     "ts": "02:24:37",
-//     "score": 33,
-//     "merchant": "BMO ATM",
-//     "loc": "CA · Atm",
-//     "txid": "tx_000042",
-//     "ip": "N/A",
-//     "reason": "Amount 10.0× card median · Merchant burst: 16 cards hit BMO ATM in 24h · Odd hours: 2am"
-//   },
-//   {
-//     "id": "#tx_000996",
-//     "card": "card_032",
-//     "amount": "$791.49",
-//     "amountNum": 791.49,
-//     "pattern": "Amount Anomaly",
-//     "badgeClass": "badge-amber",
-//     "ts": "02:15:14",
-//     "score": 33,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000996",
-//     "ip": "98.207.131.10",
-//     "reason": "Amount 13.7× card median · Merchant burst: 6 cards hit QuickPay Online in 24h · Odd hours: 2am"
-//   },
-//   {
-//     "id": "#tx_000998",
-//     "card": "card_046",
-//     "amount": "$935.27",
-//     "amountNum": 935.27,
-//     "pattern": "Amount Anomaly",
-//     "badgeClass": "badge-amber",
-//     "ts": "03:27:16",
-//     "score": 33,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000998",
-//     "ip": "208.54.251.27",
-//     "reason": "Amount 27.1× card median · Merchant burst: 11 cards hit QuickPay Online in 24h · Odd hours: 3am"
-//   },
-//   {
-//     "id": "#tx_000997",
-//     "card": "card_038",
-//     "amount": "$356.29",
-//     "amountNum": 356.29,
-//     "pattern": "Amount Anomaly",
-//     "badgeClass": "badge-amber",
-//     "ts": "02:45:19",
-//     "score": 33,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000997",
-//     "ip": "98.207.247.39",
-//     "reason": "Amount 23.8× card median · Merchant burst: 9 cards hit QuickPay Online in 24h · Odd hours: 2am"
-//   },
-//   {
-//     "id": "#tx_000995",
-//     "card": "card_002",
-//     "amount": "$735.44",
-//     "amountNum": 735.44,
-//     "pattern": "Amount Anomaly",
-//     "badgeClass": "badge-amber",
-//     "ts": "02:25:59",
-//     "score": 33,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000995",
-//     "ip": "172.58.196.128",
-//     "reason": "Amount 36.8× card median · Merchant burst: 8 cards hit QuickPay Online in 24h · Odd hours: 2am"
-//   },
-//   {
-//     "id": "#tx_000906",
-//     "card": "card_049",
-//     "amount": "$536.35",
-//     "amountNum": 536.35,
-//     "pattern": "Amount Anomaly",
-//     "badgeClass": "badge-amber",
-//     "ts": "04:31:46",
-//     "score": 33,
-//     "merchant": "Amazon.ca",
-//     "loc": "CA · Online",
-//     "txid": "tx_000906",
-//     "ip": "70.50.179.16",
-//     "reason": "Amount 33.5× card median · Merchant burst: 12 cards hit Amazon.ca in 24h · Odd hours: 4am"
-//   },
-//   {
-//     "id": "#tx_000766",
-//     "card": "card_041",
-//     "amount": "$475.35",
-//     "amountNum": 475.35,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "14:54:25",
-//     "score": 0,
-//     "merchant": "Cineplex",
-//     "loc": "CA · In Person",
-//     "txid": "tx_000766",
-//     "ip": "N/A",
-//     "reason": "Amount 18.5× card median · Merchant burst: 11 cards hit Cineplex in 24h"
-//   },
-//   {
-//     "id": "#tx_000433",
-//     "card": "card_023",
-//     "amount": "$106.90",
-//     "amountNum": 106.9,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "14:04:53",
-//     "score": 0,
-//     "merchant": "Loblaws",
-//     "loc": "CA · In Person",
-//     "txid": "tx_000433",
-//     "ip": "N/A",
-//     "reason": "Amount 9.5× card median · Merchant burst: 10 cards hit Loblaws in 24h"
-//   },
-//   {
-//     "id": "#tx_000774",
-//     "card": "card_041",
-//     "amount": "$471.21",
-//     "amountNum": 471.21,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "18:41:55",
-//     "score": 0,
-//     "merchant": "Schwartz's",
-//     "loc": "CA · In Person",
-//     "txid": "tx_000774",
-//     "ip": "N/A",
-//     "reason": "Amount 18.4× card median · Merchant burst: 7 cards hit Schwartz's in 24h"
-//   },
-//   {
-//     "id": "#tx_000740",
-//     "card": "card_040",
-//     "amount": "$170.53",
-//     "amountNum": 170.53,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "20:11:49",
-//     "score": 0,
-//     "merchant": "Cineplex",
-//     "loc": "CA · In Person",
-//     "txid": "tx_000740",
-//     "ip": "N/A",
-//     "reason": "Amount 8.5× card median · Merchant burst: 11 cards hit Cineplex in 24h"
-//   },
-//   {
-//     "id": "#tx_000321",
-//     "card": "card_017",
-//     "amount": "$200.00",
-//     "amountNum": 200.0,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "13:47:48",
-//     "score": 0,
-//     "merchant": "RBC ATM",
-//     "loc": "CA · Atm",
-//     "txid": "tx_000321",
-//     "ip": "N/A",
-//     "reason": "Amount 9.2× card median · Merchant burst: 5 cards hit RBC ATM in 24h"
-//   },
-//   {
-//     "id": "#tx_000324",
-//     "card": "card_017",
-//     "amount": "$194.41",
-//     "amountNum": 194.41,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "20:42:20",
-//     "score": 0,
-//     "merchant": "Shopify Merchant 2",
-//     "loc": "CA · Online",
-//     "txid": "tx_000324",
-//     "ip": "142.112.175.54",
-//     "reason": "Amount 8.9× card median · Merchant burst: 7 cards hit Shopify Merchant 2 in 24h"
-//   },
-//   {
-//     "id": "#tx_000954",
-//     "card": "card_042",
-//     "amount": "$14.27",
-//     "amountNum": 14.27,
-//     "pattern": "Velocity Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "11:15:14",
-//     "score": 0,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_000954",
-//     "ip": "201.116.232.148",
-//     "reason": "Velocity burst: 6 transactions in 30 min"
-//   },
-//   {
-//     "id": "#tx_000356",
-//     "card": "card_019",
-//     "amount": "$497.46",
-//     "amountNum": 497.46,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "12:36:53",
-//     "score": 0,
-//     "merchant": "Loblaws",
-//     "loc": "CA · In Person",
-//     "txid": "tx_000356",
-//     "ip": "N/A",
-//     "reason": "Amount 15.4× card median · Merchant burst: 6 cards hit Loblaws in 24h"
-//   },
-//   {
-//     "id": "#tx_000264",
-//     "card": "card_014",
-//     "amount": "$150.51",
-//     "amountNum": 150.51,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "22:04:24",
-//     "score": 0,
-//     "merchant": "Cafe Olimpico",
-//     "loc": "FR · In Person",
-//     "txid": "tx_000264",
-//     "ip": "N/A",
-//     "reason": "Amount 8.2× card median · Merchant burst: 8 cards hit Cafe Olimpico in 24h"
-//   },
-//   {
-//     "id": "#tx_001004",
-//     "card": "card_029",
-//     "amount": "$724.05",
-//     "amountNum": 724.05,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "15:09:02",
-//     "score": 0,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_001004",
-//     "ip": "172.58.68.100",
-//     "reason": "Amount 21.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_001007",
-//     "card": "card_040",
-//     "amount": "$579.49",
-//     "amountNum": 579.49,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "15:20:50",
-//     "score": 0,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_001007",
-//     "ip": "172.58.33.50",
-//     "reason": "Amount 28.8× card median · Merchant burst: 25 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_001006",
-//     "card": "card_030",
-//     "amount": "$345.74",
-//     "amountNum": 345.74,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "14:20:42",
-//     "score": 0,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_001006",
-//     "ip": "208.54.240.254",
-//     "reason": "Amount 10.0× card median · Merchant burst: 23 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_001003",
-//     "card": "card_009",
-//     "amount": "$835.40",
-//     "amountNum": 835.4,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "14:11:07",
-//     "score": 0,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_001003",
-//     "ip": "172.58.128.27",
-//     "reason": "Amount 46.3× card median · Merchant burst: 22 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_000981",
-//     "card": "card_048",
-//     "amount": "$944.80",
-//     "amountNum": 944.8,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "01:37:00",
-//     "score": 0,
-//     "merchant": "AliExpress",
-//     "loc": "CN · Online",
-//     "txid": "tx_000981",
-//     "ip": "95.91.186.202",
-//     "reason": "Amount 34.9× card median · Merchant burst: 21 cards hit AliExpress in 24h"
-//   },
-//   {
-//     "id": "#tx_001001",
-//     "card": "card_036",
-//     "amount": "$426.59",
-//     "amountNum": 426.59,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "14:53:49",
-//     "score": 0,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_001001",
-//     "ip": "172.58.244.57",
-//     "reason": "Amount 8.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h"
-//   },
-//   {
-//     "id": "#tx_001002",
-//     "card": "card_007",
-//     "amount": "$820.61",
-//     "amountNum": 820.61,
-//     "pattern": "Merchant Burst",
-//     "badgeClass": "badge-blue",
-//     "ts": "15:22:21",
-//     "score": 0,
-//     "merchant": "QuickPay Online",
-//     "loc": "CA · Online",
-//     "txid": "tx_001002",
-//     "ip": "73.15.130.57",
-//     "reason": "Amount 20.5× card median · Merchant burst: 26 cards hit QuickPay Online in 24h"
-//   }
-// ];
+const txData = [
+  {
+    "id": "#tx_000942",
+    "card": "card_023",
+    "amount": "$7.52",
+    "amountNum": 7.52,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:15:46",
+    "score": 100,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000942",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 17 cards hit AliExpress in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000944",
+    "card": "card_023",
+    "amount": "$2.71",
+    "amountNum": 2.71,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:27:34",
+    "score": 100,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000944",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 20 cards hit QuickPay Online in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000943",
+    "card": "card_023",
+    "amount": "$10.45",
+    "amountNum": 10.45,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:20:11",
+    "score": 100,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000943",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 20 cards hit QuickPay Online in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000947",
+    "card": "card_023",
+    "amount": "$1.50",
+    "amountNum": 1.5,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:19:04",
+    "score": 100,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000947",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 1 in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000990",
+    "card": "card_020",
+    "amount": "$1,158.32",
+    "amountNum": 1158.32,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-red",
+    "ts": "03:33:54",
+    "score": 100,
+    "merchant": "Apple Store",
+    "loc": "CA · Online",
+    "txid": "tx_000990",
+    "ip": "208.54.36.183",
+    "reason": "Amount 34.4× card median · Electronics spike · Odd hours: 3am"
+  },
+  {
+    "id": "#tx_000992",
+    "card": "card_018",
+    "amount": "$1,753.33",
+    "amountNum": 1753.33,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-red",
+    "ts": "05:00:00",
+    "score": 100,
+    "merchant": "Gift Card Mall",
+    "loc": "US · Online",
+    "txid": "tx_000992",
+    "ip": "208.54.164.45",
+    "reason": "Amount 55.1× card median · Gift card purchase · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000991",
+    "card": "card_020",
+    "amount": "$511.77",
+    "amountNum": 511.77,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-red",
+    "ts": "02:35:51",
+    "score": 100,
+    "merchant": "Newegg",
+    "loc": "US · Online",
+    "txid": "tx_000991",
+    "ip": "208.54.36.183",
+    "reason": "Amount 15.2× card median · Electronics spike · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000948",
+    "card": "card_023",
+    "amount": "$10.26",
+    "amountNum": 10.26,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:38:41",
+    "score": 100,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000948",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 17 cards hit AliExpress in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000946",
+    "card": "card_023",
+    "amount": "$3.51",
+    "amountNum": 3.51,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-red",
+    "ts": "05:33:26",
+    "score": 100,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000946",
+    "ip": "189.144.75.233",
+    "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 2 in 24h · Odd hours: 5am"
+  },
+  {
+    "id": "#tx_000955",
+    "card": "card_042",
+    "amount": "$4.36",
+    "amountNum": 4.36,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "11:11:22",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000955",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 8 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000956",
+    "card": "card_042",
+    "amount": "$2.97",
+    "amountNum": 2.97,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "11:20:20",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000956",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 6 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000952",
+    "card": "card_042",
+    "amount": "$7.46",
+    "amountNum": 7.46,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "11:07:39",
+    "score": 67,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000952",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 10 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_000975",
+    "card": "card_038",
+    "amount": "$11.32",
+    "amountNum": 11.32,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:08:47",
+    "score": 67,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000975",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 16 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_000974",
+    "card": "card_038",
+    "amount": "$11.57",
+    "amountNum": 11.57,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:04:25",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000974",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000966",
+    "card": "card_049",
+    "amount": "$2.63",
+    "amountNum": 2.63,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "22:11:52",
+    "score": 67,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000966",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 10 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000964",
+    "card": "card_049",
+    "amount": "$9.56",
+    "amountNum": 9.56,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "22:08:56",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000964",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 9 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000961",
+    "card": "card_049",
+    "amount": "$10.72",
+    "amountNum": 10.72,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:59:04",
+    "score": 67,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000961",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 7 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000967",
+    "card": "card_049",
+    "amount": "$12.82",
+    "amountNum": 12.82,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "22:04:31",
+    "score": 67,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000967",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 21 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000962",
+    "card": "card_049",
+    "amount": "$4.15",
+    "amountNum": 4.15,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:59:00",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000962",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000965",
+    "card": "card_049",
+    "amount": "$14.88",
+    "amountNum": 14.88,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:52:41",
+    "score": 67,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000965",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 20 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_000979",
+    "card": "card_019",
+    "amount": "$378.05",
+    "amountNum": 378.05,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "01:36:00",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000979",
+    "ip": "82.66.129.145",
+    "reason": "Amount 11.7× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000971",
+    "card": "card_038",
+    "amount": "$3.64",
+    "amountNum": 3.64,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "13:53:38",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000971",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000973",
+    "card": "card_038",
+    "amount": "$2.70",
+    "amountNum": 2.7,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:00:25",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000973",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 6 transactions in 30 min · Merchant burst: 11 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000972",
+    "card": "card_038",
+    "amount": "$11.41",
+    "amountNum": 11.41,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "13:56:05",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000972",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 5 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000983",
+    "card": "card_000",
+    "amount": "$1,032.48",
+    "amountNum": 1032.48,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "17:13:00",
+    "score": 67,
+    "merchant": "Newegg",
+    "loc": "US · Online",
+    "txid": "tx_000983",
+    "ip": "189.144.34.189",
+    "reason": "Amount 28.1× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000985",
+    "card": "card_045",
+    "amount": "$1,274.84",
+    "amountNum": 1274.84,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "20:57:00",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000985",
+    "ip": "177.20.183.221",
+    "reason": "Amount 42.2× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000922",
+    "card": "card_030",
+    "amount": "$696.48",
+    "amountNum": 696.48,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "15:59:37",
+    "score": 67,
+    "merchant": "Best Buy",
+    "loc": "DE · In Person",
+    "txid": "tx_000922",
+    "ip": "N/A",
+    "reason": "Amount 20.1× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000976",
+    "card": "card_038",
+    "amount": "$4.17",
+    "amountNum": 4.17,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "14:06:56",
+    "score": 67,
+    "merchant": "Shopify Merchant 1",
+    "loc": "CA · Online",
+    "txid": "tx_000976",
+    "ip": "208.54.80.124",
+    "reason": "Velocity burst: 8 transactions in 30 min · Merchant burst: 12 cards hit Shopify Merchant 1 in 24h"
+  },
+  {
+    "id": "#tx_000989",
+    "card": "card_020",
+    "amount": "$425.23",
+    "amountNum": 425.23,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "00:31:38",
+    "score": 67,
+    "merchant": "Newegg",
+    "loc": "US · Online",
+    "txid": "tx_000989",
+    "ip": "208.54.36.183",
+    "reason": "Amount 12.6× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000988",
+    "card": "card_020",
+    "amount": "$1,474.93",
+    "amountNum": 1474.93,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "00:00:00",
+    "score": 67,
+    "merchant": "Apple Store",
+    "loc": "CA · Online",
+    "txid": "tx_000988",
+    "ip": "208.54.36.183",
+    "reason": "Amount 43.8× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000994",
+    "card": "card_018",
+    "amount": "$1,147.16",
+    "amountNum": 1147.16,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "06:20:52",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000994",
+    "ip": "208.54.164.45",
+    "reason": "Amount 36.1× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000920",
+    "card": "card_016",
+    "amount": "$1,900.28",
+    "amountNum": 1900.28,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "08:43:15",
+    "score": 67,
+    "merchant": "Apple Store",
+    "loc": "CA · In Person",
+    "txid": "tx_000920",
+    "ip": "N/A",
+    "reason": "Amount 30.6× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000987",
+    "card": "card_016",
+    "amount": "$1,511.01",
+    "amountNum": 1511.01,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "21:40:52",
+    "score": 67,
+    "merchant": "Apple Gift Card",
+    "loc": "US · Online",
+    "txid": "tx_000987",
+    "ip": "177.20.160.195",
+    "reason": "Amount 24.3× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000993",
+    "card": "card_018",
+    "amount": "$1,138.68",
+    "amountNum": 1138.68,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "06:46:49",
+    "score": 67,
+    "merchant": "Gift Card Mall",
+    "loc": "US · Online",
+    "txid": "tx_000993",
+    "ip": "208.54.164.45",
+    "reason": "Amount 35.8× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000986",
+    "card": "card_016",
+    "amount": "$1,157.81",
+    "amountNum": 1157.81,
+    "pattern": "Gift Card Fraud",
+    "badgeClass": "badge-amber",
+    "ts": "21:00:00",
+    "score": 67,
+    "merchant": "Gift Card Mall",
+    "loc": "US · Online",
+    "txid": "tx_000986",
+    "ip": "177.20.160.195",
+    "reason": "Amount 18.6× card median · Gift card purchase"
+  },
+  {
+    "id": "#tx_000921",
+    "card": "card_021",
+    "amount": "$1,148.20",
+    "amountNum": 1148.2,
+    "pattern": "Electronics Spike",
+    "badgeClass": "badge-amber",
+    "ts": "13:07:45",
+    "score": 67,
+    "merchant": "Apple Store",
+    "loc": "CA · In Person",
+    "txid": "tx_000921",
+    "ip": "N/A",
+    "reason": "Amount 23.1× card median · Electronics spike"
+  },
+  {
+    "id": "#tx_000963",
+    "card": "card_049",
+    "amount": "$8.44",
+    "amountNum": 8.44,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-amber",
+    "ts": "21:50:55",
+    "score": 67,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000963",
+    "ip": "117.136.220.191",
+    "reason": "Velocity burst: 4 transactions in 30 min · Merchant burst: 13 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000999",
+    "card": "card_039",
+    "amount": "$370.50",
+    "amountNum": 370.5,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "03:22:40",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000999",
+    "ip": "98.207.23.36",
+    "reason": "Amount 20.3× card median · Merchant burst: 10 cards hit QuickPay Online in 24h · Odd hours: 3am"
+  },
+  {
+    "id": "#tx_000042",
+    "card": "card_002",
+    "amount": "$200.00",
+    "amountNum": 200.0,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:24:37",
+    "score": 33,
+    "merchant": "BMO ATM",
+    "loc": "CA · Atm",
+    "txid": "tx_000042",
+    "ip": "N/A",
+    "reason": "Amount 10.0× card median · Merchant burst: 16 cards hit BMO ATM in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000996",
+    "card": "card_032",
+    "amount": "$791.49",
+    "amountNum": 791.49,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:15:14",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000996",
+    "ip": "98.207.131.10",
+    "reason": "Amount 13.7× card median · Merchant burst: 6 cards hit QuickPay Online in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000998",
+    "card": "card_046",
+    "amount": "$935.27",
+    "amountNum": 935.27,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "03:27:16",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000998",
+    "ip": "208.54.251.27",
+    "reason": "Amount 27.1× card median · Merchant burst: 11 cards hit QuickPay Online in 24h · Odd hours: 3am"
+  },
+  {
+    "id": "#tx_000997",
+    "card": "card_038",
+    "amount": "$356.29",
+    "amountNum": 356.29,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:45:19",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000997",
+    "ip": "98.207.247.39",
+    "reason": "Amount 23.8× card median · Merchant burst: 9 cards hit QuickPay Online in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000995",
+    "card": "card_002",
+    "amount": "$735.44",
+    "amountNum": 735.44,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "02:25:59",
+    "score": 33,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000995",
+    "ip": "172.58.196.128",
+    "reason": "Amount 36.8× card median · Merchant burst: 8 cards hit QuickPay Online in 24h · Odd hours: 2am"
+  },
+  {
+    "id": "#tx_000906",
+    "card": "card_049",
+    "amount": "$536.35",
+    "amountNum": 536.35,
+    "pattern": "Amount Anomaly",
+    "badgeClass": "badge-amber",
+    "ts": "04:31:46",
+    "score": 33,
+    "merchant": "Amazon.ca",
+    "loc": "CA · Online",
+    "txid": "tx_000906",
+    "ip": "70.50.179.16",
+    "reason": "Amount 33.5× card median · Merchant burst: 12 cards hit Amazon.ca in 24h · Odd hours: 4am"
+  },
+  {
+    "id": "#tx_000766",
+    "card": "card_041",
+    "amount": "$475.35",
+    "amountNum": 475.35,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:54:25",
+    "score": 0,
+    "merchant": "Cineplex",
+    "loc": "CA · In Person",
+    "txid": "tx_000766",
+    "ip": "N/A",
+    "reason": "Amount 18.5× card median · Merchant burst: 11 cards hit Cineplex in 24h"
+  },
+  {
+    "id": "#tx_000433",
+    "card": "card_023",
+    "amount": "$106.90",
+    "amountNum": 106.9,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:04:53",
+    "score": 0,
+    "merchant": "Loblaws",
+    "loc": "CA · In Person",
+    "txid": "tx_000433",
+    "ip": "N/A",
+    "reason": "Amount 9.5× card median · Merchant burst: 10 cards hit Loblaws in 24h"
+  },
+  {
+    "id": "#tx_000774",
+    "card": "card_041",
+    "amount": "$471.21",
+    "amountNum": 471.21,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "18:41:55",
+    "score": 0,
+    "merchant": "Schwartz's",
+    "loc": "CA · In Person",
+    "txid": "tx_000774",
+    "ip": "N/A",
+    "reason": "Amount 18.4× card median · Merchant burst: 7 cards hit Schwartz's in 24h"
+  },
+  {
+    "id": "#tx_000740",
+    "card": "card_040",
+    "amount": "$170.53",
+    "amountNum": 170.53,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "20:11:49",
+    "score": 0,
+    "merchant": "Cineplex",
+    "loc": "CA · In Person",
+    "txid": "tx_000740",
+    "ip": "N/A",
+    "reason": "Amount 8.5× card median · Merchant burst: 11 cards hit Cineplex in 24h"
+  },
+  {
+    "id": "#tx_000321",
+    "card": "card_017",
+    "amount": "$200.00",
+    "amountNum": 200.0,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "13:47:48",
+    "score": 0,
+    "merchant": "RBC ATM",
+    "loc": "CA · Atm",
+    "txid": "tx_000321",
+    "ip": "N/A",
+    "reason": "Amount 9.2× card median · Merchant burst: 5 cards hit RBC ATM in 24h"
+  },
+  {
+    "id": "#tx_000324",
+    "card": "card_017",
+    "amount": "$194.41",
+    "amountNum": 194.41,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "20:42:20",
+    "score": 0,
+    "merchant": "Shopify Merchant 2",
+    "loc": "CA · Online",
+    "txid": "tx_000324",
+    "ip": "142.112.175.54",
+    "reason": "Amount 8.9× card median · Merchant burst: 7 cards hit Shopify Merchant 2 in 24h"
+  },
+  {
+    "id": "#tx_000954",
+    "card": "card_042",
+    "amount": "$14.27",
+    "amountNum": 14.27,
+    "pattern": "Velocity Burst",
+    "badgeClass": "badge-blue",
+    "ts": "11:15:14",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_000954",
+    "ip": "201.116.232.148",
+    "reason": "Velocity burst: 6 transactions in 30 min"
+  },
+  {
+    "id": "#tx_000356",
+    "card": "card_019",
+    "amount": "$497.46",
+    "amountNum": 497.46,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "12:36:53",
+    "score": 0,
+    "merchant": "Loblaws",
+    "loc": "CA · In Person",
+    "txid": "tx_000356",
+    "ip": "N/A",
+    "reason": "Amount 15.4× card median · Merchant burst: 6 cards hit Loblaws in 24h"
+  },
+  {
+    "id": "#tx_000264",
+    "card": "card_014",
+    "amount": "$150.51",
+    "amountNum": 150.51,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "22:04:24",
+    "score": 0,
+    "merchant": "Cafe Olimpico",
+    "loc": "FR · In Person",
+    "txid": "tx_000264",
+    "ip": "N/A",
+    "reason": "Amount 8.2× card median · Merchant burst: 8 cards hit Cafe Olimpico in 24h"
+  },
+  {
+    "id": "#tx_001004",
+    "card": "card_029",
+    "amount": "$724.05",
+    "amountNum": 724.05,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "15:09:02",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001004",
+    "ip": "172.58.68.100",
+    "reason": "Amount 21.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001007",
+    "card": "card_040",
+    "amount": "$579.49",
+    "amountNum": 579.49,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "15:20:50",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001007",
+    "ip": "172.58.33.50",
+    "reason": "Amount 28.8× card median · Merchant burst: 25 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001006",
+    "card": "card_030",
+    "amount": "$345.74",
+    "amountNum": 345.74,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:20:42",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001006",
+    "ip": "208.54.240.254",
+    "reason": "Amount 10.0× card median · Merchant burst: 23 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001003",
+    "card": "card_009",
+    "amount": "$835.40",
+    "amountNum": 835.4,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:11:07",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001003",
+    "ip": "172.58.128.27",
+    "reason": "Amount 46.3× card median · Merchant burst: 22 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_000981",
+    "card": "card_048",
+    "amount": "$944.80",
+    "amountNum": 944.8,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "01:37:00",
+    "score": 0,
+    "merchant": "AliExpress",
+    "loc": "CN · Online",
+    "txid": "tx_000981",
+    "ip": "95.91.186.202",
+    "reason": "Amount 34.9× card median · Merchant burst: 21 cards hit AliExpress in 24h"
+  },
+  {
+    "id": "#tx_001001",
+    "card": "card_036",
+    "amount": "$426.59",
+    "amountNum": 426.59,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "14:53:49",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001001",
+    "ip": "172.58.244.57",
+    "reason": "Amount 8.6× card median · Merchant burst: 24 cards hit QuickPay Online in 24h"
+  },
+  {
+    "id": "#tx_001002",
+    "card": "card_007",
+    "amount": "$820.61",
+    "amountNum": 820.61,
+    "pattern": "Merchant Burst",
+    "badgeClass": "badge-blue",
+    "ts": "15:22:21",
+    "score": 0,
+    "merchant": "QuickPay Online",
+    "loc": "CA · Online",
+    "txid": "tx_001002",
+    "ip": "73.15.130.57",
+    "reason": "Amount 20.5× card median · Merchant burst: 26 cards hit QuickPay Online in 24h"
+  }
+];
 
 /* Status per transaction index */
 const txStatus = {};
 
 /* Dashboard summary stats derived from data */
 function calcSummaryStats() {
-  const total = txData.length;
-  const money = txData.reduce((s, t) => s + t.amountNum, 0);
-  // NEW: Calculate average system risk and update the gauge DOM element
-  const avgRisk = total > 0 ? Math.round(txData.reduce((s, t) => s + t.score, 0) / total) : 0;
-  document.querySelector('.gauge-wrap text').textContent = avgRisk;
+  const flagged = txData.filter(t => t.isFlagged !== false);
+  const total = flagged.length;
+  const money = flagged.reduce((s, t) => s + t.amountNum, 0);
   document.getElementById('stat-total-frauds').textContent = total + ' flagged';
   document.getElementById('stat-money-loss').textContent = '$' + money.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
   renderPatternCards();
@@ -1493,7 +1528,8 @@ function calcSummaryStats() {
 
 function getPatternStats() {
   const counts = txData.reduce((acc, t) => {
-    const pattern = t.pattern || 'Uncategorized';
+    if (t.isFlagged === false || !t.pattern) return acc;
+    const pattern = t.pattern;
     acc[pattern] = (acc[pattern] || 0) + 1;
     return acc;
   }, {});
@@ -1559,14 +1595,19 @@ function renderPatternFilterOptions() {
 function goPage(name, options = {}) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  const pageMap = { dashboard:'page-dashboard', history:'page-history', upload:'page-upload', action:'page-action' };
+  const pageMap = { dashboard:'page-dashboard', history:'page-history', upload:'page-upload', action:'page-action', constellation:'page-constellation' };
   const pg = document.getElementById(pageMap[name]);
   if (pg) pg.classList.add('active');
   const nav = document.getElementById('nav-' + name);
   if (nav) nav.classList.add('active');
   if (name === 'action' && !options.keepCurrentReview) {
-    reviewQueue = txData.map((_, i) => i);
+    reviewQueue = txData.map((_, i) => i).filter(idx => txData[idx].isFlagged !== false);
     reviewPos = 0;
+    if (!reviewQueue.length) {
+      goPage('dashboard');
+      showToast('No flagged transactions need review.');
+      return;
+    }
     curIdx = reviewQueue[reviewPos];
     selectedAction = null;
     renderReview();
@@ -1579,6 +1620,7 @@ function goPage(name, options = {}) {
 /* ─── CASES PAGE ─── */
 function renderCases() {
   const statusBadge = (idx) => {
+    if (txData[idx]?.isFlagged === false) return '<span class="status-badge-approved">Clear</span>';
     const s = txStatus[idx];
     if (!s) return '<span class="status-badge-pending">Pending</span>';
     if (s==='approve') return '<span class="status-badge-approved">Approved</span>';
@@ -1590,8 +1632,8 @@ function renderCases() {
   tbody.innerHTML = txData.map((t,i) => `
     <tr>
       <td style="font-family:var(--font-mono);font-size:12px">${t.id}</td>
-      <td style="font-family:var(--font-mono);font-size:12px;cursor:pointer;color:var(--accent)" onclick="openReview(${i})">${t.card}</td>
-      <td><span class="badge ${t.badgeClass}">${t.pattern}</span></td>
+      <td style="font-family:var(--font-mono);font-size:12px;${t.isFlagged === false ? '' : 'cursor:pointer;color:var(--accent)'}" ${t.isFlagged === false ? '' : `onclick="openReview(${i})"`}>${t.card}</td>
+      <td>${t.isFlagged === false ? '<span style="color:var(--text-3);font-family:var(--font-mono);font-size:11px">No pattern</span>' : `<span class="badge ${t.badgeClass}">${t.pattern}</span>`}</td>
       <td>${statusBadge(i)}</td>
       <td>A. Rivera</td>
       <td style="color:var(--text-2);font-size:12px">Today ${t.ts.split('.')[0]}</td>
@@ -1619,7 +1661,7 @@ function applyFilter() {
     if (pat && t.pattern !== pat) return false;
     if (stat) {
       const s = txStatus[t.origIdx] || 'pending';
-      const actualStat = s === 'approve' ? 'approved' : s === 'reject' ? 'rejected' : s === 'escalate' ? 'escalated' : 'pending';
+      const actualStat = t.isFlagged === false ? 'clear' : s === 'approve' ? 'approved' : s === 'reject' ? 'rejected' : s === 'escalate' ? 'escalated' : 'pending';
       if (actualStat !== stat) return false;
     }
     return true;
@@ -1645,7 +1687,7 @@ function toggleFilter() {
 function openPattern(patternName) {
   const patternIndices = txData
     .map((t, i) => ({ pattern: t.pattern, idx: i }))
-    .filter(t => t.pattern === patternName)
+    .filter(t => txData[t.idx].isFlagged !== false && t.pattern === patternName)
     .map(t => t.idx);
 
   if (!patternIndices.length) {
@@ -1667,6 +1709,7 @@ function renderQueue() {
   const slice = filteredData.slice(start, start + PAGE_SIZE);
 
   const statusBadge = (origIdx) => {
+    if (txData[origIdx]?.isFlagged === false) return '<span class="status-badge-approved">Clear</span>';
     const s = txStatus[origIdx];
     if (!s) return '<span class="status-badge-pending">Pending</span>';
     if (s==='approve') return '<span class="status-badge-approved">Approved</span>';
@@ -1679,12 +1722,12 @@ function renderQueue() {
     const barColor = t.score > 85 ? 'var(--red)' : t.score > 70 ? 'var(--amber)' : 'var(--blue)';
     return `<tr>
       <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-2)">${t.ts}</td>
-      <td style="font-family:var(--font-mono);font-size:12px;cursor:pointer;color:var(--accent)" onclick="openReview(${t.origIdx})">${t.card}</td>
+      <td style="font-family:var(--font-mono);font-size:12px;${t.isFlagged === false ? '' : 'cursor:pointer;color:var(--accent)'}" ${t.isFlagged === false ? '' : `onclick="openReview(${t.origIdx})"`}>${t.card}</td>
       <td style="font-weight:600">${t.amount}</td>
-      <td><span class="badge ${t.badgeClass}">${t.pattern}</span></td>
+      <td>${t.isFlagged === false ? '<span style="color:var(--text-3);font-family:var(--font-mono);font-size:11px">No pattern</span>' : `<span class="badge ${t.badgeClass}">${t.pattern}</span>`}</td>
       <td><div class="score-bar"><div class="score-track"><div class="score-fill" style="width:${barWidth}px;background:${barColor}"></div></div><span class="score-num">${t.score}</span></div></td>
       <td>${statusBadge(t.origIdx)}</td>
-      <td><button class="action-btn" onclick="openReview(${t.origIdx})">Review</button></td>
+      <td>${t.isFlagged === false ? '<span style="color:var(--text-3);font-family:var(--font-mono);font-size:11px">No action</span>' : `<button class="action-btn" onclick="openReview(${t.origIdx})">Review</button>`}</td>
     </tr>`;
   }).join('');
 
@@ -1716,10 +1759,14 @@ function changePage(p) {
 function openReview(origIdx, contextIndices) {
   const numericIdx = Number(origIdx);
   if (!Number.isInteger(numericIdx) || !txData[numericIdx]) return;
+  if (txData[numericIdx].isFlagged === false) {
+    showToast('No action needed for clear transaction ' + txData[numericIdx].txid + '.');
+    return;
+  }
 
   reviewQueue = Array.isArray(contextIndices) && contextIndices.length
-    ? contextIndices.filter(idx => txData[idx])
-    : txData.map((_, i) => i);
+    ? contextIndices.filter(idx => txData[idx] && txData[idx].isFlagged !== false)
+    : txData.map((_, i) => i).filter(idx => txData[idx].isFlagged !== false);
   reviewPos = reviewQueue.indexOf(numericIdx);
   if (reviewPos === -1) reviewPos = 0;
   curIdx = reviewQueue[reviewPos];
@@ -1731,7 +1778,7 @@ function openReview(origIdx, contextIndices) {
 /* ─── REVIEW STATE ─── */
 let curIdx = 0;
 let selectedAction = null;
-let reviewQueue = txData.map((_, i) => i);
+let reviewQueue = txData.map((_, i) => i).filter(idx => txData[idx].isFlagged !== false);
 let reviewPos = 0;
 
 function renderReview() {
@@ -1846,7 +1893,7 @@ function handleSearch(q) {
     t.card.toLowerCase().includes(q) ||
     t.id.toLowerCase().includes(q) ||
     t.txid.toLowerCase().includes(q) ||
-    t.pattern.toLowerCase().includes(q) ||
+    (t.pattern || '').toLowerCase().includes(q) ||
     t.merchant.toLowerCase().includes(q)
   ).slice(0, 6);
 
@@ -1859,7 +1906,7 @@ function handleSearch(q) {
     <div class="search-result-item" onclick="searchSelect(${t.origIdx})">
       <span class="sr-id">${t.txid}</span>
       <span class="sr-name">${t.card} · ${t.merchant}</span>
-      <span class="sr-badge badge ${t.badgeClass}">${t.pattern}</span>
+      <span class="sr-badge ${t.isFlagged === false ? '' : `badge ${t.badgeClass}`}">${t.isFlagged === false ? 'No pattern' : t.pattern}</span>
     </div>`).join('');
   dd.classList.add('open');
 }
@@ -1883,6 +1930,7 @@ document.addEventListener('click', e => {
 /* ─── EXPORT CSV ─── */
 function exportCSV() {
   const statusLabel = (origIdx) => {
+    if (txData[origIdx]?.isFlagged === false) return 'Clear';
     const s = txStatus[origIdx];
     if (!s) return 'Pending';
     if (s === 'approve') return 'Approved';
@@ -1893,7 +1941,7 @@ function exportCSV() {
 
   const headers = ['Case ID','Card','Transaction ID','IP Address','Timestamp','Amount','Pattern','Risk Score','Merchant','Location','Status'];
   const rows = txData.map((t,i) => [
-    t.id, t.card, t.txid, t.ip, t.ts, t.amount, t.pattern, t.score, t.merchant, t.loc, statusLabel(i)
+    t.id, t.card, t.txid, t.ip, t.ts, t.amount, t.pattern || 'No pattern', t.score, t.merchant, t.loc, statusLabel(i)
   ]);
 
   const csv = [headers, ...rows].map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
@@ -1925,68 +1973,17 @@ const analysisSteps = [
   'Building Review Queue'
 ];
 
-// function startAnalysis() {
-//   const fileName = document.getElementById('upload-file-name').textContent;
-//   document.getElementById('modal-file-name').textContent = fileName || 'Processing your file…';
-//   const stepsEl = document.getElementById('modal-steps');
-//   stepsEl.innerHTML = analysisSteps.map((s,i) =>
-//     `<div class="modal-step" id="mstep-${i}">
-//       <div class="step-icon step-pending" id="micon-${i}"><div class="step-dot"></div></div>
-//       <span class="step-label" id="mlabel-${i}">${s}</span>
-//     </div>`).join('');
-//   document.getElementById('analysis-modal').classList.add('open');
-//   runStep(0);
-// }
-
-async function startAnalysis() {
-  const fileInput = document.getElementById('file-input');
-  const file = fileInput.files[0];
-  
-  if (!file) {
-    showToast('⚠ Please select a file first.');
-    return;
-  }
-
-  // 1. Prepare the file for sending
-  const formData = new FormData();
-  formData.append("file", file);
-
-  // 2. Show the loading modal
-  document.getElementById('modal-file-name').textContent = file.name;
+function startAnalysis() {
+  const fileName = document.getElementById('upload-file-name').textContent;
+  document.getElementById('modal-file-name').textContent = fileName || 'Processing your file…';
+  const stepsEl = document.getElementById('modal-steps');
+  stepsEl.innerHTML = analysisSteps.map((s,i) =>
+    `<div class="modal-step" id="mstep-${i}">
+      <div class="step-icon step-pending" id="micon-${i}"><div class="step-dot"></div></div>
+      <span class="step-label" id="mlabel-${i}">${s}</span>
+    </div>`).join('');
   document.getElementById('analysis-modal').classList.add('open');
-  
-  // (Optional: You can still run your visual spinner animation here if you want)
-  
-  try {
-    // 3. Send the file to your Python FastAPI backend
-    const response = await fetch('http://localhost:8000/api/analyze', {
-      method: 'POST',
-      body: formData
-    });
-
-    if (!response.ok) throw new Error("Network response was not ok");
-
-    // 4. Get the new JSON data back from Python!
-    const newData = await response.json();
-
-    // 5. Overwrite the global state with the real data
-    txData = newData;
-
-    // 6. Trigger all your UI functions to redraw the screen with the new data
-    calcSummaryStats();
-    applyFilter(); // This calls renderQueue() automatically
-    renderCases();
-
-    // 7. Close the modal and navigate to the dashboard
-    document.getElementById('analysis-modal').classList.remove('open');
-    showToast('✓ Analysis complete! Navigating to dashboard…');
-    setTimeout(() => goPage('dashboard'), 800);
-
-  } catch (error) {
-    console.error("Analysis failed:", error);
-    document.getElementById('analysis-modal').classList.remove('open');
-    showToast('⚠ Error during analysis. Is the Python server running?');
-  }
+  runStep(0);
 }
 
 function runStep(i) {
@@ -2018,10 +2015,272 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
+/* ─── FRAUD CONSTELLATION ─── */
+let constellationNetwork = null;
+let constellationNodes = null;
+let constellationEdges = null;
+
+function initConstellation() {
+  const container = document.getElementById('constellation-network');
+  if (!container) return;
+
+  constellationNodes = new vis.DataSet([]);
+  constellationEdges = new vis.DataSet([]);
+
+  const data = { nodes: constellationNodes, edges: constellationEdges };
+  const options = {
+    nodes: {
+      shape: 'dot',
+      size: 18,
+      font: { color: '#ffffff' },
+      borderWidth: 1
+    },
+    edges: {
+      width: 2,
+      color: { color: '#7c9efc', inherit: false },
+      smooth: { type: 'continuous' }
+    },
+    interaction: { hover: true, navigationButtons: true, keyboard: true },
+    physics: { stabilization: true, barnesHut: { gravitationalConstant: -30000 } }
+  };
+
+  constellationNetwork = new vis.Network(container, data, options);
+
+  constellationNetwork.on('click', params => {
+    if (params.nodes && params.nodes.length) {
+      showNodeDetails(params.nodes[0]);
+    }
+  });
+
+  loadConstellationFromBackend();
+}
+
+async function loadConstellationFromBackend() {
+  try {
+    const response = await fetch('/api/constellation');
+    if (!response.ok) throw new Error('Backend constellation unavailable');
+    const payload = await response.json();
+    if (payload && Array.isArray(payload.nodes) && payload.nodes.length) {
+      buildGraphFromPayload(payload);
+      return;
+    }
+  } catch (error) {
+    console.warn('Constellation backend fetch failed:', error);
+  }
+
+  if (Array.isArray(txData) && txData.length) {
+    buildGraphFromTxData(txData);
+  } else {
+    const demo = createMockNetwork();
+    constellationNodes.update(demo.nodes);
+    constellationEdges.update(demo.edges);
+    finalizeGraphStyle();
+  }
+}
+
+function buildGraphFromPayload(payload) {
+  constellationNodes.clear();
+  constellationEdges.clear();
+
+  constellationNodes.update(payload.nodes);
+  constellationEdges.update(payload.edges);
+  finalizeGraphStyle();
+}
+
+function finalizeGraphStyle() {
+  constellationNodes.get().forEach(n => {
+    const update = { id: n.id };
+    if (n.group === 'card') update.color = { background: '#5aa8f8', border: '#2f6fb7' };
+    if (n.group === 'merchant') update.color = { background: '#7c9efc', border: '#5a77c9' };
+    if (n.group === 'ip') update.color = { background: '#f0a030', border: '#a66e1f' };
+    if (n.group === 'device') update.color = { background: '#3ec97e', border: '#2f9b66' };
+    if (n.group === 'transaction') update.shape = 'box';
+    if (n.group === 'cluster') {
+      update.color = { background: '#e24b4a', border: '#a13334' };
+      update.shape = 'diamond';
+      update.size = 22;
+    }
+    if (n.risk_level === 'Critical') {
+      update.shadow = { enabled: true, color: 'rgba(226,75,74,0.25)', size: 22, x:0, y:0 };
+    }
+    constellationNodes.update(update);
+  });
+
+  constellationNodes.get().forEach(n => {
+    const deg = constellationNetwork.getConnectedNodes(n.id).length;
+    if (deg >= 4 && n.group !== 'cluster') {
+      constellationNodes.update({ id: n.id, borderWidth: 3 });
+    }
+  });
+
+  try { constellationNetwork.fit(); } catch (e) {}
+}
+
+function buildGraphFromTxData(data) {
+  constellationNodes.clear();
+  constellationEdges.clear();
+
+  const cards = new Map();
+  const devices = new Map();
+  const ips = new Map();
+  const merchants = new Map();
+  const txs = new Map();
+
+  data.forEach((t, i) => {
+    const txId = `tx:${t.txid || ('idx'+i)}`;
+    const cardId = `card:${t.card}`;
+    const merchantId = `merch:${t.merchant || t.merchant_name || 'unknown'}`;
+    const ipId = t.ip ? `ip:${t.ip}` : null;
+    const deviceId = (t.device_id || t.device) ? `dev:${t.device_id || t.device}` : null;
+
+    // add transaction node
+    txs.set(txId, { id: txId, label: t.txid || t.id || txId, group: 'transaction', title: t.reason || '' , score: t.score || 0 });
+
+    // add card node
+    if (!cards.has(cardId)) cards.set(cardId, { id: cardId, label: t.card, group: 'card' });
+
+    // add merchant node
+    if (!merchants.has(merchantId)) merchants.set(merchantId, { id: merchantId, label: String(t.merchant).slice(0,28), group: 'merchant' });
+
+    // add ip node
+    if (ipId && !ips.has(ipId)) ips.set(ipId, { id: ipId, label: String(t.ip), group: 'ip' });
+
+    // add device node
+    if (deviceId && !devices.has(deviceId)) devices.set(deviceId, { id: deviceId, label: String(t.device_id || t.device), group: 'device' });
+
+    // edges
+    // card -> tx
+    constellationEdges.update({ id: `e-${cardId}-${txId}`, from: cardId, to: txId });
+    // tx -> merchant
+    constellationEdges.update({ id: `e-${txId}-${merchantId}`, from: txId, to: merchantId });
+    // tx -> ip
+    if (ipId) constellationEdges.update({ id: `e-${txId}-${ipId}`, from: txId, to: ipId });
+    // tx -> device
+    if (deviceId) constellationEdges.update({ id: `e-${txId}-${deviceId}`, from: txId, to: deviceId });
+  });
+
+  // merge all nodes into dataset
+  constellationNodes.update(Array.from(cards.values()));
+  constellationNodes.update(Array.from(merchants.values()));
+  constellationNodes.update(Array.from(ips.values()));
+  constellationNodes.update(Array.from(devices.values()));
+  constellationNodes.update(Array.from(txs.values()));
+
+  // style nodes by group and risk
+  constellationNodes.get().forEach(n => {
+    const update = { id: n.id };
+    if (n.group === 'card') update.color = { background: '#5aa8f8', border: '#2f6fb7' };
+    if (n.group === 'merchant') update.color = { background: '#7c9efc', border: '#5a77c9' };
+    if (n.group === 'ip') update.color = { background: '#f0a030', border: '#a66e1f' };
+    if (n.group === 'device') update.color = { background: '#3ec97e', border: '#2f9b66' };
+    if (n.group === 'transaction') update.shape = 'image';
+    constellationNodes.update(update);
+  });
+
+  // identify high-degree nodes and emphasize
+  constellationNodes.get().forEach(n => {
+    const deg = constellationNetwork.getConnectedNodes(n.id).length;
+    if (deg >= 4) constellationNodes.update({ id: n.id, borderWidth: 3, shadow: { enabled: true, color: 'rgba(226,75,74,0.25)', size: 20, x:0, y:0 } });
+  });
+
+  // refresh view
+  setTimeout(() => {
+    try { constellationNetwork.fit(); } catch(e){}
+  }, 200);
+}
+
+function createMockNetwork() {
+  // generate a small demo network from random seeds — structure is generated, not hardcoded
+  const nodes = [];
+  const edges = [];
+  for (let i=0;i<5;i++) { nodes.push({ id: 'card:demo'+i, label: 'card_'+('00'+i).slice(-3), group:'card' }); }
+  for (let j=0;j<3;j++) { nodes.push({ id: 'dev:demo'+j, label: 'dev_'+j, group:'device' }); }
+  for (let k=0;k<2;k++) { nodes.push({ id: 'ip:demo'+k, label: '10.0.0.'+(10+k), group:'ip' }); }
+  nodes.push({ id:'merch:demo1', label:'MockMart', group:'merchant' });
+  let tid = 0;
+  // connect devices to multiple cards
+  nodes.filter(n => n.group==='card').forEach((c, idx) => {
+    const tId = 'tx:demo'+(tid++);
+    nodes.push({ id: tId, label: 'tx_'+(1000+tid), group:'transaction' });
+    edges.push({ id:`e-${c.id}-${tId}`, from:c.id, to:tId });
+    edges.push({ id:`e-${tId}-merch:demo1`, from:tId, to:'merch:demo1' });
+    const dev = nodes.filter(n=>n.group==='device')[idx % 3];
+    edges.push({ id:`e-${tId}-${dev.id}`, from:tId, to:dev.id });
+    const ipn = nodes.filter(n=>n.group==='ip')[idx % 2];
+    edges.push({ id:`e-${tId}-${ipn.id}`, from:tId, to:ipn.id });
+  });
+  return { nodes, edges };
+}
+
+function showNodeDetails(nodeId) {
+  const n = constellationNodes.get(nodeId) || {};
+  const details = document.getElementById('node-details');
+  if (!n) { details.innerHTML = 'Node not found'; return; }
+  // Build dynamic content based on node group
+  let html = `<div style="font-weight:700;margin-bottom:8px">${n.label || n.id}</div>`;
+  html += `<div style="font-size:13px;color:var(--text-2);margin-bottom:8px">Type: ${n.group || 'unknown'}</div>`;
+  const connected = constellationNetwork.getConnectedNodes(nodeId) || [];
+  html += `<div style="margin-top:8px"><strong>Connected:</strong> ${connected.length}</div>`;
+  // list a few connected nodes
+  const sample = connected.slice(0,10).map(id => {
+    const m = constellationNodes.get(id) || { label:id };
+    return `<div style="padding:6px 8px;border-radius:6px;margin-top:6px;background:transparent;border:1px solid var(--border);cursor:pointer" onclick="showNodeDetails('${id}')">${m.label || id} <span style="float:right;color:var(--text-3)">${m.group||''}</span></div>`;
+  }).join('');
+  html += `<div style="margin-top:8px">${sample}</div>`;
+  details.innerHTML = html;
+}
+
+function searchConstellation(q) {
+  q = String(q||'').trim().toLowerCase();
+  if (!q) return;
+  const found = constellationNodes.get().filter(n => (n.label||n.id||'').toLowerCase().includes(q));
+  if (!found.length) { showToast('No nodes found'); return; }
+  const id = found[0].id;
+  constellationNetwork.focus(id, { scale:1.4, animation:{ duration:500 } });
+  showNodeDetails(id);
+}
+
+function applyConstellationFilters() {
+  const filter = document.getElementById('filter-node-type').value;
+  constellationNodes.forEach(n => {
+    const hide = filter && n.group !== filter;
+    try { constellationNodes.update({ id: n.id, hidden: hide }); } catch(e){}
+  });
+  // hide edges connected to hidden nodes
+  constellationEdges.forEach(e => {
+    const from = constellationNodes.get(e.from);
+    const to = constellationNodes.get(e.to);
+    const hide = (from && from.hidden) || (to && to.hidden);
+    try { constellationEdges.update({ id: e.id, hidden: hide }); } catch(e){}
+  });
+}
+
+function resetConstellation() {
+  constellationNodes.forEach(n => { try { constellationNodes.update({ id:n.id, hidden:false }); } catch(e){} });
+  constellationEdges.forEach(e => { try { constellationEdges.update({ id:e.id, hidden:false }); } catch(e){} });
+  try { constellationNetwork.fit(); } catch(e){}
+}
+
+function viewInConstellation(txid) {
+  goPage('constellation');
+  setTimeout(() => {
+    const nodeId = 'tx:' + txid;
+    if (constellationNodes.get(nodeId)) {
+      constellationNetwork.selectNodes([nodeId]);
+      constellationNetwork.focus(nodeId, { scale:1.4, animation:{ duration:400 } });
+      showNodeDetails(nodeId);
+    } else {
+      showToast('Transaction node not found in constellation');
+    }
+  }, 300);
+}
+
 /* ─── INIT ─── */
 calcSummaryStats();
 applyFilter();
 renderCases();
+// initialize Fraud Constellation
+initConstellation();
 document.getElementById('nav-dashboard').classList.add('active');
 </script>
 </body>

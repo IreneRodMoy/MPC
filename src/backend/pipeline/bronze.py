@@ -21,7 +21,15 @@ log = logging.getLogger(__name__)
 # src/backend/pipeline/bronze.py → go up 3 levels to reach project root
 ROOT       = Path(__file__).resolve().parent.parent.parent.parent
 RAW_CSV    = ROOT / "data" / "raw" / "transactions.csv"
+UPLOAD_CSV = ROOT / "data" / "bronze" / "raw_upload.csv"
 BRONZE_OUT = ROOT / "data" / "bronze" / "transactions_bronze.parquet"
+
+
+def get_input_csv() -> Path:
+    if UPLOAD_CSV.exists():
+        log.info(f"Found uploaded CSV at {UPLOAD_CSV} — using it for Bronze ingest")
+        return UPLOAD_CSV
+    return RAW_CSV
 
 
 def load_raw(path: Path) -> pd.DataFrame:
@@ -57,7 +65,7 @@ def tag_expected_nulls(df: pd.DataFrame) -> pd.DataFrame:
 
 def run() -> pd.DataFrame:
     log.info("Starting Bronze layer")
-    df = load_raw(RAW_CSV)
+    df = load_raw(get_input_csv())
     df = cast_types(df)
     df = tag_expected_nulls(df)
     BRONZE_OUT.parent.mkdir(parents=True, exist_ok=True)
